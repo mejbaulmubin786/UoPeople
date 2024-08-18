@@ -1,2 +1,3 @@
 # UoPeople
-![image](https://github.com/user-attachments/assets/32424a66-0589-4a50-8706-8284c0afb237)
+![image](https://github.com/user-attachments/assets/1b5e3db7-fb3e-421b-801e-9d8bcdc9d593)
+
