@@ -52,3 +52,10 @@
 2. Chapter 4(Sections 4.3)
 3. Chapter 5(Sections 5.1)
 4. Chapter 7
+# Unit 8: Practice
+- Object-Oriented Features Used in Programming
+- Practice with Inheritance and Polymorphism
+1. Chapter 5(Sections 5.2)
+2. Chapter 5(Sections 5.5)
+3. Chapter 5(Sections 5.6)
+4. Chapter 5(Sections 5.7)
