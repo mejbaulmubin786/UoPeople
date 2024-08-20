@@ -87,3 +87,4 @@ The syllabus for a Software Engineering course typically covers a broad range of
    - Final Examination
 
 This syllabus can vary depending on the institution and the level (undergraduate or graduate) of the course. It typically includes a mix of theoretical concepts, practical exercises, and project work to prepare students for real-world software engineering challenges.
+### **1. Introduction to Software Engineering**
