@@ -1,0 +1,200 @@
+
+<!-- saved from url=(0072)https://www.cs.auckland.ac.nz/software/AlgAnim/huffman.html#huffman_anim -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Data Structures and Algorithms: Introduction</title>
+
+<meta name="description" content="Data Structures and Algorithms Course Notes,
+PLDS210 University of Western Australia">
+<meta name="keywords" content="data structures,algorithms,abstract data types,
+Huffman encoding, greedy algorithms">
+</head>
+<body bgcolor="#ffffff" data-new-gr-c-s-check-loaded="14.1077.0" data-gr-ext-installed="">
+<table bgcolor="#00c0f0" width="100%" cellspacing="0" cellpadding="0">
+<tbody><tr bgcolor="#00f0f0"><td align="right">
+<font face="helvetica" size="+1"><i>Data Structures and Algorithms</i></font>
+</td></tr>
+
+<tr><td><font face="helvetica" size="+2"><b>11 Huffman Encoding</b></font>
+</td></tr>
+</tbody></table>
+<p>
+
+This problem is that of finding the minimum length bit string 
+which can be used to encode a string of symbols. 
+One application is text compression: 
+</p><blockquote>What's the smallest number of bits (hence the minimum size of file) 
+we can use to store an arbitrary piece of text?
+</blockquote>
+Huffman's scheme uses a table of 
+frequency of occurrence for each symbol (or character) in the input.
+This table may be derived from the input itself or from data which
+is representative of the input.
+For instance, the frequency of occurrence of letters in normal English
+might be derived from processing a large number of text documents and
+then used for encoding all text documents.
+We then need to assign a variable-length bit string to each character
+that unambiguously represents that character. 
+This means that the encoding for
+each character must have a unique prefix.
+If the characters to be encoded are arranged in a binary tree:
+<table>
+<tbody><tr><td><center><img src="./Data Structures and Algorithms_ Introduction_files/huff.gif"><br>
+Encoding tree for <tt>ETASNO</tt></center></td>
+<td>An encoding for each character is found by following the
+tree from the route to the character in the leaf:
+the encoding is the string of symbols on each branch followed.
+<p>
+For example:<br>	
+</p><pre>  String   Encoding
+    TEA    10 00 010
+    SEA    011 00 010
+    TEN    10 00 110
+</pre></td></tr>
+</tbody></table>
+<p>
+Notes:
+</p><ol> <li> As desired, the highest frequency letters - E and T -
+have two digit encodings, whereas all the others have three digit encodings.
+</li><li> Encoding would be done with a lookup table.
+</li></ol>	
+A divide-and-conquer approach might have us asking 
+which characters should appear in the left and right subtrees and 
+trying to build the tree from the top down.
+As with the optimal binary search tree, this will lead to to
+an exponential time algorithm.
+<p>
+A greedy approach places our <b>n</b> characters in <b>n</b> sub-trees
+and starts by combining the two least weight nodes into a tree 
+which is assigned the sum of the two leaf node weights as the weight for its root node.
+</p><p>
+<a href="https://www.cs.auckland.ac.nz/software/AlgAnim/huff-op.html" target="huff-op">Operation of the Huffman algorithm</a>.
+</p><p>
+The time complexity of the Huffman algorithm is <b>O(nlogn)</b>. 
+Using a heap to store the weight of each tree, 
+each iteration requires <b>O(logn)</b> time to determine the cheapest weight and 
+insert the new weight. 
+There are <b>O(n)</b> iterations, one for each item.
+
+</p><h3>Decoding Huffman-encoded Data</h3>
+Curious readers are, of course, now asking 
+<blockquote>
+"How do we <i><b>decode</b></i> a Huffman-encoded bit string?
+With these variable length strings, it's not possible to break up an
+encoded string of bits into characters!"
+</blockquote>
+<p>
+<table>
+<tbody><tr>
+<td width="50%">
+The decoding procedure is deceptively simple.
+Starting with the first bit in the stream, one then uses
+successive bits from the stream to determine whether to go
+left or right in the decoding tree.
+When we reach a leaf of the tree, we've decoded a character,
+so we place that character onto the (uncompressed) output stream.
+The next bit in the input stream is the first bit of the next
+character.
+</td>
+<td><img src="./Data Structures and Algorithms_ Introduction_files/huff_dec.gif"></td></tr>
+</tbody></table>
+
+</p><h3>Transmission and storage of Huffman-encoded Data</h3>
+
+If your system is continually dealing with data in which the 
+symbols have similar frequencies of occurence, then both encoders and
+decoders can use a standard encoding table/decoding tree.
+However, even text data from various sources will have quite 
+different characteristics.
+For example, ordinary English text will have generally have 'e'
+at the root of the tree, with short encodings for 'a' and 't',
+whereas C programs would generally have ';' at the root,
+with short encodings for other punctuation marks such as '(' and ')'
+(depending on the number and length of comments!).
+
+
+If the data has variable frequencies, then, for optimal encoding,
+we have to generate an encoding tree for each data set and
+store or transmit the encoding with the data.
+The extra cost of transmitting the encoding tree means that 
+we will not gain an overall benefit unless the data stream to be
+encoded is quite long - so that the savings through compression more
+than compensate for the cost of the transmitting the encoding tree
+also.
+
+<p>
+<a name="huffman_anim">
+<table bgcolor="#00f0f0" width="100%"> 
+<tbody><tr><td>
+<font color="blue" face="helvetica">
+<b>Huffman Encoding &amp; Decoding Animation</b><br>
+This animation was written by Woi Ang.</font></td>
+<td align="center">
+  <table border="0">
+  <tbody><tr><td>
+    <applet codebase="Java/huffman" code="AlgAnimApp.class" width="200" height="35">
+    <param name="filename" value="AlgThread.java">
+    <param name="buttonname" value="Run the Animation">
+    <param name="algname" value="Huffman Encoding">
+    </applet>
+    </td>
+  </tr>
+</tbody></table>
+</td>
+<td><font face="helvetica">Please email comments to:<br>
+<img src="./Data Structures and Algorithms_ Introduction_files/john_email.gif">
+</font></td></tr>
+</tbody></table>
+
+</a></p><h4><a name="huffman_anim">Sample Code</a></h4><a name="huffman_anim">
+<font face="arial,helvetica" size="-1">
+A full implementation of the Huffman algorithm is
+available from </font></a><font face="arial,helvetica" size="-1"><a href="http://www.verilib.sea.net.au/">Verilib</a>.
+Currently, there is a Java version there. C and C++ versions
+will soon be available also.
+</font>
+
+<h2>Other problems</h2>
+
+<h3>Optimal Merge Pattern</h3>
+
+We have a set of files of various sizes to be merged. 
+In what order and combinations should we merge them? 
+The solution to this problem is basically the same as 
+the Huffman algorithm - 
+a merge tree is constructed with the largest file at its root.
+
+
+<p>
+
+<table cellpadding="5" width="100%" bgcolor="#00f0f0" cellspacing="4">
+<tbody><tr><td width="50%">
+Continue on to <a href="https://www.cs.auckland.ac.nz/software/AlgAnim/fft.html">Fast Fourier Transforms</a></td>
+<td>Back to the <a href="https://www.cs.auckland.ac.nz/software/AlgAnim/ds_ToC.html">Table of Contents</a>
+</td></tr></tbody></table>
+<small>
+© <img src="./Data Structures and Algorithms_ Introduction_files/john_email.gif">, 1998
+</small>
+
+
+
+</p></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

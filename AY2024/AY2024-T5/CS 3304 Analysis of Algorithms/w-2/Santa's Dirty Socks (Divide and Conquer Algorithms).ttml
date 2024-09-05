@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<tt xml:lang="en" xmlns="http://www.w3.org/ns/ttml" xmlns:ttm="http://www.w3.org/ns/ttml#metadata" xmlns:tts="http://www.w3.org/ns/ttml#styling" xmlns:ttp="http://www.w3.org/ns/ttml#parameter" ttp:profile="http://www.w3.org/TR/profile/sdp-us" >
+<head>
+<styling>
+<style xml:id="s1" tts:textAlign="center" tts:extent="90% 90%" tts:origin="5% 5%" tts:displayAlign="after"/>
+<style xml:id="s2" tts:fontSize=".72c" tts:backgroundColor="black" tts:color="white"/>
+</styling>
+<layout>
+<region xml:id="r1" style="s1"/>
+</layout>
+</head>
+<body region="r1">
+<div>
+<p begin="00:00:09.759" end="00:00:15.200" style="s2">twas ten to midnight on December 24th</p>
+<p begin="00:00:12.830" end="00:00:17.930" style="s2">and all was not well in the far far</p>
+<p begin="00:00:15.200" end="00:00:21.080" style="s2">north some little elves were wrapping a</p>
+<p begin="00:00:17.930" end="00:00:24.140" style="s2">thousand and 24 toys rollerskates for a</p>
+<p begin="00:00:21.080" end="00:00:26.810" style="s2">thousand and 24 good girls and boys at</p>
+<p begin="00:00:24.140" end="00:00:29.390" style="s2">ten to midnight the elves call Saint</p>
+<p begin="00:00:26.810" end="00:00:32.710" style="s2">Nick tonight all the boxes had been</p>
+<p begin="00:00:29.390" end="00:00:36.920" style="s2">filled extra quick st. Nick was thrilled</p>
+<p begin="00:00:32.710" end="00:00:40.390" style="s2">right then fill up the sleigh a thousand</p>
+<p begin="00:00:36.920" end="00:00:43.100" style="s2">twenty four boxes and we&#39;re on our way</p>
+<p begin="00:00:40.390" end="00:00:43.520" style="s2">then mrs. Christmas burst through the</p>
+<p begin="00:00:43.100" end="00:00:46.280" style="s2">doors</p>
+<p begin="00:00:43.520" end="00:00:50.390" style="s2">where are your dirty socks Santa Claus</p>
+<p begin="00:00:46.280" end="00:00:52.760" style="s2">the young elf cried Santa I&#39;ll drop your</p>
+<p begin="00:00:50.390" end="00:00:57.469" style="s2">dirty socks --is in one of the thousand</p>
+<p begin="00:00:52.760" end="00:00:58.489" style="s2">and twenty four boxes quick unwrap every</p>
+<p begin="00:00:57.469" end="00:01:00.769" style="s2">single box</p>
+<p begin="00:00:58.489" end="00:01:04.670" style="s2">I&#39;m not leaving till you find those</p>
+<p begin="00:01:00.769" end="00:01:08.120" style="s2">socks sorry Santa said the supervisor</p>
+<p begin="00:01:04.670" end="00:01:12.740" style="s2">elf those workers are all Union and we</p>
+<p begin="00:01:08.120" end="00:01:15.230" style="s2">finish at twelve said Santa no need to</p>
+<p begin="00:01:12.740" end="00:01:18.470" style="s2">be unpleasant I&#39;ve got a big pair of</p>
+<p begin="00:01:15.230" end="00:01:20.420" style="s2">scales just weigh each present they&#39;re</p>
+<p begin="00:01:18.470" end="00:01:22.670" style="s2">always the same when you put them in</p>
+<p begin="00:01:20.420" end="00:01:27.070" style="s2">each bucket except for one and that</p>
+<p begin="00:01:22.670" end="00:01:29.180" style="s2">one&#39;s the culprit with all due respect</p>
+<p begin="00:01:27.070" end="00:01:32.180" style="s2">reply the supervisor elf</p>
+<p begin="00:01:29.180" end="00:01:34.790" style="s2">it&#39;ll take a jolly long time and you can</p>
+<p begin="00:01:32.180" end="00:01:37.250" style="s2">do it yourself if we could make one</p>
+<p begin="00:01:34.790" end="00:01:40.880" style="s2">comparison every second will be here</p>
+<p begin="00:01:37.250" end="00:01:44.390" style="s2">till 12:00 all seven a little elf part</p>
+<p begin="00:01:40.880" end="00:01:47.600" style="s2">up I&#39;ve got an idea we just need to use</p>
+<p begin="00:01:44.390" end="00:01:49.970" style="s2">dividing conquer here put half the boxes</p>
+<p begin="00:01:47.600" end="00:01:53.060" style="s2">on that scale and half the boxes on this</p>
+<p begin="00:01:49.970" end="00:01:56.180" style="s2">whichever side goes up that pile we</p>
+<p begin="00:01:53.060" end="00:01:59.420" style="s2">dismiss the supervisor elf with an</p>
+<p begin="00:01:56.180" end="00:02:01.430" style="s2">unimpressed gaze pointed out we&#39;ll still</p>
+<p begin="00:01:59.420" end="00:02:04.910" style="s2">be here four days you&#39;ve narrowed it</p>
+<p begin="00:02:01.430" end="00:02:07.760" style="s2">down to 512 hardly any help from this</p>
+<p begin="00:02:04.910" end="00:02:10.610" style="s2">little elf white said the elf</p>
+<p begin="00:02:07.760" end="00:02:13.160" style="s2">only beginning his campaign watch what</p>
+<p begin="00:02:10.610" end="00:02:14.080" style="s2">happens when we are verdict gained so</p>
+<p begin="00:02:13.160" end="00:02:18.450" style="s2">they have did</p>
+<p begin="00:02:14.080" end="00:02:21.460" style="s2">and now their fix was narrowed to 256</p>
+<p begin="00:02:18.450" end="00:02:24.490" style="s2">then after the third comparison of</p>
+<p begin="00:02:21.460" end="00:02:32.710" style="s2">weight their problem was reduced to 128</p>
+<p begin="00:02:24.490" end="00:02:35.070" style="s2">then 64 10 32 16 8 4 2 it&#39;s true</p>
+<p begin="00:02:32.710" end="00:02:38.410" style="s2">on the tenth comparison was much joy</p>
+<p begin="00:02:35.070" end="00:02:40.900" style="s2">this elf had found the erroneous toy a</p>
+<p begin="00:02:38.410" end="00:02:42.970" style="s2">job that could have gone well beyond the</p>
+<p begin="00:02:40.900" end="00:02:47.080" style="s2">time limits took just a matter of</p>
+<p begin="00:02:42.970" end="00:02:50.050" style="s2">minutes so the gift was replaced the</p>
+<p begin="00:02:47.080" end="00:02:54.250" style="s2">elves went home and Santa was set for</p>
+<p begin="00:02:50.050" end="00:02:56.620" style="s2">his worldwide roam no poor child far or</p>
+<p begin="00:02:54.250" end="00:03:00.100" style="s2">near will have to smell Santa&#39;s dirty</p>
+<p begin="00:02:56.620" end="00:03:03.130" style="s2">underwear but first the little elf was</p>
+<p begin="00:03:00.100" end="00:03:06.340" style="s2">approached by Saint Nick where did you</p>
+<p begin="00:03:03.130" end="00:03:08.350" style="s2">learn your clever trick a little elf</p>
+<p begin="00:03:06.340" end="00:03:12.670" style="s2">replied on magic</p>
+<p begin="00:03:08.350" end="00:03:16.040" style="s2">I make no reliance all I need to use is</p>
+<p begin="00:03:12.670" end="00:03:21.280" style="s2">a little computer science</p>
+<p begin="00:03:16.040" end="00:03:21.280" style="s2">[Music]</p>
+<p begin="00:03:23.810" end="00:03:26.990" style="s2">[Music]</p>
+<p begin="00:03:32.770" end="00:03:40.780" style="s2">[Music]</p>
+</div>
+</body>
+</tt>

@@ -1,0 +1,223 @@
+
+<!-- saved from url=(0076)https://www.cs.auckland.ac.nz/software/AlgAnim/mat_chain.html#mat_chain_anim -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Data Structures and Algorithms: Matrix Chain Multiplication</title>
+
+<meta name="description" content="Data Structures and Algorithms Course Notes,
+PLDS210 University of Western Australia">
+<meta name="keywords" content="data structures,algorithms,abstract data types,
+matrix chain multiplication, dynamic algorithms">
+</head>
+<body bgcolor="#ffffff" data-new-gr-c-s-check-loaded="14.1077.0" data-gr-ext-installed="">
+<table bgcolor="#00c0f0" width="100%" cellspacing="0" cellpadding="0">
+<tbody><tr bgcolor="#00f0f0"><td align="right">
+<font face="helvetica" size="+1"><i>Data Structures and Algorithms</i></font>
+</td></tr>
+
+<tr><td><font face="helvetica" size="+2"><b>Matrix Chain Multiplication</b></font>
+</td></tr>
+</tbody></table>
+<p>
+</p><h4>Problem</h4>
+We are given a sequence of matrices to multiply:
+<center>
+<b>
+A<sub>1</sub>
+A<sub>2</sub>
+A<sub>3</sub>
+...
+A<sub>n</sub>
+</b>
+</center>
+Matrix multiplication is associative, so 
+<center>
+<b>
+A<sub>1</sub> ( A<sub>2</sub> A<sub>3</sub> ) =
+( A<sub>1</sub> A<sub>2</sub> ) A<sub>3</sub> 
+</b>
+</center>
+that is, we can can generate the product in two ways.
+<p>
+
+The cost of multiplying an
+<b><i>n</i></b><font face="helvetica,arial">x</font><b><i>m</i></b>
+by an
+<b><i>m</i></b><font face="helvetica,arial">x</font><b><i>p</i></b>
+one is <b><i>O(nmp)</i></b> (or
+<b><i>O(n</i><sup>3</sup><i>)</i></b> for two
+<b><i>n</i></b><font face="helvetica,arial">x</font><b><i>n</i></b>
+ones).
+A poor choice of parenthesisation can be expensive:
+<i>eg</i> if we have
+</p><center>
+<table>
+<tbody><tr><th>Matrix</th><th>Rows</th><th>Columns</th></tr>
+<tr><td align="center"><b>A<sub>1</sub></b></td><td align="center">10</td><td align="center">100</td></tr>
+<tr><td align="center"><b>A<sub>2</sub></b></td><td align="center">100</td><td align="center">5</td></tr>
+<tr><td align="center"><b>A<sub>3</sub></b></td><td align="center">5</td><td align="center">50</td></tr>
+</tbody></table>
+</center>
+the cost for 
+
+<b>( A<sub>1</sub> A<sub>2</sub> ) A<sub>3</sub></b> is
+<center>
+<table>
+<tbody><tr><td><b>A<sub>1</sub>A<sub>2</sub> </b></td><td>10x100x5</td><td>= 5000</td>
+<td>=&gt; <b>A<sub>1</sub> A<sub>2</sub></b> (10x5)</td></tr>
+<tr><td><b>(A<sub>1</sub>A<sub>2</sub>) A<sub>3</sub> </b></td><td>10x5x50</td><td>= 2500</td>
+<td>=&gt; <b>A<sub>1</sub>A<sub>2</sub>A<sub>3</sub></b> (10x50)</td></tr>
+<tr><td> Total</td><td>&nbsp;</td><td><font color="red">&nbsp;&nbsp;7500</font></td><td>&nbsp;</td></tr>
+</tbody></table>
+</center>
+but for
+<b>A<sub>1</sub> ( A<sub>2</sub> A<sub>3</sub> )</b>
+<center>
+<table>
+<tbody><tr><td><b>A<sub>2</sub>A<sub>3</sub> </b></td><td>100x5x50</td><td>= 25000</td>
+<td>=&gt; <b>A<sub>2</sub>A<sub>3</sub></b> (100x50)</td></tr>
+<tr><td><b>A<sub>1</sub>(A<sub>2</sub>A<sub>3</sub>) </b></td><td>10x100x50</td><td>= 50000</td>
+<td>=&gt; <b>A<sub>1</sub>A<sub>2</sub>A<sub>3</sub></b> (10x50)</td></tr>
+<tr><td> Total</td><td>&nbsp;</td><td><font color="red">&nbsp;&nbsp;75000</font></td><td>&nbsp;</td></tr>
+</tbody></table>
+</center>
+Clearly demonstrating the benefit of calculating the optimum order
+before commencing the product calculation!
+
+<h3>Optimal Sub-structure</h3>
+
+As with the optimal binary search tree, we can observe that
+if we divide a chain of matrices to be multiplied into two optimal
+sub-chains:
+<center>
+<b>
+(A<sub>1</sub>
+A<sub>2</sub>
+A<sub>3</sub>
+...
+A<sub>j</sub>)
+(A<sub>j+1</sub>
+...
+A<sub>n</sub>
+)
+</b>
+</center>
+then the optimal parenthesisations of the sub-chains must be 
+composed of optimal chains.
+If they were not, then we could replace them with cheaper parenthesisations.
+<p>
+This property, known as <font color="#fa0000"><b>optimal sub-structure</b></font>
+is a hallmark of dynamic algorithms:
+it enables us to solve the small problems (the sub-structure) and use those
+solutions to generate solutions to larger problems.
+</p><p>
+For matrix chain multiplication, the procedure is now almost identical to
+that used for constructing an optimal binary search tree.
+We gradually fill in two matrices,
+</p><ul><li>one containing the costs of multiplying all the sub-chains.
+The diagonal below the main diagonal contains the costs of all
+pair-wise multiplications:
+<tt>cost[1,2]</tt> contains the cost of generating product
+<b>A<sub>1</sub>A<sub>2</sub></b>, <i>etc</i>.
+The diagonal below that contains the costs of triple products:
+<i>eg</i> <tt>cost[1,3]</tt> contains the cost of generating product
+<b>A<sub>1</sub>A<sub>2</sub>A<sub>3</sub></b>, which we derived
+from comparing <tt>cost[1,2]</tt> and <tt>cost[2,3]</tt>, <i>etc</i>.
+</li><li>one containing the index of last array in the left parenthesisation
+(similar to the root of the optimal sub-tree in the optimal binary
+search tree, but there's no root here - the chain is divided into
+left and right sub-products), so that 
+<tt>best[1,3]</tt> might contain 2 to indicate that the
+left sub-chain contains
+<b>A<sub>1</sub>A<sub>2</sub></b> and the right one is
+<b>A<sub>3</sub></b> in the optimal parenthesisation of
+<b>A<sub>1</sub>A<sub>2</sub>A<sub>3</sub></b>.
+</li></ul>
+As before, if we have <b><i>n</i></b> matrices to multiply,
+it will take <b><i>O(n)</i></b> time to generate each of the
+<b><i>O(n<sup>2</sup>)</i></b> costs and entries in the
+<tt>best</tt> matrix for an overall complexity of 
+<b><i>O(n<sup>3</sup>)</i></b> time 
+at a cost of
+<b><i>O(n<sup>2</sup>)</i></b> space.
+
+<h3>Animation</h3>
+
+<a name="mat_chain_anim">
+<table bgcolor="#00f0f0" width="100%"> 
+<tbody><tr><td>
+<font color="blue" face="helvetica">
+<b>Matrix Chain Multiplication Animation</b><br>
+This animation was written by Woi Ang.<br>
+<b><small>
+If you don't have a high resolution display, 
+the bottom of the screen will be clipped!
+</small></b>
+</font></td>
+<td align="center">
+  <table border="0">
+  <tbody><tr><td>
+    <applet codebase="Java/matmult" code="ciips.animation.AlgAnimApp" archive="MM.jar" width="200" height="35">
+    <param name="filename" value="AlgThread.java">
+    <param name="buttonname" value="Run the Animation">
+    <param name="algname" value="MatMult">
+		<param name="algfile" value="graph.dij">
+    </applet>
+    </td>
+  </tr>
+</tbody></table>
+</td>
+<td><font face="helvetica">Please email comments to:<br>
+<img src="./Data Structures and Algorithms_ Matrix Chain Multiplication_files/john_email.gif">
+</font></td></tr>
+</tbody></table>
+
+
+<p>
+<table width="100%">
+<tbody><tr><td bgcolor="#00c0f0"><font face="helvetica,arial" size="+2"><b>Key terms</b></font></td></tr>
+<tr>
+<td>
+<dl>
+<dt><font color="#fa0000"><b>optimal sub-structure</b></font>
+   </dt><dd>a property of optimisation problems in which the sub-problems
+       which constitute the solution to the problem itself are themselves
+       optimal solutions to those sub-problems.
+       This property permits the construction of dynamic algorithms to
+       solve the problem.
+</dd></dl>
+</td></tr>
+</tbody></table>
+
+</p><p>
+
+<table cellpadding="5" width="100%" bgcolor="#00f0f0" cellspacing="4">
+<tbody><tr><td width="50%">
+Continue on to <a href="https://www.cs.auckland.ac.nz/software/AlgAnim/lcom_subseq.html">Longest Common Subsequence</a></td>
+<td>Back to the <a href="https://www.cs.auckland.ac.nz/software/AlgAnim/ds_ToC.html">Table of Contents</a>
+</td></tr></tbody></table>
+<small>
+© <img src="./Data Structures and Algorithms_ Matrix Chain Multiplication_files/john_email.gif">, 1998
+</small>
+
+
+</p></a></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

@@ -1,0 +1,1821 @@
+
+<!-- saved from url=(0067)https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/algor_complete.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body bgcolor="#FFE3B8" text="#35142E" alink="#FFFF8F" link="#0000BD" vlink="#007C00" data-new-gr-c-s-check-loaded="14.1077.0" data-gr-ext-installed="">
+<title>Algorithm Design Paradigms</title>
+<p>
+</p><h3><b>Techniques for the Design of Algorithms</b></h3>
+<p>
+The first part of this course is concerned with:
+</p><p>
+</p><h3><b>Algorithmic Paradigms</b>
+</h3>
+That is:
+<ul>
+<li>
+General approaches to the construction of <i>efficient</i>
+solutions to problems.
+</li></ul>
+Such methods are of interest because:
+<ul>
+<li>
+They provide templates suited to solving a broad range of
+diverse problems.
+</li><li>
+They can be translated into common control and data structures
+provided by most high-level languages.
+</li><li>
+The temporal and spatial requirements of the algorithms which
+result can be precisely analysed.
+</li></ul>
+Over the next few lectures we shall examine the following paradigms:
+<ul>
+<li>
+Divide and Conquer.
+</li><li>
+Dynamic Programming
+</li><li>
+Greedy Method
+</li><li>
+Backtracking.
+</li></ul>
+Although more than one technique may be applicable to
+a specific problem, it is often the case that an algorithm
+constructed by one approach is clearly superior to
+equivalent solutions built using alternative techniques.
+<p>
+The choice of design paradigm is an important aspect of
+algorithm synthesis.
+</p><p>
+</p><h3><b>Basic Algorithm Analysis</b></h3>
+<p>
+</p><h2>Questions</h2>
+<p>
+</p><ul>
+<li>
+How does one calculate the running time of an algorithm?
+</li><li>
+How can we compare two different algorithms?
+</li><li>
+How do we know if an algorithm is `optimal'?
+</li></ul>
+<b>1.</b> <i>Count</i> the number of
+<b>basic operations</b>
+performed by the algorithm on the 
+<b>worst-case input</b>
+<p>
+A <i>basic operation</i> could be:
+</p><ul>
+<li>
+An assignment
+</li><li>
+A comparison between two variables
+</li><li>
+An arithmetic operation between two variables.
+The <b>worst-case</b> input is that input assignment for which
+the <i>most</i> basic operations are performed.
+</li></ul>
+<h2>Simple Example:
+</h2>
+<p>
+</p><p>
+</p><pre><i>n</i> := 5;
+<b>loop</b>
+    get(<i>m</i>);
+    <i>n</i> := <i>n</i> -1;
+<b>until</b> (<i>m</i>=0 <b>or</b> <i>n=0</i>)
+</pre>
+Worst-case: 5 iterations
+<p>
+Usually we are <b>not</b> concerned with the number of steps for a
+<i>single fixed case</i>
+but wish to estimate the running time in terms of the `input size'.
+</p><p>
+</p><pre>get(<i>n</i>);
+<b>loop</b>
+    get(<i>m</i>);
+    <i>n</i> := <i>n</i> -1;
+<b>until</b> (<i>m</i>=0 <b>or</b> <i>n=0</i>)
+</pre>
+Worst-case: <i>n</i> iterations
+<h2>Examples of `input size':
+</h2>
+<p>
+<b>Sorting</b>:
+</p><p>
+<i>n ==</i> The number of items to be sorted;
+</p><p>
+Basic operation: Comparison.
+</p><p>
+<b>Multiplication (of <i>x</i> and <i>y</i>)</b>:
+</p><p>
+<i>n ==</i> The number of <i>digits</i> in <i>x</i>
+plus the number of digits in <i>y</i>.
+</p><p>
+Basic operations: single digit arithmetic.
+</p><p>
+<b>Graph `searching'</b>:
+</p><p>
+<i>n ==</i> the number of nodes in the graph or the number of edges
+in the graph.
+</p><p>
+</p><h3><b>Counting the Number of Basic Operations</b>
+</h3>
+<b>Sequence</b>: <i>P</i> and <i>Q</i> are two algorithm sections:
+<p>
+</p><pre><i>
+Time( P ; Q )  =  Time( P ) + Time( Q )</i>
+</pre>
+<p>
+<b>Iteration</b>:
+</p><p>
+</p><pre><b>while</b> &lt; condition &gt; <b>loop</b>
+     <i>P</i>;
+<b>end loop</b>;
+</pre>
+or
+<p>
+</p><pre><b>for</b> <i>i</i> <b>in</b> <i>1..n</i> <b>loop</b>
+    <i>P</i>;
+<b>end loop</b>
+</pre>
+<p>
+</p><pre><i>
+Time  =  Time( P ) * ( Worst-case number of iterations )</i>
+</pre>
+<p>
+<b>Conditional</b>
+</p><p>
+</p><pre><b>if</b> &lt; condition &gt; <b>then</b>
+    <i>P</i>;
+<b>else</b>
+    <i>Q</i>;
+<b>end if</b>;
+</pre>
+<p>
+</p><pre><i>
+Time  =  Time(P)   if  &lt; condition &gt; =<b>true</b>
+         Time( Q ) if  &lt; condition &gt; =<b>false</b>
+</i>
+</pre>
+<p>
+</p><p>
+We shall consider recursive procedures later in the course.
+</p><p>
+</p><h2>Example:
+</h2>
+<p>
+</p><p>
+</p><pre><b>for</b> <i>i</i> <b>in</b> <i>1..n</i> <b>loop</b>
+    <b>for</b> <i>j</i> <b>in</b> <i>1..n</i> <b>loop</b>
+       <b>if</b> <i>i &lt; j</i> <b>then</b>
+          swop (<i>a(i,j), a(j,i)</i>); -- Basic operation
+       <b>end if</b>;
+    <b>end loop</b>;
+<b>end loop</b>;
+</pre>
+<p>
+</p><pre><i>
+Time  &lt;  n*n*1</i>
+       =  n^2
+</pre>
+<p>
+</p><p>
+</p><h3><b>Asymptotic Performance</b>
+</h3>
+We are usually concerned with the growth in running time
+as the input size increases, e.g.
+<p>
+Suppose <i>P</i>, <i>Q</i> and <i>R</i> are 3 algorithms with the
+following worst-case run times:
+</p><p>
+<table border="5" rules="all">
+<thead>
+<tr><th>n</th><th>P</th><th>Q</th><th>R</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>1</td><td>5</td><td>100</td></tr>
+<tr><td>10</td><td>1024</td><td>500</td><td>1000</td></tr>
+<tr><td>100</td><td>2 <sup>100</sup></td><td>50,000</td><td>10,000</td></tr>
+<tr><td>1000</td><td>2 <sup>1000</sup></td><td>5 million</td><td>100,000</td></tr>
+</tbody>
+</table>
+</p><p>
+</p><p>
+If each is run on a machine that executes one million (<i>10^6</i>)
+operations per second
+</p><p>
+<table border="5" rules="all">
+<thead>
+<tr><th>n</th><th>P</th><th>Q</th><th>R</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>1(*ms</td><td>5(*ms</td><td>100(*ms</td></tr>
+<tr><td>5</td><td>1 millisec</td><td>0.5 millisec</td><td>1 millisec</td></tr>
+<tr><td>100</td><td>2<sup>70</sup>years</td><td>0.05 secs</td><td>0.01 secs</td></tr>
+<tr><td>1000</td><td>2<sup>970</sup>years</td><td>5 secs</td><td>0.1 secs</td></tr>
+</tbody>
+</table>
+</p><p>
+Thus,
+</p><p>
+The growth of run-time in terms of <i>n</i> (<i>2^n</i>; <i>n^2</i>; <i>n</i>)
+is more significant than the exact constant factors (<i>1</i>; <i>5</i>; <i>100</i>)
+</p><p>
+</p><h3><i>`O'</i>-<b>notation</b></h3>
+<p>
+Let <i>f</i>:<b>N</b>-&gt;  <b>R</b> and <i>g</i>:<b>N</b>-&gt;  <b>R</b>.
+Then: <i>f( n )  =  O( g(n) )</i>
+means that
+</p><p>
+There are values, <i>n0</i> and <i>c</i>, such that
+<i>f( n )  &lt; =  c * g( n )</i>
+whenever <i>n &gt; = n0</i>.
+</p><p>
+Thus we can say that an algorithm has, for example,
+</p><p>
+</p><h3>Run-time <i>O( n^2 )</i>
+</h3>
+<h2>Examples
+</h2>
+<ul>
+<li>
+There is an algorithm (<i>mergesort</i>) to sort <i>n</i> items
+which has run-time <i>O( n log n )</i>.
+</li><li>
+There is an algorithm to multiply 2 <i>n</i>-digit numbers which has
+run-time <i>O( n^2 )</i>.
+</li><li>
+There is an algorithm to compute the <i>n</i>th Fibonacci number
+which has run-time <i>O( log n )</i>.
+</li></ul>
+<p>
+</p><h3><i>OM</i>-<b>notation</b>
+</h3>
+To express the concept of an algorithm taking <i>at least</i>
+some number of steps
+<p>
+</p><h3><i>OM</i>-<i>notation</i>
+</h3>
+can be used.
+<p>
+Again let,
+<i>f</i>:<b>N</b>-&gt;  <b>R</b> and <i>g</i>:<b>N</b>-&gt;  <b>R</b>.
+Then: <i>f( n )  =  OM ( g(n) )</i>
+means that
+there are values, <i>n0</i> and <i>c</i>, such that
+f( n )  &gt; =  c * g( n )
+whenever <i>n &gt; = n0</i>.
+</p><p>
+</p><h3><i>THETA</i>-<b>notation</b>
+</h3>
+<p>
+Again let,
+<i>f</i>:<b>N</b>-&gt;  <b>R</b> and <i>g</i>:<b>N</b>-&gt;  <b>R</b>.
+</p><p>
+If <i>f(n)=O(g(n))</i> and <i>f(n)=OM(g(n))</i>
+</p><p>
+Then we write,
+<i>f( n )  =  THETA ( g(n) )</i>
+</p><p>
+In this case, <i>f(n)</i> is said to be <i>asymptotically equal</i> to <i>g(n)</i>.
+</p><p>
+If <i>f( n ) = THETA( g(n) )</i> then algorithms with running times <i>f(n)</i> 
+and <i>g(n)</i>
+appear to perform similarly as <i>n</i> gets larger.
+</p><p>
+</p><h3>Manipulating <i>O</i>- and <i>OM</i>-notation
+</h3>
+<p>
+<i>f(n)=O(g(n))</i> if and only if <i>g(n)=OM(f(n))</i>
+</p><p>
+If <i>f(n) = O(g(n))</i> then
+</p><p>
+<i>f(n)+g(n)=O(g(n))</i>   ;  <i>f(n)+g(n)=OM(g(n))</i>
+</p><p>
+<i>f(n)*g(n)=O(g(n)^2)</i> ; <i>f(n)*g(n)=OM(f(n)^2)</i>
+</p><p>
+</p><h3><b>Examples</b></h3>
+<p>
+Suppose <i>f(n)=10n</i> and <i>g( n )=2n^2</i>
+</p><ul>
+<li>
+<i>f(n)=O(g(n))</i>
+</li><li>
+<i>10n+2n^2 = O(n^2)</i>
+</li><li>
+<i>10n+2n^2 = OM(n^2)</i>
+</li><li>
+<i>(10n)*(2n^2) = O(n^4)</i>
+</li><li>
+<i>(10n)*(2n^2) = OM(n^2)</i>
+</li></ul>
+<p>
+</p><h3><b>Divide-and-Conquer</b>
+</h3>
+<p>
+This is a method of designing algorithms that (informally)
+proceeds as follows:
+</p><p>
+Given an instance of the problem to be solved, split
+this into several, smaller, sub-instances (<i>of the same problem</i>)
+independently solve each of the sub-instances and then combine
+the sub-instance solutions so as to yield a solution for the
+original instance.
+This description raises the question:
+</p><p>
+By what methods are the <i>sub-instances</i> to be <i>independently solved</i>?
+</p><p>
+The answer to this question is central to the concept of <i>Divide-&amp;-Conquer
+algorithm</i> and is a key factor in gauging their efficiency.
+</p><p>
+Consider the following:
+We have an algorithm, <i>alpha</i> say, which is known to solve
+all problem instances of size <i>n</i> in at most <i>c n^2</i> steps
+(where <i>c</i> is some constant).
+We then discover an algorithm, <i>beta</i> say, which solves the same
+problem by:
+</p><ul>
+<li>
+Dividing an instance into 3 sub-instances of size <i>n/2</i>.
+</li><li>
+Solves these 3 sub-instances.
+</li><li>
+Combines the three sub-solutions taking <i>d n</i> steps to do this.
+</li></ul>
+Suppose our original algorithm, <i>alpha</i>, is used to carry out
+the `solves these sub-instances' step 2.
+Let
+<p>
+<i>
+T(alpha)( n )  = Running time of alpha</i>
+</p><p>
+<i>
+T(beta)( n )   = Running time of beta</i>
+</p><p>
+Then,
+</p><p>
+<i>
+T(alpha)( n )  =  c n^2    (by definition of alpha)</i>
+</p><p>
+But
+</p><p>
+</p><pre><i>
+T(beta)( n )  = 3 T(alpha)( n/2 ) + d n</i>
+<i>
+              = (3/4)(cn^2) + dn</i>
+</pre>
+<p>
+So if <i>dn &lt; (cn^2)/4</i> (i.e. <i>d &lt; cn/4</i>) then <i>beta</i> is <i>faster 
+than</i> <i>alpha</i>
+</p><p>
+In particular for all large enough <i>n</i>, (<i>n &gt; 4d/c = Constant</i>), <i>
+beta</i> is faster than <i>alpha</i>.
+</p><p>
+This realisation of <i>beta</i> improves upon <i>alpha</i> by just a constant factor.
+But if the problem size, <i>n</i>, is large enough then
+</p><p>
+</p><pre><i>
+         n     &gt;   4d/c
+         n/2   &gt;   4d/c
+               ...
+         n/2^i &gt;   4d/c
+</i>
+</pre>
+<p>
+which suggests that using <i>beta</i> instead of <i>alpha</i> for the `<i>solves
+these</i>'
+stage <i>repeatedly until the sub-sub-sub..sub-instances are of size</i> 
+<i>n0 &lt; = (4d/c)</i>
+will yield a still faster algorithm.
+</p><p>
+So consider the following new algorithm for instances of size <i>n</i>
+</p><p>
+</p><pre><b>procedure</b> <i>gamma</i> (<i>n</i> : <b>problem size</b> ) <b>is</b>
+   <b>begin</b>
+       <b>if</b> <i>n &lt;= n^-0</i> <b>then</b>
+           Solve problem using Algorithm <i>alpha</i>;
+        <b>else</b>
+           Split into 3 sub-instances of size <i>n/2</i>;
+           Use <i>gamma</i> to solve each sub-instance;
+           Combine the 3 sub-solutions;
+        <b>end if</b>;
+   <b>end</b> <i>gamma</i>;
+</pre>
+<p>
+Let <i>T(gamma)(n)</i> denote the running time of this algorithm.
+</p><p>
+</p><pre><i>
+                cn^2                  if n &lt; = n0
+T(gamma)(n)  = 
+                3T(gamma)( n/2 )+dn   otherwise
+</i>
+</pre>
+<p>
+We shall show how relations of this form can be estimated later in the
+course. With these methods it can be shown that 
+</p><p>
+<i>
+T(gamma)( n )  =  O( n^{log3} )  (=O(n^{1.59..})
+</i>
+</p><p>
+This is an <i>asymptotic improvement</i> upon algorithms <i>alpha</i> and <i>beta</i>.
+</p><p>
+The improvement that results from applying algorithm <i>gamma</i> is
+due to the fact that it maximises the savings achieved <i>beta</i>.
+</p><p>
+The (relatively) inefficient method <i>alpha</i> is applied only to
+<i>"small"</i> problem sizes.
+</p><p>
+The precise form of a divide-and-conquer algorithm is
+characterised by:
+</p><ul>
+<li>
+The <i>threshold</i> input size, <i>n0</i>, below which
+the problem size is not sub-divided.
+</li><li>
+The <i>size</i> of sub-instances into which an instance is split.
+</li><li>
+The <i>number</i> of such sub-instances.
+</li><li>
+The algorithm used to combine sub-solutions.
+</li></ul>
+<p>
+In (II) it is more usual to consider the <i>ratio</i> of initial
+problem size to sub-instance size. In our example this was <i>2</i>. The
+<i>threshold</i> in (I) is sometimes called the <i>(recursive) base value</i>.
+In summary, the generic form of a divide-and-conquer algorithm is:
+</p><p>
+</p><pre><b>procedure</b> <i>D-and-C</i> (<i>n</i> : <b>input size</b>) <b>is</b>
+   <b>begin</b>
+      <b>if</b> <i>n &lt; = n0</i> <b>then</b>
+         Solve problem without further
+         sub-division;
+       <b>else</b>
+          Split into <i>r</i> sub-instances 
+          each of size <i>n/k</i>;
+          for each of the <i>r</i> sub-instances do
+            <i>D-and-C (n/k)</i>;
+          Combine the <i>r</i> resulting 
+          sub-solutions to produce
+          the solution to the original problem;
+       <b>end if</b>;
+    <b>end</b> <i>D-and-C</i>;
+</pre>
+<p>
+Such algorithms are naturally and easily realised as:
+</p><p>
+</p><h3><b>Recursive Procedures</b>
+</h3>
+in (suitable) high-level programming languages.
+<p>
+</p><h2>Example 1:
+</h2>
+
+<p>
+</p><h3><b>Binary Search</b>
+</h3>
+<p>
+Consider the following problem: one has a directory containing a
+set of <i>names</i> and a telephone <i>number</i> associated with
+each name.
+</p><p>
+The directory is sorted by alphabetical order of names. It contains <i>n</i>
+entries which are stored in 2 arrays:
+</p><p>
+<i>names (1..n)</i>  ; <i>numbers (1..n)</i>
+</p><p>
+Given a <i>name</i> and the value <i>n</i> the problem is to find the <i>number</i>
+associated with the name.
+</p><p>
+We assume that any given input name actually <i>does occur</i> in the directory,
+in order to make the exposition easier.
+</p><p>
+The Divide-&amp;-Conquer algorithm to solve this problem is the simplest example
+of the paradigm.
+</p><p>
+It is based on the following observation
+</p><p>
+Given a name, <i>X</i> say,
+</p><p>
+<i>X</i> occurs in the <i>middle</i> place of the <i>names</i> array
+</p><p>
+<b>Or</b>
+</p><p>
+<i>X</i> occurs in the <i>first</i> half of the <i>names</i> array. (U)
+</p><p>
+<b>Or</b>
+</p><p>
+<i>X</i> occurs in the <i>second</i> half of the <i>names</i> array. (L)
+</p><p>
+<i>U</i> (respectively <i>L</i>) are true <i>only if</i> <i>X</i> comes <i>before</i>
+(respectively <i>after</i>) that name stored in the <i>middle</i> place.
+</p><p>
+This observation leads to the following algorithm:
+</p><p>
+</p><pre><b>function</b> <i>search</i> (<i>X</i> : <b>name</b>;
+                             <i>start, finish</i> : <b>integer</b>)
+                             <b>return integer</b> <b>is</b>
+   <i>middle</i> : <b>integer</b>;
+   <b>begin</b>
+      <i>middle</i> := <i>(start+finish)/2</i>;
+      <b>if</b> <i>names(middle)=x</i> <b>then</b>
+          <b>return</b> <i>numbers(middle)</i>;
+      <b>elsif</b> <i>X&lt;names(middle)</i> <b>then</b>
+          <b>return</b> <i>search(X,start,middle-1)</i>;
+      <b>else</b> -- <i>X&gt;names(middle)</i>
+          <b>return</b> <i>search(X,middle+1,finish)</i>;
+      <b>end if</b>;
+   <b>end</b> <i>search</i>;
+</pre>
+<p>
+<b>Exercise:</b> How should this algorithm be modified to cater for
+the possibility that a given name does not occur in the directory?
+In terms of the generic form of divide-&amp;-conquer algorithms,
+at which stage is this modification made?
+</p><p>
+We defer analysis of the algorithm's performance until later.
+</p><p>
+</p><h2>Example 2
+</h2>
+<p>
+</p><p>
+</p><h3>Closest Pair
+</h3>
+<b>Input:</b>
+<p>
+</p><pre><i>
+P  =  {p(1), p(2) ,..., p(n) }</i>
+</pre>
+<p>
+where <i>p(i) = ( x(i), y(i) )</i>.
+</p><p>
+A set of <i>n</i> points in the plane.
+</p><p>
+<b>Output</b>
+</p><p>
+The <i>distance</i> between the two points that are closest.
+</p><p>
+<b>Note:</b> The distance <i>DELTA( i, j )</i> between <i>p(i)</i> and <i>p(j)</i>
+is defined by the expression:
+</p><p>
+</p><pre><i>Square root of { (x(i)-x(j))^2 + (y(i)-y(j))^2 }</i>
+</pre>
+<p>
+We describe a divide-and-conquer algorithm for this problem.
+</p><p>
+<img src="./Algorithm Design Paradigms_files/pic1.gif">
+</p><p>
+</p><p>
+We assume that:
+</p><p>
+<i>n</i> is an exact power of 2, <i>n = 2^k</i>.
+</p><p>
+For each <i>i</i>, <i>x(i) &lt; = x(i+1)</i>, i.e. the points are
+ordered by increasing <i>x</i> from left to right.
+</p><p>
+Consider drawing a vertical line (<i>L</i>) through the
+set of points <i>P</i> so that half of the points in <i>P</i>
+lie to the <i>left</i> of <i>L</i> and half lie to the <i>right</i>
+of <i>L</i>.
+</p><p>
+<img src="./Algorithm Design Paradigms_files/pic2.gif">
+</p><p>
+There are three possibilities:
+</p><ul>
+<li>
+The closest pair lie in <i>P-LEFT</i>.
+</li><li>
+The closest pair lie in <i>P-RIGHT</i>.
+</li><li>
+The closest pair contains:
+<p>
+One Point from <i>P-LEFT</i>
+</p><p>
+and
+</p><p>
+One Point from <i>P-RIGHT</i>
+</p></li></ul>
+<p>
+So we have a (rough) Divide-and-Conquer Method as follows:
+</p><p>
+</p><pre><b>function</b><i> closest_pair</i> (<i>P</i>: <b>point set</b>; <i>n</i>: <b>in
+teger</b> )
+                               <b>return float is</b>
+   <i>DELTA-LEFT</i>, <i>DELTA-RIGHT</i> : <b>float</b>;
+   <i>DELTA</i> : <b>float</b>;
+   <b>begin</b>
+      <b>if</b> <i>n = 2</i> <b>then</b>
+         <b>return</b> distance from <i>p(1)</i> to <i>p(2)</i>;
+      <b>else</b>
+         <i>P-LEFT  := ( p(1), p(2) ,..., p(n/2) )</i>;
+         <i>P-RIGHT := ( p(n/2+1), p(n/2+2) ,..., p(n) )</i>;
+         <i>DELTA-LEFT := closestpair( P-LEFT, n/2 )</i>;
+         <i>DELTA-RIGHT := closestpair( P-RIGHT, n/2 )</i>;
+         <i>DELTA := minimum ( DELTA-LEFT, DELTA-RIGHT )</i>;
+         --*********************************************
+         Determine whether there are points <i>p(l)</i> in
+         <i>P-LEFT</i> and <i>p(r)</i> in <i>P-RIGHT</i> with
+         <i>distance( p(l), p(r) ) &lt; DELTA</i>. If there
+         are such points, set <i>DELTA</i> to be the smallest
+         distance.
+         --**********************************************
+         <b>return</b> <i>DELTA</i>;
+      <b>end if</b>;
+<b>end</b> <i>closest_pair</i>;
+<p>
+</p></pre>
+<p>
+The section between the two comment lines is the `combine'
+stage of the Divide-and-Conquer algorithm.
+</p><p>
+If there are points <i>p(l)</i> and <i>p(r)</i> whose distance
+apart is less than <i>DELTA</i> then it must be the case that
+</p><ul>
+<li>
+The <i>x</i>-coordinates of <i>p(l)</i> and <i>p(r)</i> differ by
+at most <i>DELTA</i>.
+</li><li>
+The <i>y</i>-coordinates of <i>p(l)</i> and <i>p(r)</i> differ by
+at most <i>DELTA</i>.
+</li></ul>
+<p>
+<img src="./Algorithm Design Paradigms_files/pic3.gif">
+</p><p>
+The combine stage can be implemented by:
+</p><p>
+</p><ul>
+<li>
+Finding all points in <i>P-LEFT</i> whose <i>x</i>-coordinate is
+at least <i>x(n/2)-DELTA</i>.
+</li><li>
+Finding all points in <i>P-RIGHT</i> whose <i>x</i>-coordinate is
+at most <i>x(n/2)+DELTA</i>.
+</li></ul>
+<p>
+Call the set of points found in (1) and (2) <i>P-strip</i>.
+and sort the <i>s</i> points in this in order of increasing <i>y</i>-coordinate.
+letting <i>( q(1),q(2) ,..., q(s) )</i> denote the sorted set of
+points.
+</p><p>
+Then the combine stage of the algorithm consists of two nested <b>for</b>
+loops:
+</p><p>
+</p><pre><b>for</b><i> i </i><b>in</b> <i>1..s</i> <b>loop</b>
+   <b>for</b><i> j </i><b>in</b> <i>i+1..s</i> <b>loop</b>
+      <b>exit when</b> (<i>| x(i) - x(j) | &gt; DELTA</i> <b>or</b>
+                       <i>| y(i) - y(j) | &gt; DELTA</i>);
+       <b>if</b> <i>distance( q(i), q(j) ) &lt; DELTA</i> <b>then</b>
+          <i>DELTA := distance ( q(i), q(j) )</i>;
+       <b>end if</b>;
+   <b>end loop</b>;
+<b>end loop</b>;
+</pre>
+<p>
+</p><h2>Example 3</h2>
+<p>
+</p><h3><b>Integer Multiplication</b>
+</h3>
+Divide-and-Conquer may also be applied to problems other
+than those involving searching. The following problem
+should be familiar:
+<p>
+<img src="./Algorithm Design Paradigms_files/pic4.gif">
+</p><p>
+The <i>(2n)</i>-digit decimal representation of the product <i>x * y</i>.
+</p><p>
+<b>Note:</b> The algorithm below works for <i>any</i> number base, e.g.
+binary, decimal, hexadecimal, etc. We use decimal simply for convenience.
+</p><p>
+The classical primary school algorithm for multiplication requires <i>O( n^2 )</i>
+steps to multiply two <i>n</i>-digit numbers.
+</p><p>
+A <i>step</i> is regarded as a <i>single operation</i> involving two
+<i>single digit</i> numbers, e.g. <i>5+6</i>, <i>3*4</i>, etc.
+</p><p>
+In 1962, A.A. Karatsuba discovered an <i>asymptotically faster</i>
+algorithm for multiplying two numbers by using a divide-and-conquer approach.
+</p><p>
+<img src="./Algorithm Design Paradigms_files/pic5.gif">
+</p><p>
+<img src="./Algorithm Design Paradigms_files/pic6.gif">
+</p><p>
+From this we also know that the result of multiplying <i>x</i> and <i>y</i> 
+(i.e. <i>z</i>)
+is
+</p><p>
+<img src="./Algorithm Design Paradigms_files/pic7.gif">
+</p><p>
+The terms <i>( a*c )</i>, <i>( a*d )</i>, <i>( b*c )</i>, and <i>( b*d )</i> are
+each products of 
+</p><p>
+</p><h3><b>2 (n/2)-digit numbers</b>.
+</h3>
+<p>
+Thus the expression for the multiplication of <i>x</i> and <i>y</i> in terms of 
+the numbers
+<i>a</i>, <i>b</i>, <i>c</i>, and <i>d</i> tells us that:
+</p><ul>
+<li>
+Two single digit numbers can be multiplied immediately. (Recursive base: 1 step)
+</li><li>
+If <i>n &gt; 1</i> then the product of 2 <i>n</i>-digit numbers can be expressed 
+in terms of
+<i>4 products of 2 (n/2)-digit numbers</i> (Divide-and-Conquer stage)
+</li><li>
+To calculate the result of multiplying <i>x</i> and <i>y</i> given the four products
+returned involves only <i>addition</i> (can be done in <i>O( n )</i> steps)
+and multiplying by a <i>power of 10</i> (also can be done in <i>O( n )</i> steps,
+since it only requires placing the appropriate number of 0s at the end of the number).
+(Combine stage).
+</li></ul>
+<p>
+(1-3) therefore describe a Divide-&amp;-Conquer algorithm for multiplying two
+<i>n</i>-digit numbers represented in decimal.
+However,
+</p><p>
+<i>Moderately difficult:
+</i>
+How many steps does the resulting algorithm take to multiply two
+<i>n</i>-digit numbers?
+</p><p>
+Karatsuba discovered how the product of 2 <i>n</i>-digit numbers
+could be expressed in terms of <b>three</b> products each of 2 <i>(n/2)</i>-digit
+numbers - instead of the <b>four</b> products that a naive implementation
+of the Divide-and-Conquer schema above uses.
+</p><p>
+This saving is accomplished at the expense of slightly increasing the number
+of steps taken in the `combine stage' (Step 3) (although, this will still
+only use <i>O( n )</i> operations).
+</p><p>
+Suppose we compute the following 3 products (of 2 <i>(n/2)</i>-digit numbers):
+</p><p>
+<img src="./Algorithm Design Paradigms_files/pic8.gif">
+</p><p>
+</p><p>
+</p><pre><b>function</b><i> Karatsuba</i> (<i>xunder</i>, <i>yunder</i> : <b>n-digit integer</b>;
+                           <i>n</i> : <b>integer</b>) 
+                           <b>return (2n)-digit integer</b> <b>is</b>
+<i>a</i>, <i>b</i>, <i>c</i>, <i>d</i> : <b>(n/2)-digit integer</b>
+<i>U</i>, <i>V</i>, <i>W</i> : <b>n-digit integer</b>;
+<b>begin</b>
+   <b>if</b> <i>n = 1</i> <b>then</b>
+      <b>return</b> <i>x(0)*y(0)</i>;
+   <b>else</b>
+      <i>a := x(n-1) ... x(n/2)</i>;
+      <i>b := x(n/2-1) ... x(0)</i>;
+      <i>c := y(n-1) ... y(n/2)</i>;
+      <i>d := y(n/2-1) ... y(0)</i>;
+      <i>U := Karatsuba ( a, c, n/2 )</i>;
+      <i>V := Karatsuba ( b, d, n/2 )</i>;
+      <i>W := Karatsuba ( a+b, c+d, n/2 )</i>;
+      <b>return</b> <i>U*10^n + (W-U-V)*10^n/2 + V</i>;
+   <b>end if</b>;
+ <b>end</b> <i>Karatsuba</i>;
+</pre>
+<p>
+</p><h3><b>Performance Analysis</b>
+</h3>
+It was observed earlier that one reason for examining algorithmic
+paradigms was the fact that their running time could often be
+precisely determined.
+<p>
+This is useful in allowing comparisons between the performances of
+two algorithms to be made.
+</p><p>
+For Divide-and-Conquer algorithms the running time is mainly affected
+by 3 criteria:
+</p><ul>
+<li>
+The <b>number of sub-instances</b> (<i>alpha</i>) into which a
+problem is split.
+</li><li>
+The <b>ratio of initial problem size to sub-problem size</b>. (<i>beta</i>)
+</li><li>
+The <b>number of steps</b> required to <b>divide</b> the initial
+instance and to <b>combine</b> sub-solutions, expressed as a
+function of the input size, <i>n</i>.
+</li></ul>
+<p>
+Suppose, <i>P</i>, is a divide-and-conquer algorithm that instantiates
+<i>alpha</i> sub-instances, each of size <i>n/beta</i>.
+</p><p>
+Let <i>Tp( n )</i> denote the number of steps taken by <i>P</i> on instances
+of size <i>n</i>. Then
+</p><p>
+</p><pre><i>
+Tp( n0 )  =  Constant   (Recursive-base)
+Tp( n )   =  alpha Tp( n/beta ) + gamma( n )
+</i>
+</pre>
+<p>
+In the case when <i>alpha</i> and <i>beta</i> are both constant (as in all the 
+examples we have given) there is a general method that can be used to solve such
+<i>recurrence relations</i> in order to obtain an asymptotic bound for
+the running time <i>Tp( n )</i>.
+</p><p>
+In general:
+</p><p>
+</p><pre><i>
+T( n )  =  alpha T( n/beta ) + O( n^gamma )</i>
+</pre>
+<p>
+(where <i>gamma</i> is constant) has the solution
+</p><p>
+</p><pre><i>
+            O(n^gamma)             if   alpha &lt; beta^gamma
+T( n )  =   O(n^gamma log n)       if   alpha = beta^gamma}
+            O(n^{log^-beta(alpha)) if   alpha &gt; beta^gamma
+</i>
+</pre>
+<p>
+</p><h3><b>Dynamic Programming</b>
+</h3>
+<p>
+This paradigm is most often applied in the construction
+of algorithms to solve a certain class of
+</p><p>
+</p><h3><i>Optimisation Problem</i>
+</h3>
+<p>
+That is: problems which require the <i>minimisation</i>
+or <i>maximisation</i> of some measure.
+</p><p>
+One disadvantage of using Divide-and-Conquer is that
+the process of recursively solving separate sub-instances
+can result in the <b>same computations being performed
+repeatedly</b> since <i>identical</i> sub-instances may arise.
+</p><p>
+The idea behind <i>dynamic programming</i> is to avoid this
+pathology by obviating the requirement to calculate the
+same quantity twice.
+</p><p>
+The method usually accomplishes this by maintaining a <i>table
+of sub-instance results</i>.
+</p><p>
+Dynamic Programming is a
+</p><p>
+</p><h3><b>Bottom-Up Technique</b>
+</h3>
+<p>
+in which the smallest sub-instances are <i>explicitly</i> solved first
+and the results of these used to construct solutions to progressively
+larger sub-instances.
+</p><p>
+In contrast, Divide-and-Conquer is a
+</p><p>
+</p><h3><b>Top-Down Technique</b>
+</h3>
+<p>
+which <i>logically</i> progresses from the initial instance down to
+the smallest sub-instances via intermediate sub-instances.
+We can illustrate these points by considering the problem of
+calculating the <i>Binomial Coefficient</i>, <i>"n choose k"</i>, i.e.
+</p><p>
+<img src="./Algorithm Design Paradigms_files/pic9.gif">
+</p><p>
+Using this relationship, a rather crude Divide-and-Conquer solution to the problem of
+calculating the Binomial Coefficient <i>`n choose k'</i> would be:
+</p><p>
+</p><pre><b>function</b> <i>bin_coeff</i> (<i>n</i> : <b>integer</b>;
+                                <i>k</i> : <b>integer</b>)
+                                <b>return integer is</b>
+   <b>begin</b>
+      <b>if</b> <i>k = 0</i> <b>or</b> <i>k = n</i> <b>then</b>
+         <b>return</b> 1;
+      <b>else</b>
+         <b>return</b> 
+         <i>bincoeff(n-1, k-1) + bincoeff(n-1, k)</i>;
+      <b>end if</b>;
+   <b>end</b> <i>bin_coeff</i>;
+</pre>
+<p>
+By contrast, the Dynamic Programming approach uses the same relationship
+but constructs a <b>table of all the (n+1)*(k+1) binomial coefficients</b>
+<i>`i choose j'</i> for each value of <i>i</i> between <i>0</i> and <i>n</i>, each value of <i>j</i>
+between <i>0</i> and <i>k</i>.
+</p><p>
+These are calculated in a particular order:
+</p><ul>
+<li>
+First the table entries corresponding to
+the coefficients `i choose 0' and `1 choose 1' are fixed to the value <i>1</i>.
+</li><li>
+The remaining table entries corresponding to the binomial coefficient `i choose j'
+are calculated in <i>increasing order of the value of i+j</i>.
+</li></ul>
+It should be noted that since the coefficient `<i>i choose j</i>' requires only
+the values of `<i>i-1 choose j-1</i>' and `<i>i-1 choose j</i>', computing the
+table entries in the order of increasing <i>i+j</i> ensures that the table
+entries needed for `<i>`i choose j</i>' have already been calculated, i.e.
+<p>
+</p><pre><i>
+(i-1)+(j-1) &lt; (i-1)+j &lt; i+j</i>
+</pre>
+<p>
+</p><p>
+The Dynamic Programming method is given by:
+</p><p>
+</p><pre><p>
+<b>function</b> <i>bin_coeff</i> (<i>n</i> : <b>integer</b>;
+                                <i>k</i> : <b>integer</b>)
+                                <b>return integer is</b>
+<b>type</b> <i>table</i> <b>is array</b> <i>(0..n, 0..k)</i> <b>of integer</b>;
+<i>bc</i> : <b>table</b>;
+<i>i, j, k</i> : <b>integer</b>;
+<i>sum</i> : <b>integer</b>;
+<b>begin</b>
+   <b>for</b> <i>i</i><b> in</b> <i>0..n</i> <b>loop</b>
+     <i>bc(i,0) := 1</i>;
+   <b>end loop</b>;
+   <i>bc(1,1) := 1</i>;
+   <i>sum := 3</i>; <i>i := 2</i>; <i>j := 1</i>;
+   <b>while</b> <i>sum &lt;= n+k</i> <b>loop</b>
+      <i>bc(i,j) := bc(i-1,j-1)+bc(i,j-1)</i>;
+      <i>i := i-1</i>; <i>j := j+1</i>;
+      <b>if</b> <i>i &lt; j</i> <b>or</b> <i>j &gt; k</i> <b>then</b>
+         <i>sum := sum + 1</i>;                     
+         <b>if</b> <i>sum &lt;= n+1</i> <b>then</b>      
+            <i>i := sum-1</i>; <i>j := 1</i>;            
+         <b>else</b>                           
+            <i>i := n</i>; <i>j := sum-n</i>;          
+         <b>end if</b>;                      
+      <b>end if</b>;                        
+    <b>end loop</b>;
+   <b>return</b> <i>bc(n,k)</i>;
+<b>end</b> <i>bin_coeff</i>;
+</p></pre>
+<p>
+The section of the function consisting of the lines:
+</p><p>
+</p><pre><p>
+<b>if</b> <i>i &lt; j</i> <b>or</b> <i>j &gt; k</i> <b>then</b>
+   <i>sum := sum + 1</i>;                     
+   <b>if</b> <i>sum &lt;= n+1</i> <b>then</b>      
+      <i>i := sum-1</i>; <i>j := 1</i>;            
+   <b>else</b>                           
+      <i>i := n</i>; <i>j := sum-n</i>;          
+   <b>end if</b>;                      
+<b>end if</b>;                        
+</p><p>
+</p></pre>
+<p>
+is invoked when all the table entries `<i>i choose j</i>', for which
+<i>i+j</i> equals the current value of <i>sum</i>, have been found. 
+The <b>if</b> statement increments the value of <i>sum</i>
+and sets up the new values of <i>i</i> and <i>j</i>.
+</p><p>
+Now consider the differences between the two methods:
+The <b>Divide-and-Conquer</b> approach recomputes values, such as
+<i>"2 choose 1"</i>, a very large number of times,
+particularly if <i>n</i> is large and <i>k</i> depends on <i>n</i>, i.e. <i>k</i> is not a constant.
+</p><p>
+It can be shown that the running time of this method is
+</p><p>
+<img src="./Algorithm Design Paradigms_files/pic10.gif">
+</p><p>
+Despite the fact that the algorithm description is quite simple (it is just
+a direct implementation of the relationship given) it is <b>completely
+infeasible</b> as a practical algorithm.
+</p><p>
+The <b>Dynamic Programming</b> method, since it computes each value
+<i>"i choose j"</i> <b>exactly once</b> is
+far more efficient. Its running time is <i>O( n*k )</i>, which is
+<i>O( n^2 )</i> in the worst-case, (again <i>k = n/2</i>).
+</p><p>
+It will be noticed that the dynamic programming solution is rather
+more involved than the recursive Divide-and-Conquer method, nevertheless
+its running time is practical.
+</p><p>
+The binomial coefficient
+example illustrates the key features of dynamic programming algorithms.
+</p><ul>
+<li>
+A <b>table</b> of <b>all</b> sub-instance results is constructed.
+</li><li>
+The entries corresponding to the <b>smallest</b> sub-instances are
+initiated at the start of the algorithm.
+</li><li>
+The remaining entries are filled in following a precise <b>order</b>
+(that corresponds to <b>increasing sub-instance size</b>) using only
+those entries that have already been computed.
+</li><li>
+Each entry is calculated <b>exactly once</b>.
+</li><li>
+The <b>final</b> value computed is the solution to the initial problem
+instance.
+</li><li>
+Implementation is by <b>iteration</b> (<i>never</i> by recursion, even
+though the analysis of a problem may naturally suggest a recursive solution).
+</li></ul>
+<h2>Example: Shortest Path
+</h2>
+<p>
+<i>Input:
+</i>
+A directed graph, <i>G( V, E )</i>, with nodes
+</p><p>
+</p><pre><i>
+             V  =  {1, 2 ,..., n }</i>
+</pre>
+<p>
+and edges <i>E</i> as subset of <i>VxV</i>. Each edge in <i>E</i> has associated with
+it a non-negative length.
+</p><p>
+<i>Output:
+</i>
+An <i>nXn</i> matrix, <i>D</i>, in which <i>D^(i,j)</i> contains the <i>length</i>
+of the <i>shortest path</i> from node <i>i</i> to node <i>j</i> in <i>G</i>.
+</p><p>
+</p><h3><b>Informal Overview of Method</b>
+</h3>
+<p>
+The algorithm, conceptually, constructs a <i>sequence of matrices</i>:
+</p><p>
+</p><pre><i>
+D0, D1 ,..., Dk ,..., Dn</i>
+</pre>
+<p>
+For each <i>k</i> (with <i>1 &lt; = k &lt; = n</i>), the <i>(i, j)</i> entry of <i>Dk</i>,
+denoted <i>Dk( i,j )</i>, will contain the
+<b>Length of the shortest path from node i to node j when only the nodes</b>
+</p><p>
+</p><h3><i>{ 1, 2, 3 ,..., k }</i>
+</h3>
+<p>
+<b>can be used as intermediate nodes on the path</b>.
+</p><p>
+Obviously <i>Dn = D</i>.
+</p><p>
+The matrix, <i>D0</i>, corresponds to the `<i>smallest sub-instance</i>'.
+<i>D0</i> is initiated as:
+</p><p>
+</p><pre><i>
+               0  if i=j
+D0( i, j )  =  infinite  if (i,j) not in E
+               Length(i,j)  if (i,j) is in E
+</i>
+</pre>
+<p>
+Now, suppose we have constructed <i>Dk</i>, for some <i>k &lt; n</i>.
+</p><p>
+How do we proceed to build <i>D(k+1)</i>?
+</p><p>
+The shortest path from <i>i</i> to <i>j</i> with <b>only</b>
+</p><p>
+</p><h3><i>{ 1, 2, 3 ,..., k, k+1 }</i>
+</h3>
+available as <i>internal nodes</i>
+<p>
+<b>Either</b>: <i>Does not</i> contain the node <i>k+1</i>.
+</p><p>
+<b>Or</b>: <i>Does</i> contain the node <i>k+1</i>.
+</p><p>
+In the former case:
+</p><p>
+</p><pre><i>
+                 D(k+1)( i, j )  =  Dk( i, j )</i>
+</pre>
+<p>
+In the latter case:
+</p><p>
+</p><pre><i>
+            D(k+1)( i, j )  =  D-k( i, k+1 ) + D-k( k+1, j )</i>
+</pre>
+<p>
+Therefore <i>D(k+1)( i, j )</i> is given by
+</p><p>
+</p><pre><i>
+                       Dk(i,j)
+               minimum 
+                       Dk( i, k+1 ) + Dk( k+1, j )
+</i>
+</pre>
+<p>
+Although these relationships suggest using a recursive
+algorithm, as with the previous example, such a realisation
+would be extremely inefficient.
+</p><p>
+Instead an <i>iterative</i> algorithm is employed.
+</p><p>
+Only <i>one</i> <i>nXn</i> matrix, <i>D</i>, is needed. 
+</p><p>
+This is because after the matrix <i>D(k+1)</i> has been constructed,
+the matrix <i>Dk</i> is no longer needed. Therefore <i>D(k+1)</i>
+can overwrite <i>Dk</i>.
+</p><p>
+In the implementation below, <i>L</i> denotes the matrix of
+<i>edge lengths</i> for the set of edges in the graph <i>G( V, E )</i>.
+</p><p>
+</p><pre><b>type</b><i> matrix </i><b>is array</b> (<i>1..n, 1..n</i>) <b>of integer</b>;
+<i>L</i> : <b>matrix</b>
+<b>function</b><i> shortest_path_length</i> (<i>L</i> : <b>matrix</b>;
+                                   <i>n</i> : <b>integer</b>) 
+                                   <b>return matrix</b> <b>is</b>
+<i>D</i> : <b>matrix</b>; -- Shortest paths matrix
+<b>begin</b>
+  -- Initial sub-instance
+  <i>D(1..n,1..n) := L(1..n,1..n)</i>; 
+  <b>for</b> <i>k</i> <b>in</b> <i>1..n</i> <b>loop</b>
+    <b>for</b> <i>i</i> <b>in</b> <i>1..n</i> <b>loop</b>
+      <b>for</b> <i>j</i> <b>in</b> <i>1..n</i> <b>loop</b>
+        <b>if</b> <i>D(i,j) &gt; D(i,k) + D(k,j)</i> <b>then</b>
+           <i>D( i,j ) := D(i,k) + D(k,j)</i>;
+        <b>end if</b>;
+      <b>end loop</b>;
+    <b>end loop</b>;
+  <b>end loop</b>;
+  <b>return</b> <i>D(1..n,1..n)</i>;
+<b>end</b> <i>shortest_path_length</i>;
+</pre>
+<p>
+This algorithm, discovered by Floyd, clearly runs in time
+</p><p>
+</p><h3><i>O( n^3 )</i>
+</h3>
+<p>
+Thus <i>O( n )</i> steps are used to compute each of the <i>n^2</i>
+matrix entries.
+</p><p>
+</p><h3><b>Greedy Algorithms</b>
+</h3>
+This is another approach that is often used to
+design algorithms for solving
+<p>
+</p><h3><b>Optimisation Problems</b>
+</h3>
+In contrast to dynamic programming, however,
+<ul>
+<li>
+Greedy algorithms <b>do not always</b> yield a genuinely
+optimal solution. In such cases the greedy method is frequently
+the basis of a <i>heuristic approach</i>.
+</li><li>
+Even for problems which can be solved exactly by a greedy
+algorithm, establishing the <b>correctness</b> of the method
+may be a non-trivial process.
+</li></ul>
+In order to give a precise description of the greedy paradigm
+we must first consider a more detailed definition of the
+environment in which typical optimisation problems occur.
+Thus in an optimisation problem, one will have, in the
+context of greedy algorithms, the following:
+<ul>
+<li>
+A collection (set, list, etc) of <b>candidates</b>, e.g. nodes,
+edges in a graph, etc.
+</li><li>
+A set of candidates which have already been `used'.
+</li><li>
+A <b>predicate</b> (<i>solution</i>) to test whether a given set of candidates
+give a <i>solution</i> (not necessarily optimal).
+</li><li>
+A predicate (<i>feasible</i>) to test if a set 
+of candidates can be <b>extended</b>
+to a (not necessarily optimal) solution.
+</li><li>
+A <b>selection function</b> (<i>select</i>) which chooses some candidate which h
+as not
+yet been used.
+</li><li>
+An <b>objective function</b> which assigns a <i>value</i> to a solution.
+</li></ul>
+<b>In other words</b>:
+An optimisation problem involves finding a subset, <i>S</i>, from a
+collection of candidates, <i>C</i>; the subset, <i>S</i>, must satisfy
+some specified criteria, i.e. be a solution and be such that
+the <i>objective function</i> is optimised by <i>S</i>.
+<i>`Optimised'</i> may mean
+<p>
+</p><h3><b>Minimised</b> or <b>Maximised</b>
+</h3>
+depending on the precise problem being solved.
+Greedy methods are distinguished by the fact that the <b>selection function</b>
+assigns a <i>numerical value</i> to each candidate, <i>x</i>, and chooses that
+candidate for which:
+<p>
+</p><p>
+</p><h3><i>SELECT( x )</i> is <b>largest</b>
+</h3>
+or
+<i>SELECT( x )</i> is <b>smallest</b>
+<p>
+All Greedy Algorithms have exactly the same general form. A Greedy
+Algorithm for a particular problem is specified by describing the
+predicates `<i>solution</i>' and `<i>feasible</i>'; and the selection
+function `<i>select</i>'.
+</p><p>
+Consequently, Greedy Algorithms are often very easy to design for
+optimisation problems.
+</p><p>
+The General Form of a Greedy Algorithm is
+</p><p>
+</p><pre><p>
+<b>function</b> <i>select</i> (<i>C</i> : <b>candidate_set</b>) <b>return</b> <b>candidate</b>;
+<b>function</b> <i>solution</i> (<i>S</i> : <b>candidate_set</b>) <b>return</b> 
+<b>boolean</b>;
+<b>function</b> <i>feasible</i> (<i>S</i> : <b>candidate_set</b>) <b>return</b> 
+<b>boolean</b>;
+--***************************************************
+<b>function</b> <i>greedy</i> (<i>C</i> : <b>candidate_set</b>) <b>return candidate_set is</b>
+<i>x</i> : <b>candidate</b>;
+<i>S</i> : <b>candidate_set</b>;
+<b>begin</b>
+   <i>S := {}</i>;
+   <b>while</b> (<b>not</b> <i>solution(S)</i>) <b>and</b> <i>C /= {}</i> <b>loop</b>
+     <i>x := select( C )</i>;
+     <i>C := C - {x}</i>;
+     <b>if</b> <i>feasible( S union {x} )</i> <b>then</b>
+        <i>S := S union { x }</i>;
+     <b>end if</b>;
+   <b>end loop</b>;
+   <b>if</b> <i>solution( S )</i> <b>then</b>
+     <b>return</b> <i>S</i>;
+   <b>else</b>
+     <b>return</b> es;
+   <b>end if</b>;
+<b>end</b> <i>greedy</i>;
+</p></pre>
+<p>
+As illustrative examples of the greedy paradigm we
+shall describe algorithms for the following problems:
+</p><ul>
+<li>
+Minimal Spanning Tree.
+</li><li>
+Integer Knapsack.
+</li></ul>
+For the first of these, the algorithm
+<b>always</b> returns an optimal solution.
+<p>
+</p><h3><b>Minimal Spanning Tree</b>
+</h3>
+<p>
+The inputs for this problem is an (undirected) graph,
+<i>G( V, E )</i> in which each edge, <i>e</i> in <i> E</i>, has an associated positive
+edge length, denoted <i>Length( e )</i>.
+</p><p>
+The output is a <b>spanning tree</b>, <i>T( V, F )</i> of <i>G( V,E )</i>
+such that the <i>total edge length</i>, 
+is <b>minimal</b> amongst all the possible spanning trees of <i>G( V,E )</i>.
+</p><p>
+<b>Note:</b> An <i>n</i>-node <b>tree</b>, <i>T</i> is a <i>connected</i>
+<i>n</i>-node graph with <i>exactly n-1 edges</i>.
+</p><p>
+<i>T( V,F )</i> is a <b>spanning tree</b> of <i>G( V,E )</i> if and only if
+<i>T</i> is a tree and the edges in <i>F</i> are a <b>subset</b> of the edges in
+<i>E</i>.
+</p><p>
+In terms of general template given previously:
+</p><ul>
+<li>
+The <b>candidates</b> are the <b>edges of G(V,E)</b>.
+</li><li>
+A subset of edges, <i>S</i>, is a <b>solution</b> if the graph <i>T(V,S)</i> is
+a spanning tree of <i>G(V,E)</i>.
+</li><li>
+A subset of edges, <i>S</i>, is <b>feasible</b> if there is a spanning tree
+<i>T(V,H)</i> of <i>G(V,E)</i> for which <i>S sube H</i>.
+</li><li>
+The <b>objective function</b> which is to be <b>minimised</b>
+is the sum of the edge lengths in a <b>solution</b>.
+</li><li>
+The <b>select</b> function chooses the candidate (i.e. edge)
+whose <b>length is smallest</b> (from the remaining candidates).
+</li></ul>
+The full algorithm, discovered by Kruskal, is:
+<p>
+</p><pre><b>function</b> <i>min_spanning_tree</i> (<i>E</i> : <b>edge_set</b>)
+                           <b>return edge_set is</b>
+<i>S</i> : <b>edge_set</b>;
+<i>e</i> : <b>edge</b>;
+<b>begin</b>
+  <i>S := (es</i>;
+  <b>while</b> (<i>H(V,S)</i> <b>not a tree</b>)
+               <b>and</b> <i>E /= {}</i> <b>loop</b>
+    <i>e := </i> Shortest edge in <i>E</i>;
+    <i>E := E - {e}</i>;
+    <b>if</b> <i>H(V, S union {e})</i> is acyclic <b>then</b>
+      <i>S := S union {e}</i>;
+    <b>end if</b>;
+   <b>end loop</b>;
+   <b>return</b> <i>S</i>;
+<b>end</b> <i>min_spanning_tree</i>;
+</pre>
+Before proving the correctness of this algorithm, we give an
+example of it running.
+<p>
+The algorithm may be viewed as dividing the set of nodes, <i>V</i>, into
+<i>n</i> parts or <i>components</i>:
+</p><p>
+</p><pre><i>
+{1} ; {2} ; ... ; {n}</i>
+</pre>
+<p>
+An edge is added to the set <i>S</i> if and only if it joins two
+nodes which belong to <i>different</i> components; if an edge is
+added to <i>S</i> then the two components containing its endpoints are
+coalesced into a single component.
+</p><p>
+In this way, the algorithm stops when there is just a single component
+</p><p>
+</p><pre><i>
+{ 1, 2 ,..., n }</i>
+</pre>
+<p>
+remaining.
+</p><p>
+<img src="./Algorithm Design Paradigms_files/pic11.gif">
+</p><p>
+<table border="5" rules="all">
+<thead>
+<tr><th>Iteration</th><th>Edge</th><th>Components</th></tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>-</td><td>{1}; {2}; {3}; {4}; {5}; {6}; {7}</td></tr>
+<tr><td>1</td><td>{1,2}</td><td>{1,2}; {3}; {4}; {5}; {6}; {7}</td></tr>
+<tr><td>2</td><td>{2,3}</td><td>{1,2,3}; {4}; {5}; {6}; {7}</td></tr>
+<tr><td>3</td><td>{4,5}</td><td>{1,2,3}; {4,5}; {6}; {7}</td></tr>
+<tr><td>4</td><td>{6,7}</td><td>{1,2,3}; {4,5}; {6,7}</td></tr>
+<tr><td>5</td><td>{1,4}</td><td>{1,2,3,4,5}; {6,7}</td></tr>
+<tr><td>6</td><td>{2,5}</td><td>Not included (adds cycle)</td></tr>
+<tr><td>7</td><td>{4,7}</td><td>{1,2,3,4,5,6,7}</td></tr>
+</tbody>
+</table>
+</p><p>
+<img src="./Algorithm Design Paradigms_files/pic12.gif">
+</p><p>
+<b>Question:</b> How do we know that the
+resulting set of edges form a
+<b>Minimal</b>
+Spanning Tree?
+</p><p>
+In order to prove this we need the following result.
+</p><p>
+For <i>G(V,E)</i> as before, a subset, <i>F</i>, of the edges <i>E</i> is
+called <i>promising</i> if <i>F</i> is a subset of the edges in a
+minimal spanning tree of <i>G(V,E)</i>.
+</p><p>
+<i>Lemma:
+</i>
+Let <i>G(V,E)</i> be as before and <i>W</i> be a subset of <i>V</i>. 
+</p><p>
+Let <i>F</i>, a subset of <i>E</i>
+be a <b>promising</b> set of edges such that no edges in <i>F</i>
+has <i>exactly one</i> endpoint in <i>W</i>.
+</p><p>
+If <i>{p,q}</i> in <i>E-F</i> is a shortest edge having exactly one
+of <i>p</i> or <i>q</i> in <i>W</i> then: the set of edges <i>F union { {p,q} }</i>
+is promising.
+</p><p>
+<i>Proof:
+</i>
+Let <i>T(V,H)</i> be a minimal spanning tree of <i>G(V,E)</i> such that
+<i>F</i> is a subset of <i>H</i>. Note that <i>T</i> exists since <i>F</i> is a promising set of 
+edges.
+</p><p>
+Consider the edge <i>e = {p,q}</i> of the Lemma statement.
+</p><p>
+If <i>e</i> is in <i>H</i> then the result follows immediately, so suppose that
+<i>e</i> is not in <i>H</i>. Assume that <i>p</i> is in <i>W</i> and <i>q</i>
+is not in <i>W</i> and consider the
+graph <i>T(V, H union {e})</i>. 
+</p><p>
+Since <i>T</i> is a tree the graph <i>T</i>
+(which contains one extra edge) must contain a cycle that includes the
+(new) edge <i>{p,q}</i>.
+</p><p>
+Now since <i>p</i> is in <i>W</i> and <i>q</i> is not in <i>W</i> there must be <i>some</i> edge,
+<i>e' = {p',q'}</i> in <i>H</i> which is also part of this cycle
+and is such that <i>p'</i> is in <i>W</i> and <i>q'</i> is not in <i>W</i>.
+</p><p>
+<img src="./Algorithm Design Paradigms_files/pic13.gif">
+</p><p>
+</p><p>
+Now, by the choice of <i>e</i>, we know that
+</p><p>
+</p><pre><i>
+Length ( e )  &lt; =  Length ( e' )</i>
+</pre>
+<p>
+Removing the edge <i>e'</i> from <i>T</i> gives a new spanning tree of <i>G(V,E)</i>.
+</p><p>
+The cost of this tree is exactly
+</p><p>
+</p><pre><i>
+cost( T ) - Length(e') + Length(e)</i>
+</pre>
+<p>
+and this is <i>&lt; = cost(T)</i>.
+</p><p>
+<i>T</i> is a <i>minimal</i> spanning tree so either <i>e</i> and <i>e'</i> have 
+the same length
+or this case cannot occur. It follows that there is a minimal spanning tree containing
+<i>F union {e}</i> and hence this set of edges is promising as claimed.
+</p><p>
+<i>Theorem:
+</i>
+Kruskal's algorithm always produces a minimal spanning tree.
+</p><p>
+<i>Proof:
+</i>
+We show by induction on <i>k &gt; = 0</i> - the number of edges in <i>S</i> at each stage -
+that the set of edges in <i>S</i> is always promising.
+</p><p>
+<i>Base
+</i>
+(<i>k = 0</i>): <i>S = {}</i> and obviously the empty set of edges is promising.
+</p><p>
+<i>Step:
+</i>
+(<i>&lt; = k-1 implies k</i>): Suppose <i>S</i> contains <i>k-1</i> edges. Let 
+<i>e = {p,q}</i> be the next edge that would be added to <i>S</i>. Then:
+</p><ul>
+<li>
+<i>p</i> and <i>q</i> lie in different components.
+</li><li>
+<i>{p,q}</i> is a shortest such edge.
+</li></ul>
+Let <i>C</i> be the component in which <i>p</i> lies. By the inductive hypothesis
+the set <i>S</i> is promising. The Inductive Step now follows by invoking the Lemma,
+with <i>W = Set of nodes in C</i> and <i>F = S</i>.
+<p>
+</p><h3><b>Integer Knapsack</b>
+</h3>
+<p>
+In various forms this is a frequently arising optimisation
+problem.
+<b>Input:</b> A set of items
+<i>U = {u1, u2 ,..., uN}</i>
+</p><p>
+each item having a given <i>size</i> <i>s( ui )</i> and <b>value</b>
+<i>v( ui )</i>.
+</p><p>
+A <b>capacity</b> <i>K</i>.
+</p><p>
+<b>Output:</b> A subset <i>B</i> of <i>U</i> such that the sum over <i>u</i> in <i>B</i>
+of <i>s(u)</i> does not exceed <i>K</i> and the sum over <i>u</i> in <i>B</i>
+of <i>v(u)</i> is maximised.
+</p><p>
+No fast algorithm <i>guaranteed</i> to solve this problem has
+yet been discovered.
+</p><p>
+It is considered
+<b>extremely improbable</b>
+that such an algorithm exists.
+</p><p>
+Using a greedy approach, however, we can find a solution whose
+value is at worst 1/2 of the optimal value.
+</p><p>
+</p><ul>
+<li>
+The items, <i>U</i>, are the <b>candidates</b>.
+</li><li>
+A subset, <i>B</i>, is a <b>solution</b> if 
+the total size of <i>B</i> fits within the given capacity, but adding any other item will
+exceed the capacity.
+</li><li>
+The <b>objective function</b> which is to be <b>maximised</b> is
+the total value.
+</li></ul>
+<p>
+The <b>selection function</b> chooses that item, <i>ui</i> for which
+</p><p>
+</p><pre>                    v( ui )
+                   --------
+                    s( ui )
+</pre>
+<p>
+is <b>maximal</b>
+</p><p>
+These yield the following greedy algorithm which <i>approximately</i>
+solves the integer knapsack problem.
+</p><p>
+</p><pre><b>function</b> <i>knapsack</i> (<i>U</i> : <b>item_set</b>;
+                          <i>K</i> : <b>integer</b> ) 
+                          <b>return item_set is</b>
+<i>C, S</i> : <b>item_set</b>;
+<i>x</i> : <b>item</b>;
+<b>begin</b>
+   <i>C := U</i>; <i>S := {}</i>;
+   <b>while</b> <i>C /= {}</i> <b>loop</b>
+      <i>x := </i>Item <i>u</i> in <i>C</i> such that 
+             <i>v(u)/s(u)</i> is largest;
+      <i>C := C - {x}</i>;
+      <b>if</b> <i>( sum over {u in S} s(u) ) + s(x) &lt; = K</i> <b>then</b>
+         <i>S := S union {x}</i>;
+      <b>end if</b>;
+   <b>end loop</b>;
+   <b>return</b> <i>S</i>;
+<b>end</b> <i>knapsack</i>;
+</pre>
+<p>
+A very simple example shows that the method can fail to deliver an
+optimal solution. Let
+</p><p>
+</p><pre><i>
+        U = { u1, u2, u3 ,..., u12 }</i>
+</pre>
+<p>
+</p><pre><i>
+          s(u1) = 101  ;  v(u1) = 102</i>
+</pre>
+<p>
+</p><pre><i>
+       s(ui) = v(ui) = 10   2 &lt; = i &lt; = 12</i>
+</pre>
+<p>
+</p><pre><i>
+                   K = 110</i>
+</pre>
+<p>
+<b>Greedy solution</b>: <i>S = {u1}</i>; Value is 102.
+</p><p>
+<b>Optimal solution</b>: <i>S = U - {u1}</i>; Value is 110.
+</p><p>
+</p><p>
+</p><h3><b>Backtracking and Searching</b>
+</h3>
+<p>
+In a number of applications graph structures occur.
+The graph may be an <i>explicit</i> object in the problem instance
+as in:
+</p><p>
+</p><h3>Shortest Path Problem</h3>
+<p>
+</p><h3>Minimal Spanning Tree Problem</h3>
+<p>
+Graphs, however, may also occur <i>implicitly</i> as an
+abstract mechanism with which to analyse problems and
+construct algorithms for these.
+Among the many areas where such an approach has been
+used are:
+</p><p>
+</p><h3>Game Playing Programs
+</h3>
+<h3>Theorem Proving Systems
+</h3>
+<h3>Semantic Nets
+</h3>
+<h3>Hypertext
+</h3>
+<h3><i>...</i>
+</h3>
+<p>
+Whether a graph is an explicit or implicit structure in describing
+a problem, it is often the case that <i>searching</i> the
+graph structure may be necessary.
+Thus it is required to have methods which
+</p><ul>
+<li>
+Can `mark' nodes in a graph which have already been `examined'.
+</li><li>
+Determine which node should be examined next.
+</li><li>
+Ensure that every node in the graph <b>can</b> (but not necessarily
+<b>will</b>) be visited.
+</li></ul>
+These requirements must be realised subject to the constraint
+that the search process respects the structure of the graph.
+<p>
+That is to say,
+(With the exception of the first node inspected)
+</p><p>
+<b>Any new node examined must be adjacent to some node
+that has previously been visited.</b>
+</p><p>
+So, <i>search methods</i> implicitly describe an <b>ordering</b>
+of the nodes in a given graph.
+</p><p>
+One search method that occurs frequently with implicit graphs
+is the technique known as
+</p><p>
+</p><h3><b>backtracking</b>
+</h3>
+<p>
+Suppose a problem may be expressed in terms of detecting a particular
+class of subgraph in a graph.
+</p><p>
+Then the <i>backtracking</i> approach to solving such a problem would be:
+</p><p>
+Scan each node of the graph, <i>following a specific order</i>, until
+</p><ul>
+<li>
+A subgraph constituting a solution has been found.
+</li><li>
+<b>or</b>
+</li><li>
+It is discovered that the subgraph built so far cannot be extended
+to be a solution.
+</li></ul>
+If (2) occurs then the search process is `<i>backed-up</i>' until
+a node is reached from which a solution might still be found.
+<h2><b>Simple Example</b>
+</h2>
+<p>
+</p><h3><b>Knight's Tour</b>
+</h3>
+<p>
+Given a natural number, <i>n</i>, describe how a Knight should be moved
+on an <i>n times n</i> chessboard so that it visits every square exactly once
+and ends on its starting square.
+</p><p>
+The <i>implicit graph</i> in this problem has <i>n^2</i> nodes corresponding
+to each position the Knight must occupy. There is an edge between
+two of these nodes if the corresponding positions are `one move apart'.
+The sub-graph that defines a solution is a cycle which contains each
+node of the implicit graph.
+</p><p>
+<img src="./Algorithm Design Paradigms_files/pic14.gif">
+</p><p>
+<img src="./Algorithm Design Paradigms_files/pic15.gif">
+</p><p>
+Of course it is not necessary to construct this graph
+explicitly, in order to to solve the problem.
+The algorithm below, recursively searches the graph, labeling
+each square (i.e. node) in the order in which it is visited.
+In this algorithm:
+</p><ul>
+<li>
+<i>board</i> is an <i>n times n</i> representation of the board; initiated to <i>0</i>.
+</li><li>
+<i>(x,y)</i> are the coordinates (row, column) of the current square.
+</li><li>
+<i>move</i> is the number of squares visited so far.
+</li><li>
+<i>ok</i> is a Boolean indicating success or failure.
+</li></ul>
+<p>
+</p><pre><p>
+<b>type</b> <i>chess_board</i> is <b>array</b> (<i>1..n</i>,<i>1..n</i>) <b>of integer</b>;
+<b>procedure</b> <i>knight</i> (<i>board</i> : <b>in out</b> <b>chess_board</b>;
+                         <i>x,y,move</i> : <b>in out integer</b>;
+                         <i>ok</i> : <b>in out boolean</b>) <b>is</b>
+<i>w, z</i> : <b>integer</b>;
+<b>begin</b>
+   <b>if</b> <i>move = n^2+1</i> <b>then</b>
+     <i>ok := ( (x,y) = (1,1) )</i>;
+   <b>elsif</b> <i>board(x,y) /= 0</i> <b>then</b>
+     <i>ok := </i><b>false</b>;
+   <b>else</b>
+     <i>board(x,y) := move</i>;
+     <b>loop</b>
+       <i>(w,z) := Next position from (x,y)</i>;
+       <i>knight(board, w, z, move+1, ok )</i>;
+       <b>exit</b> <b>when</b> (<i>ok</i> <b>or</b> <i>No moves remain</i>);
+     <b>end loop</b>;
+     <b>if not</b> <i>ok</i> <b>then</b>
+       <i>board ( x,y ) :=0</i>; -- Backtracking 
+     <b>end if</b>;
+    <b>end if</b>;
+<b>end</b> <i>knight</i>;
+</p></pre>
+<p>
+</p><h3><b>Depth-First Search</b>
+</h3>
+The Knight's Tour algorithm organises the search of the implicit graph
+using a <b>depth-first</b> approach.
+<p>
+Depth-first search is one method of constructing a <b>search tree</b>
+for <i>explicit graphs</i>.
+</p><p>
+Let <i>G(V,E)</i> be a connected graph. A <b>search tree</b> of <i>G(V,E)</i>
+is a <b>spanning tree</b>, <i>T(V, F)</i> of <i>G(V,E)</i> in which the nodes
+of <i>T</i> are labelled with unique values <i>k</i> (<i>1 &lt; = k &lt; = |V|</i>) 
+which
+satisfy:
+</p><ul>
+<li>
+A distinguished node called the <b>root</b> is labelled <i>1</i>.
+</li><li>
+If <i>(p,q)</i> is an edge of <i>T</i> then the label assigned to <i>p</i> is
+less than the label assigned to <i>q</i>.
+</li></ul>
+The labelling of a search tree prescribes the <i>order</i> in
+which the nodes of <i>G</i> are to be scanned.
+<p>
+Given an undirected graph <i>G(V,E)</i>, the depth-first search
+method constructs a search tree using the following recursive algorithm.
+</p><p>
+</p><pre><p>
+<b>procedure</b> <i>depth_first_search</i> (<i>G(V,E)</i> : <b>graph</b>;
+                                <i>v</i> : <b>node</b>;
+                                <i>lambda</i> : <b>integer</b>;
+                                <i>T</i> : <b>in outsearch_tree</b>) <b>is</b>
+<b>begin</b>
+   <i>label(v) := lambda</i>;
+   <i>lambda := lambda+1</i>;
+   <b>for</b> <b>each</b> <i>w</i> such that <i>{v,w} mem E</i> <b>loop</b>
+     <b>if</b> <i>label(w) = 0</i> <b>then</b>
+       Add edge <i>{v,w}</i> to <i>T</i>;
+       <i>depth_first_search</i>(<i>G(V,E)</i>,<i>w</i>,<i>lambda</i>,<i>T</i>);
+     <b>end if</b>;
+   <b>end loop</b>;
+<b>end</b> <i>depth_fist_search</i>;
+--*******************************
+-- Main Program Section
+--******************************
+<b>begin</b>
+   <b>for</b> <i>w mem V</i> <b>loop</b>
+     <i>label( w ) := 0</i>;
+   <b>end loop</b>;
+   <i>lambda := 1</i>;
+   <i>depthfirstsearch ( G(V,E), v, lambda, T)</i>;
+<b>end</b>;
+</p></pre>
+<p>
+</p><p>
+<img src="./Algorithm Design Paradigms_files/pic16.gif">
+</p><p>
+If <i>G( V,E )</i> is a <i>directed graph</i> then it is possible
+that not all of the nodes of the graph are reachable from a single
+root node. To deal with this the algorithm is modified by changing the
+<i>`Main Program Section'</i> to
+</p><p>
+</p><pre><b>begin</b>
+  <b>for each</b> <i>w in V</i> <b>loop</b>
+    <i>label( w ) := 0</i>;
+  <b>end loop</b>;
+  <i>lambda := 1</i>;
+  <b>for each</b> <i>v mem V</i> <b>loop</b>
+    <b>if</b> <i>label( v ) = 0</i> <b>then</b>
+      <i>depthfirstsearch ( G(V,E),v,lambda,T )</i>;
+    <b>end if</b>;
+  <b>end loop</b>;
+<b>end</b>;
+</pre>
+<p>
+The running time of both algorithms, input <i>G( V,E )</i> is <i>O( |E| )</i>
+since each edge of the graph is examined only once.
+</p><p>
+It may be noted that the recursive form given, is a rather
+inefficient method of implementing depth first search for explicit
+graphs.
+</p><p>
+Iterative versions exist, e.g. the method of Hopcroft and Tarjan
+which is based on a 19th century algorithm discovered by Tremaux.
+Depth-first search has a large number of applications in solving
+other graph based problems, for example:
+</p><p>
+</p><h3><b>Topological Sorting</b>
+</h3>
+<b>Connectivity Testing</b>
+<p>
+<b>Planarity Testing</b>
+</p><p>
+One disadvantage of depth first search as a mechanism for
+searching implicit graph structures, is that expanding
+some paths may result in the search process never terminating
+because no solution can be reached from these. For example
+this is a possible difficulty that arises when scanning
+proof trees in Prolog implementations.
+</p><p>
+<img src="./Algorithm Design Paradigms_files/pic17.gif">
+</p><p>
+<b>Breadth-first Search</b> is another search method that is
+less likely to exhibit such behaviour.
+</p><p>
+</p><pre><p>
+<i>lambda := 1</i>; -- First label
+<i>CurrentLevel := {v}</i>; -- Root node
+<b>while</b> <i>CurrentLevel /= (es</i> <b>loop</b>
+  <b>for each</b> <i>v mem CurrentLevel</i> <b>loop</b>
+    <i>NextLevel := Nextlevel union </i>
+                 <i>Unmarked neighbours of v</i>;
+    <b>if</b> <i>label( v ) = 0</i> <b>then</b>
+      <i>label( v ) := lambda</i>;
+      <i>lambda := lambda + 1</i>;
+    <b>end if</b>;
+  <b>end loop</b>;
+  <i>CurrentLevel := NextLevel</i>;
+  <i>NextLevel := (es</i>;
+<b>end loop</b>;
+</p><p>
+</p></pre>
+<p>
+Thus each vertex labelled on the <i>k</i>'th iteration of the outer loop
+is `expanded' before any vertex found later.
+</p><p>
+</p><p>
+<img src="./Algorithm Design Paradigms_files/ped3.gif">
+<a href="https://cgi.csc.liv.ac.uk/~ped/ped.html"><b>PED Home Page</b></a>
+</p></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

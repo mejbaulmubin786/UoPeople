@@ -1,0 +1,356 @@
+
+<!-- saved from url=(0073)https://www.cs.auckland.ac.nz/software/AlgAnim/hash_tables.html#hash_anim -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body bgcolor="#ffffff" data-new-gr-c-s-check-loaded="14.1077.0" data-gr-ext-installed=""><function which,="" when="" applied="" to="" the="" key,="" produces="" a="" integer="" which="" can="" be="" used="" as="" an="" address="" in="" hash="" table.html="">
+<title>Data Structures and Algorithms: Hash Tables</title>
+
+<meta name="description" content="Data Structures and Algorithms Course Notes,
+PLDS210 University of Western Australia">
+<meta name="keywords" content="data structures,algorithms,abstract data types,
+hash tables, hash functions, overflow tables, chaining,
+perfect hash function">
+
+
+<table bgcolor="#00c0f0" width="100%" cellspacing="0" cellpadding="0">
+<tbody><tr bgcolor="#00f0f0"><td align="right">
+<font face="helvetica" size="+1"><i>Data Structures and Algorithms</i></font>
+</td></tr>
+
+<tr><td><font face="helvetica" size="+2"><b>8.3 Hash Tables</b></font>
+</td></tr>
+</tbody></table>
+<p>
+
+</p><h4>8.3.1 Direct Address Tables</h4>
+
+<table>
+<tbody><tr>
+<td>
+If we have a collection of <b>n</b> elements
+whose keys are
+unique integers in (1,<b>m</b>),
+where <b>m</b> &gt;= <b>n</b>,<br>
+then we can store the items in a <i>direct address</i> table,
+<b>T[m]</b>,<br>
+where <b>T<sub>i</sub></b> is either empty or
+contains one of the elements of our collection.
+<p>
+Searching a direct address table is clearly an <b>O(1)</b> operation:<br>
+for a key, <b>k</b>,
+we access <b>T<sub>k</sub></b>,
+</p><ul>
+<li>if it contains an element, return it,
+</li><li>if it doesn't then return a NULL.
+</li></ul>
+There are two constraints here:
+<ol>
+<li> the keys must be unique, and
+</li><li> the range of the key must be severely bounded.
+</li></ol>
+</td>
+<td><img src="./Data Structures and Algorithms_ Hash Tables_files/dir_acc_table.gif"></td>
+</tr>
+</tbody></table>
+<p>
+</p><p>
+<table>
+<tbody><tr>
+<td>
+If the keys are not unique,
+then we can simply construct
+a set of <b>m</b> lists and
+store the heads of these lists in
+the direct address table.
+The time to find an element matching
+an input key will still be <b>O(1)</b>.
+<p>
+However, if each element of the collection has some other distinguishing feature
+(other than its key),
+and 
+if the maximum number of duplicates is <b>n<sub>dup</sub><sup>max</sup></b>,
+then searching for a specific element is <b>O(n<sub>dup</sub><sup>max</sup>)</b>.
+If duplicates are the exception rather than the rule, then <b>n<sub>dup</sub><sup>max</sup></b>
+is much smaller than <b>n</b> and
+a direct address table will provide good performance.
+But if <b>n<sub>dup</sub><sup>max</sup></b> 
+approaches <b>n</b>, 
+then the time to find a specific element is <b>O(n)</b>
+and a tree structure will be more efficient.
+</p></td>
+<td><img src="./Data Structures and Algorithms_ Hash Tables_files/dir_acc_lists.gif"></td>
+</tr>
+</tbody></table>
+</p><p>
+The range of the key determines the size of the direct address table and
+may be too large to be practical.
+For instance it's not likely that you'll be able to use a direct address
+table to store elements which have arbitrary 32-bit integers as their keys for
+a few years yet! 
+</p><p>
+Direct addressing is easily generalised to the case
+where there is a function,</p><p></p><center>
+<b>h(k)</b> =&gt; (1,<b>m</b>)
+</center><p>
+which maps each value of the key, <b>k</b>, to the range (1,<b>m</b>).
+In this case,
+we place the element in <b>T[h(k)]</b> rather than <b>T[k]</b> and we
+can search in <b>O(1)</b> time as before.
+</p><p>
+
+</p><h3>8.3.2 Mapping functions</h3>
+
+The direct address approach requires that the
+function, <b>h(k)</b>, is a one-to-one mapping 
+from each <b>k</b> to integers in (1,<b>m</b>).
+Such a function is known as a
+<font color="#fa0000"><b>perfect hashing function</b></font>:
+it maps each key to a distinct integer within some 
+manageable range and
+enables us to trivially build an <b>O(1)</b> search time table.
+<p>
+Unfortunately, finding a perfect hashing function is not always
+possible.
+Let's say that we can find a 
+<font color="#fa0000"><b>hash function</b></font>, <b>h(k)</b>,
+which maps <i>most</i> of the keys onto unique integers,
+but maps a small number of keys on to the same integer.
+If the number of 
+<font color="#fa0000"><b>collisions</b></font>
+(cases where multiple keys
+map onto the same integer), is sufficiently small,
+then <i>hash tables</i> work quite well and give <b>O(1)</b> search times.
+</p><h4>Handling the collisions</h4>
+In the small number of cases, where multiple keys map to the
+same integer, then elements with different keys may be stored in the
+same "slot" of the hash table.
+It is clear that when the hash function is used to locate a 
+potential match, it will be necessary to compare the key of that
+element with the search key.
+But there may be more than one element which should be stored
+in a single slot of the table.
+Various techniques are used to manage this problem:
+<ol>
+<li> chaining,
+</li><li> overflow areas,
+</li><li> re-hashing,
+</li><li> using neighbouring slots (linear probing),
+</li><li> quadratic probing,
+</li><li> random probing, ...
+</li></ol>
+<p>
+
+</p><h4>Chaining</h4>
+
+One simple scheme is to chain all collisions in lists attached to the
+appropriate slot. This allows an unlimited number of collisions to be
+handled and doesn't require <i>a priori</i> knowledge of how many elements
+are contained in the collection. The tradeoff is the same as with linked lists
+versus array implementations of collections:
+linked list overhead in space and,
+to a lesser extent, in <a href="https://www.cs.auckland.ac.nz/software/AlgAnim/ll_time.html" target="time">time</a>.
+
+<h4>Re-hashing</h4>
+<table cellspacing="4">
+<tbody><tr>
+<td>
+Re-hashing schemes use a second hashing operation when there is a collision.
+If there is a further collision, we <i>re-hash</i> until an empty "slot" in the
+table is found.
+<p>
+The re-hashing function can either be a new function or a re-application of the
+original one. As long as the functions are applied to a key in the same order,
+then a sought key can always be located.
+
+</p><h4>Linear probing</h4>
+
+One of the simplest re-hashing functions is +1 (or -1), <i>ie</i> on a collision,
+look in the neighbouring slot in the table. It calculates the new address extremely
+quickly and may be extremely efficient on a modern RISC processor due to 
+efficient cache utilisation (<i>cf.</i> <a href="https://www.cs.auckland.ac.nz/software/AlgAnim/ll_time.html">
+the discussion of linked list efficiency</a>).
+<p>
+The <a href="https://www.cs.auckland.ac.nz/software/AlgAnim/hash_tables.html#hash_anim">animation</a> gives you a practical demonstration 
+of the effect of linear probing: 
+it also implements a quadratic re-hash function so that you can compare 
+the difference.
+</p></td>
+<td><img src="./Data Structures and Algorithms_ Hash Tables_files/re_hash.gif"><br>
+<b>h(j)=h(k)</b>, so the next hash function,<br>
+<b>h1</b> is used. A second collision occurs,<br>
+so <b>h2</b> is used.
+
+</td></tr>
+</tbody></table>
+
+
+<h4>Clustering</h4>
+
+Linear probing is subject to a 
+<font color="#fa0000"><b>clustering</b></font>
+phenomenon.
+Re-hashes from one location occupy a block of slots in the table
+which "grows" towards slots to which other keys hash.
+This exacerbates the collision problem and the number of re-hashed can
+become large.
+
+<h4>Quadratic Probing</h4>
+
+Better behaviour is usually obtained with <font color="#fa0000"><b>quadratic
+probing</b></font>,
+where the secondary hash function depends on the re-hash index:
+<center>
+<b><i>address = h(key) + c i<sup>2</sup></i></b>
+</center>
+on the <b><i>t<sup>th</sup></i></b> re-hash.
+(A more complex function of <b><i>i</i></b> may also be used.)
+Since keys which are mapped to the same value by the primary
+hash function follow the same sequence of addresses,
+quadratic probing shows
+<font color="#fa0000"><b>secondary clustering</b></font>.
+However, secondary clustering is not nearly as severe as 
+the clustering shown by linear probes.
+
+<p>
+Re-hashing schemes use the originally allocated table space and thus avoid linked list
+overhead, but require advance knowledge of the number of items to be stored.
+</p><p>
+However, the collision elements are stored in slots to which other
+key values map directly, thus the potential for multiple collisions increases
+as the table becomes full.
+</p><h4>Overflow area</h4>
+Another scheme will divide the pre-allocated table into two
+sections: the <i>primary area</i> to which keys are mapped and
+an area for collisions, normally termed
+the <i>overflow area</i>. 
+<table>
+<tbody><tr><td><img src="./Data Structures and Algorithms_ Hash Tables_files/hash_oflow.gif"></td>
+<td>
+When a collision occurs, a
+slot in the overflow area is used for the new element and a link from the primary
+slot established as in a chained system.
+This is essentially the same as chaining, except that the overflow area is 
+pre-allocated and thus possibly faster to access.
+As with re-hashing, the maximum number of elements must be known in advance,
+but in this case,
+two parameters must be estimated:
+the optimum size of the primary and overflow areas.
+</td></tr>
+</tbody></table>
+Of course, it is possible to design systems with multiple overflow tables,
+or with a mechanism for handling overflow out of the overflow area, which
+provide flexibility without losing the advantages of the overflow scheme.
+
+<h4>Summary: Hash Table Organization</h4>
+
+<center><table>
+<tbody><tr><th>Organization</th><th>Advantages</th><th>Disadvantages</th>
+</tr><tr><td valign="top">Chaining</td>
+<td><ul><li>Unlimited number of elements<br>
+</li><li>Unlimited number of collisions</li></ul></td>
+<td valign="top"><ul><li>Overhead of multiple linked lists</li></ul></td>
+</tr>
+<tr><td valign="top">Re-hashing</td>
+<td><ul><li>Fast re-hashing
+</li><li>Fast access through use<br>of main table space</li></ul></td>
+<td><ul><li>Maximum number of elements must be known<br>
+</li><li>Multiple collisions may become<br>probable<br></li></ul></td>
+</tr><tr><td valign="top">Overflow area</td>
+<td><ul><li>Fast access
+</li><li>Collisions don't use primary table space</li></ul></td>
+<td><ul><li>Two parameters which govern performance<br>need to be estimated
+</li><li></li></ul></td>
+</tr></tbody></table></center>
+
+<h3>Animation</h3>
+
+<a name="hash_anim">
+<table bgcolor="#00f0f0" width="100%"> 
+<tbody><tr><td>
+<font color="blue" face="helvetica">
+<b>Hash Table Animation</b><br>
+This animation was written by Woi Ang.</font></td>
+<td align="center">
+  <table border="0">
+  <tbody><tr><td>
+    <applet codebase="Java/hash" code="AlgAnimApp.class" width="200" height="35">
+    <param name="filename" value="AlgThread.java">
+    <param name="buttonname" value="Run the Animation">
+    <param name="algname" value="Building Hash Tables">
+		<param name="algfile" value="graph.dij">
+    </applet>
+    </td>
+  </tr>
+</tbody></table>
+</td>
+<td><font face="helvetica">Please email comments to:<br>
+<img src="./Data Structures and Algorithms_ Hash Tables_files/john_email.gif">
+</font></td></tr>
+</tbody></table>
+
+  
+<p>
+<table width="100%" bgcolor="#00c0f0">
+<tbody><tr><td><h3>Key Terms</h3></td></tr></tbody></table>
+</p><dl>
+<dt><font color="#fa0000"><b>hash table</b></font>
+   </dt><dd>Tables which can be searched for an item in <b>O(1)</b> time
+       using a hash function to form an address from the key.
+</dd><dt><font color="#fa0000"><b>hash function</b></font>
+   </dt><dd>Function which, when applied to the key, produces a 
+       integer which can be used as an address in a hash table.
+</dd><dt><font color="#fa0000"><b>collision</b></font>
+	</dt><dd>When a hash function maps two different keys to the same
+       table address, a collision is said to occur.
+</dd><dt><font color="#fa0000"><b>linear probing</b></font>
+	 </dt><dd>A simple re-hashing scheme in which the next slot in the
+        table is checked on a collision.
+</dd><dt><font color="#fa0000"><b>quadratic probing</b></font>
+	 </dt><dd>A re-hashing scheme in which a higher (usually 2<sup>nd</sup>)
+         order function of the hash index is used to calculate the
+             address.
+</dd><dt><font color="#fa0000"><b>clustering</b></font>.
+	 </dt><dd>Tendency for clusters of adjacent slots to be filled when
+       linear probing is used.
+</dd><dt><font color="#fa0000"><b>secondary clustering</b></font>.
+	 </dt><dd>Collision sequences generated by addresses calculated with
+          quadratic probing.
+</dd><dt><font color="#fa0000"><b>perfect hash function</b></font>
+   </dt><dd>Function which, when applied to all the members of the
+       set of items to be stored in a hash table,
+       produces a unique set of integers within some
+      suitable range.
+</dd></dl>
+
+<p>
+
+<table cellpadding="5" width="100%" bgcolor="#00f0f0" cellspacing="4">
+<tbody><tr><td width="50%">
+Continue on to <a href="https://www.cs.auckland.ac.nz/software/AlgAnim/hash_func.html">Hashing Functions</a></td>
+<td>Back to the <a href="https://www.cs.auckland.ac.nz/software/AlgAnim/ds_ToC.html">Table of Contents</a>
+</td></tr></tbody></table>
+<small>
+© <img src="./Data Structures and Algorithms_ Hash Tables_files/john_email.gif">, 1998
+</small>
+
+
+
+</p></a></function></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

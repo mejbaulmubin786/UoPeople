@@ -1,0 +1,1079 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<tt xml:lang="en" xmlns="http://www.w3.org/ns/ttml" xmlns:ttm="http://www.w3.org/ns/ttml#metadata" xmlns:tts="http://www.w3.org/ns/ttml#styling" xmlns:ttp="http://www.w3.org/ns/ttml#parameter" ttp:profile="http://www.w3.org/TR/profile/sdp-us" >
+<head>
+<styling>
+<style xml:id="s1" tts:textAlign="center" tts:extent="90% 90%" tts:origin="5% 5%" tts:displayAlign="after"/>
+<style xml:id="s2" tts:fontSize=".72c" tts:backgroundColor="black" tts:color="white"/>
+</styling>
+<layout>
+<region xml:id="r1" style="s1"/>
+</layout>
+</head>
+<body region="r1">
+<div>
+<p begin="00:00:00.030" end="00:00:04.589" style="s2">the following content is provided under</p>
+<p begin="00:00:01.829" end="00:00:06.839" style="s2">a Creative Commons license your support</p>
+<p begin="00:00:04.589" end="00:00:08.760" style="s2">will help MIT OpenCourseWare continue to</p>
+<p begin="00:00:06.839" end="00:00:09.900" style="s2">offer high quality educational resources</p>
+<p begin="00:00:08.760" end="00:00:12.179" style="s2">for free</p>
+<p begin="00:00:09.900" end="00:00:14.400" style="s2">to make a donation or view additional</p>
+<p begin="00:00:12.179" end="00:00:20.539" style="s2">materials from hundreds of MIT courses</p>
+<p begin="00:00:14.400" end="00:00:20.539" style="s2">visit MIT opencourseware at ocw.mit.edu</p>
+<p begin="00:00:20.810" end="00:00:26.970" style="s2">last time we were talking about binary</p>
+<p begin="00:00:23.789" end="00:00:29.730" style="s2">search and I sort of left a promise to</p>
+<p begin="00:00:26.970" end="00:00:33.960" style="s2">you which I need to pick up I want to</p>
+<p begin="00:00:29.730" end="00:00:35.700" style="s2">remind you we&#39;re talking about search</p>
+<p begin="00:00:33.960" end="00:00:37.440" style="s2">which is a very fundamental thing that</p>
+<p begin="00:00:35.700" end="00:00:39.120" style="s2">we do in a whole lot of applications we</p>
+<p begin="00:00:37.440" end="00:00:41.219" style="s2">want to go find things in some data set</p>
+<p begin="00:00:39.120" end="00:00:43.410" style="s2">and I&#39;ll remind you that we sort of</p>
+<p begin="00:00:41.219" end="00:00:49.050" style="s2">separated out two cases we said if we</p>
+<p begin="00:00:43.410" end="00:00:52.920" style="s2">had an ordered list we could use binary</p>
+<p begin="00:00:49.050" end="00:00:55.500" style="s2">search and we said that was logarithmic</p>
+<p begin="00:00:52.920" end="00:01:00.420" style="s2">took log n time where n is the size of</p>
+<p begin="00:00:55.500" end="00:01:03.140" style="s2">the list if it was an unordered list we</p>
+<p begin="00:01:00.420" end="00:01:05.189" style="s2">were basically stuck with linear search</p>
+<p begin="00:01:03.140" end="00:01:06.420" style="s2">got to walk through the whole list to</p>
+<p begin="00:01:05.189" end="00:01:09.150" style="s2">see if the things there so that was a</p>
+<p begin="00:01:06.420" end="00:01:11.760" style="s2">border ant and then one of the things</p>
+<p begin="00:01:09.150" end="00:01:14.549" style="s2">that I suggested was that if we could</p>
+<p begin="00:01:11.760" end="00:01:17.430" style="s2">figure out some way to order it and in</p>
+<p begin="00:01:14.549" end="00:01:23.850" style="s2">particular if we could order it in n log</p>
+<p begin="00:01:17.430" end="00:01:25.680" style="s2">n time and we still haven&#39;t done that</p>
+<p begin="00:01:23.850" end="00:01:28.080" style="s2">but if we could do that then we said the</p>
+<p begin="00:01:25.680" end="00:01:29.670" style="s2">complexity changed a little bit but</p>
+<p begin="00:01:28.080" end="00:01:32.700" style="s2">changed in a way that I want to remind</p>
+<p begin="00:01:29.670" end="00:01:35.759" style="s2">you and the change was that in this case</p>
+<p begin="00:01:32.700" end="00:01:38.280" style="s2">if I&#39;m doing a single search I&#39;ve got a</p>
+<p begin="00:01:35.759" end="00:01:42.060" style="s2">choice I could still do the linear case</p>
+<p begin="00:01:38.280" end="00:01:44.070" style="s2">which is order n or I could say look</p>
+<p begin="00:01:42.060" end="00:01:46.950" style="s2">take the list let&#39;s sort it and then</p>
+<p begin="00:01:44.070" end="00:01:50.729" style="s2">search it but in that case we said well</p>
+<p begin="00:01:46.950" end="00:01:53.610" style="s2">to sort it was going to take n log n</p>
+<p begin="00:01:50.729" end="00:01:58.850" style="s2">time assuming I can do that once I have</p>
+<p begin="00:01:53.610" end="00:02:01.350" style="s2">it sorted I can search it in log n time</p>
+<p begin="00:01:58.850" end="00:02:04.259" style="s2">but that still isn&#39;t as good as just</p>
+<p begin="00:02:01.350" end="00:02:06.649" style="s2">doing n and this led to this idea of</p>
+<p begin="00:02:04.259" end="00:02:06.649" style="s2">amortization</p>
+<p begin="00:02:07.510" end="00:02:12.310" style="s2">which is I need to not only factor in</p>
+<p begin="00:02:10.570" end="00:02:13.600" style="s2">the cost but how am I going to use it</p>
+<p begin="00:02:12.310" end="00:02:14.890" style="s2">and typically I&#39;m not going to just</p>
+<p begin="00:02:13.600" end="00:02:17.200" style="s2">search once in a list I&#39;m going to</p>
+<p begin="00:02:14.890" end="00:02:21.940" style="s2">search multiple times so if I have to do</p>
+<p begin="00:02:17.200" end="00:02:23.980" style="s2">K searches and in the linear case I got</p>
+<p begin="00:02:21.940" end="00:02:29.650" style="s2">to do order and things K times its order</p>
+<p begin="00:02:23.980" end="00:02:32.680" style="s2">KN whereas in the ordered case I need to</p>
+<p begin="00:02:29.650" end="00:02:35.260" style="s2">get them sorted just still n log n but</p>
+<p begin="00:02:32.680" end="00:02:39.880" style="s2">then the search is only log n and I need</p>
+<p begin="00:02:35.260" end="00:02:44.950" style="s2">to do K of those and we suggested well</p>
+<p begin="00:02:39.880" end="00:02:48.700" style="s2">this is better than that this is</p>
+<p begin="00:02:44.950" end="00:02:50.350" style="s2">certainly better than that n plus k all</p>
+<p begin="00:02:48.700" end="00:02:52.480" style="s2">times log n is in general going to be</p>
+<p begin="00:02:50.350" end="00:02:54.520" style="s2">much better than K times n depends on N</p>
+<p begin="00:02:52.480" end="00:02:57.130" style="s2">and K but obviously as n gets big that</p>
+<p begin="00:02:54.520" end="00:03:00.520" style="s2">one&#39;s going to be better and that&#39;s just</p>
+<p begin="00:02:57.130" end="00:03:01.750" style="s2">a way of reminding you that we want to</p>
+<p begin="00:03:00.520" end="00:03:02.920" style="s2">think carefully about what are the</p>
+<p begin="00:03:01.750" end="00:03:04.660" style="s2">things we&#39;re trying to measure when we</p>
+<p begin="00:03:02.920" end="00:03:06.640" style="s2">talk about complexity here it&#39;s both the</p>
+<p begin="00:03:04.660" end="00:03:08.020" style="s2">size of the thing and how often I&#39;m</p>
+<p begin="00:03:06.640" end="00:03:10.870" style="s2">going to use it and there&#39;s some</p>
+<p begin="00:03:08.020" end="00:03:13.150" style="s2">trade-offs but I still haven&#39;t said how</p>
+<p begin="00:03:10.870" end="00:03:14.410" style="s2">am I going to get an N log n sorting</p>
+<p begin="00:03:13.150" end="00:03:15.730" style="s2">algorithm and that&#39;s what I want to do</p>
+<p begin="00:03:14.410" end="00:03:19.060" style="s2">today one of the two things I want to do</p>
+<p begin="00:03:15.730" end="00:03:21.720" style="s2">today to set the stage for this let&#39;s go</p>
+<p begin="00:03:19.060" end="00:03:25.150" style="s2">back just for a second to binary search</p>
+<p begin="00:03:21.720" end="00:03:34.840" style="s2">the end of the lecture I said binary</p>
+<p begin="00:03:25.150" end="00:03:40.510" style="s2">search was an example of a divide and</p>
+<p begin="00:03:34.840" end="00:03:42.580" style="s2">conquer algorithm sort of an Attila the</p>
+<p begin="00:03:40.510" end="00:03:45.430" style="s2">Hun kind of approach to doing things if</p>
+<p begin="00:03:42.580" end="00:03:46.810" style="s2">you like so let me say this why I could</p>
+<p begin="00:03:45.430" end="00:03:48.580" style="s2">have made a really bad political joke</p>
+<p begin="00:03:46.810" end="00:03:50.200" style="s2">there which I will forego right so let&#39;s</p>
+<p begin="00:03:48.580" end="00:03:50.709" style="s2">say what this actually means dividing</p>
+<p begin="00:03:50.200" end="00:03:52.450" style="s2">conquer</p>
+<p begin="00:03:50.709" end="00:04:01.290" style="s2">fighting Congress says basically do the</p>
+<p begin="00:03:52.450" end="00:04:01.290" style="s2">following split the problem into several</p>
+<p begin="00:04:01.320" end="00:04:09.870" style="s2">sub problems of the same type</p>
+<p begin="00:04:13.520" end="00:04:16.860" style="s2">I&#39;ll come back in a second to help</p>
+<p begin="00:04:15.450" end="00:04:18.600" style="s2">binary search matches in that but that&#39;s</p>
+<p begin="00:04:16.860" end="00:04:22.590" style="s2">what we&#39;re going to do for each of those</p>
+<p begin="00:04:18.600" end="00:04:27.270" style="s2">subproblems I&#39;m going to solve them</p>
+<p begin="00:04:22.590" end="00:04:35.040" style="s2">independently and then we&#39;re going to</p>
+<p begin="00:04:27.270" end="00:04:36.270" style="s2">combine those solutions and it&#39;s called</p>
+<p begin="00:04:35.040" end="00:04:37.560" style="s2">divide and conquer for the obvious</p>
+<p begin="00:04:36.270" end="00:04:38.400" style="s2">reason I&#39;m going to divide it up into</p>
+<p begin="00:04:37.560" end="00:04:40.770" style="s2">subproblems</p>
+<p begin="00:04:38.400" end="00:04:42.930" style="s2">with the hope that those subproblems get</p>
+<p begin="00:04:40.770" end="00:04:43.800" style="s2">easier going to be easier to conquer if</p>
+<p begin="00:04:42.930" end="00:04:46.350" style="s2">you like and then I&#39;m going to merge</p>
+<p begin="00:04:43.800" end="00:04:48.600" style="s2">them back now in the binary search case</p>
+<p begin="00:04:46.350" end="00:04:48.990" style="s2">in some sense this was a little bit</p>
+<p begin="00:04:48.600" end="00:04:50.670" style="s2">trivial</p>
+<p begin="00:04:48.990" end="00:04:53.220" style="s2">what would trivial bright trivial but</p>
+<p begin="00:04:50.670" end="00:04:56.220" style="s2">what was the divide the divide was</p>
+<p begin="00:04:53.220" end="00:04:57.960" style="s2">breaking a big search up into a half a</p>
+<p begin="00:04:56.220" end="00:04:59.750" style="s2">search we actually threw half of the</p>
+<p begin="00:04:57.960" end="00:05:02.070" style="s2">list away and we kept dividing it down</p>
+<p begin="00:04:59.750" end="00:05:04.950" style="s2">until ultimately we got something of</p>
+<p begin="00:05:02.070" end="00:05:07.170" style="s2">size-12 search that&#39;s really easy the</p>
+<p begin="00:05:04.950" end="00:05:08.820" style="s2">combination was also sort of trivial in</p>
+<p begin="00:05:07.170" end="00:05:11.550" style="s2">this case because the solution to the</p>
+<p begin="00:05:08.820" end="00:05:13.920" style="s2">sub-problem was in fact the solution to</p>
+<p begin="00:05:11.550" end="00:05:16.320" style="s2">the larger problem okay but there&#39;s the</p>
+<p begin="00:05:13.920" end="00:05:18.180" style="s2">idea of divide and conquer I&#39;m going to</p>
+<p begin="00:05:16.320" end="00:05:20.460" style="s2">use exactly that same idea to tackle</p>
+<p begin="00:05:18.180" end="00:05:22.020" style="s2">sort again I got an unloaded list of n</p>
+<p begin="00:05:20.460" end="00:05:24.450" style="s2">elements I want to sort it into a</p>
+<p begin="00:05:22.020" end="00:05:27.390" style="s2">obviously into a sorted list in that</p>
+<p begin="00:05:24.450" end="00:05:31.940" style="s2">particular algorithm he&#39;s actually a</p>
+<p begin="00:05:27.390" end="00:05:31.940" style="s2">really nice algorithm called merge sort</p>
+<p begin="00:05:35.300" end="00:05:40.290" style="s2">and it&#39;s actually a fairly old algorithm</p>
+<p begin="00:05:37.860" end="00:05:43.890" style="s2">it was invented in 1945 by John von</p>
+<p begin="00:05:40.290" end="00:05:48.630" style="s2">Neumann other pioneers of computer</p>
+<p begin="00:05:43.890" end="00:05:49.110" style="s2">science and here&#39;s the idea behind merge</p>
+<p begin="00:05:48.630" end="00:05:51.930" style="s2">sort</p>
+<p begin="00:05:49.110" end="00:05:54.690" style="s2">I actually want to come into Anna back</p>
+<p begin="00:05:51.930" end="00:05:56.610" style="s2">into it in a funny way let&#39;s assume that</p>
+<p begin="00:05:54.690" end="00:06:00.180" style="s2">I could somehow get to the stage where</p>
+<p begin="00:05:56.610" end="00:06:02.130" style="s2">I&#39;ve got two sorted lists how hard does</p>
+<p begin="00:06:00.180" end="00:06:04.530" style="s2">it work or how much work do I have to do</p>
+<p begin="00:06:02.130" end="00:06:06.150" style="s2">to actually merge them together alright</p>
+<p begin="00:06:04.530" end="00:06:10.950" style="s2">so let me give you an example suppose I</p>
+<p begin="00:06:06.150" end="00:06:13.250" style="s2">want to merge two lists and they&#39;re</p>
+<p begin="00:06:10.950" end="00:06:15.200" style="s2">sorted</p>
+<p begin="00:06:13.250" end="00:06:22.670" style="s2">just to give you an example here&#39;s one</p>
+<p begin="00:06:15.200" end="00:06:27.770" style="s2">list all right 3 12 17 24 god bless you</p>
+<p begin="00:06:22.670" end="00:06:28.850" style="s2">here&#39;s another list 1 2 4 30 haven&#39;t</p>
+<p begin="00:06:27.770" end="00:06:30.920" style="s2">said how I&#39;m going to get those sorted</p>
+<p begin="00:06:28.850" end="00:06:33.550" style="s2">list but imagine I had two sorted lists</p>
+<p begin="00:06:30.920" end="00:06:36.530" style="s2">like that how hard is it to merge them</p>
+<p begin="00:06:33.550" end="00:06:38.090" style="s2">well it&#39;s pretty easy right I start at</p>
+<p begin="00:06:36.530" end="00:06:42.110" style="s2">the beginning of each list and I say is</p>
+<p begin="00:06:38.090" end="00:06:43.670" style="s2">1 less than 3 sure so that says one</p>
+<p begin="00:06:42.110" end="00:06:47.450" style="s2">should be the first element in my merge</p>
+<p begin="00:06:43.670" end="00:06:51.430" style="s2">list now compare the first element in</p>
+<p begin="00:06:47.450" end="00:06:53.870" style="s2">each of these lists 2 is less than 3</p>
+<p begin="00:06:51.430" end="00:06:56.300" style="s2">so 2 ought to be the next element of the</p>
+<p begin="00:06:53.870" end="00:07:00.530" style="s2">list and you get the idea what do I do</p>
+<p begin="00:06:56.300" end="00:07:02.330" style="s2">next I going to compare 3 against 4 3 is</p>
+<p begin="00:07:00.530" end="00:07:05.810" style="s2">the smallest one and I&#39;m going to</p>
+<p begin="00:07:02.330" end="00:07:08.690" style="s2">compare 4 against 12 just going to give</p>
+<p begin="00:07:05.810" end="00:07:15.130" style="s2">me 4 and then what do I have to do 12</p>
+<p begin="00:07:08.690" end="00:07:25.400" style="s2">against 30 12 is smaller take that out</p>
+<p begin="00:07:15.130" end="00:07:27.169" style="s2">17 against 30 24 against 30 and by this</p>
+<p begin="00:07:25.400" end="00:07:30.280" style="s2">stage I got nothing left in this woman</p>
+<p begin="00:07:27.169" end="00:07:32.900" style="s2">so I just add the rest of that list in</p>
+<p begin="00:07:30.280" end="00:07:35.570" style="s2">wow I can sort to lift so I can merge</p>
+<p begin="00:07:32.900" end="00:07:38.450" style="s2">two lists I said it poorly what&#39;s the</p>
+<p begin="00:07:35.570" end="00:07:41.540" style="s2">point how many operations did it take me</p>
+<p begin="00:07:38.450" end="00:07:45.370" style="s2">to do this 7 comparisons right I got 8</p>
+<p begin="00:07:41.540" end="00:07:45.370" style="s2">elements it took me 7 comparisons</p>
+<p begin="00:07:46.150" end="00:07:50.510" style="s2">because I can take advantage of the fact</p>
+<p begin="00:07:48.710" end="00:07:53.390" style="s2">I know I only ever have to look at the</p>
+<p begin="00:07:50.510" end="00:07:54.650" style="s2">first element of each sub list those are</p>
+<p begin="00:07:53.390" end="00:07:56.210" style="s2">the only things I need to compare and</p>
+<p begin="00:07:54.650" end="00:07:58.610" style="s2">when I run out of one list I just add</p>
+<p begin="00:07:56.210" end="00:08:02.960" style="s2">the rest of the list in okay what&#39;s the</p>
+<p begin="00:07:58.610" end="00:08:06.410" style="s2">order complexity of merging I heard it</p>
+<p begin="00:08:02.960" end="00:08:08.930" style="s2">somewhere very quietly sorry and thank</p>
+<p begin="00:08:06.410" end="00:08:09.910" style="s2">you linear absolutely right and what&#39;s n</p>
+<p begin="00:08:08.930" end="00:08:13.340" style="s2">by the way here</p>
+<p begin="00:08:09.910" end="00:08:16.610" style="s2">what&#39;s it measuring</p>
+<p begin="00:08:13.340" end="00:08:21.300" style="s2">in both lists right so this is linear</p>
+<p begin="00:08:16.610" end="00:08:24.840" style="s2">order n and n is the sum of the element</p>
+<p begin="00:08:21.300" end="00:08:31.290" style="s2">are sort of the number of elements in</p>
+<p begin="00:08:24.840" end="00:08:34.430" style="s2">each list okay I thought I was going to</p>
+<p begin="00:08:31.290" end="00:08:38.250" style="s2">back my way into this that gives me a</p>
+<p begin="00:08:34.430" end="00:08:43.490" style="s2">way to merge things so here&#39;s what merge</p>
+<p begin="00:08:38.250" end="00:08:47.730" style="s2">sort would do merge sort takes this idea</p>
+<p begin="00:08:43.490" end="00:08:52.820" style="s2">of divide and conquer and it does the</p>
+<p begin="00:08:47.730" end="00:08:52.820" style="s2">following it says let&#39;s divide the list</p>
+<p begin="00:08:54.740" end="00:09:03.090" style="s2">in half there&#39;s the divide and conquer</p>
+<p begin="00:09:00.090" end="00:09:05.910" style="s2">and let&#39;s keep dividing each of those</p>
+<p begin="00:09:03.090" end="00:09:07.290" style="s2">lists in half until we get down to</p>
+<p begin="00:09:05.910" end="00:09:10.380" style="s2">something that&#39;s really easy to sort</p>
+<p begin="00:09:07.290" end="00:09:15.200" style="s2">what&#39;s the simplest thing to sort this</p>
+<p begin="00:09:10.380" end="00:09:15.200" style="s2">to size one right all right so continue</p>
+<p begin="00:09:16.400" end="00:09:29.430" style="s2">until we have singleton lists once I got</p>
+<p begin="00:09:27.330" end="00:09:31.980" style="s2">lists of size one they&#39;re sorted and</p>
+<p begin="00:09:29.430" end="00:09:42.000" style="s2">then combine them and combine them by</p>
+<p begin="00:09:31.980" end="00:09:43.230" style="s2">doing emerge the sub lists and again you</p>
+<p begin="00:09:42.000" end="00:09:45.330" style="s2">see that flavor I&#39;m going to just keep</p>
+<p begin="00:09:43.230" end="00:09:47.070" style="s2">dividing it up until they get something</p>
+<p begin="00:09:45.330" end="00:09:48.360" style="s2">really easy and then I&#39;m going to</p>
+<p begin="00:09:47.070" end="00:09:49.890" style="s2">combine and this is different than</p>
+<p begin="00:09:48.360" end="00:09:52.980" style="s2">binary search now the combine is going</p>
+<p begin="00:09:49.890" end="00:09:55.230" style="s2">to have to do some work so I&#39;ve given</p>
+<p begin="00:09:52.980" end="00:09:56.850" style="s2">you a piece of code that does this and I</p>
+<p begin="00:09:55.230" end="00:09:58.830" style="s2">come back to it in a second but it&#39;s up</p>
+<p begin="00:09:56.850" end="00:10:00.720" style="s2">there but what I&#39;d like to do is to try</p>
+<p begin="00:09:58.830" end="00:10:02.310" style="s2">and give you a sort of a little</p>
+<p begin="00:10:00.720" end="00:10:03.600" style="s2">simulation of how this would work and I</p>
+<p begin="00:10:02.310" end="00:10:05.130" style="s2">was going to originally make the TAS</p>
+<p begin="00:10:03.600" end="00:10:07.110" style="s2">come up here and do it but I don&#39;t have</p>
+<p begin="00:10:05.130" end="00:10:09.089" style="s2">enough TAS to do a full merge sort so</p>
+<p begin="00:10:07.110" end="00:10:11.850" style="s2">I&#39;m hoping and I also have these really</p>
+<p begin="00:10:09.089" end="00:10:14.160" style="s2">high-tech props I spent tons and tons of</p>
+<p begin="00:10:11.850" end="00:10:15.120" style="s2">Dept money on them as you can see I hope</p>
+<p begin="00:10:14.160" end="00:10:16.589" style="s2">you can see this because I&#39;m going to</p>
+<p begin="00:10:15.120" end="00:10:18.180" style="s2">try and simulate what a merge sort does</p>
+<p begin="00:10:16.589" end="00:10:20.760" style="s2">I&#39;ve got eight things I want to sort</p>
+<p begin="00:10:18.180" end="00:10:23.640" style="s2">here and those initially start out here</p>
+<p begin="00:10:20.760" end="00:10:25.730" style="s2">at top level first step is divide them</p>
+<p begin="00:10:23.640" end="00:10:25.730" style="s2">in half</p>
+<p begin="00:10:26.270" end="00:10:31.550" style="s2">all right and I should have had a marker</p>
+<p begin="00:10:29.730" end="00:10:33.240" style="s2">here remember I need to come back there</p>
+<p begin="00:10:31.550" end="00:10:36.890" style="s2">not yet done</p>
+<p begin="00:10:33.240" end="00:10:36.890" style="s2">what do I do divide them in half again</p>
+<p begin="00:10:38.240" end="00:10:43.470" style="s2">okay you know if I had like shells and</p>
+<p begin="00:10:42.270" end="00:10:45.180" style="s2">peas here I could make some more money</p>
+<p begin="00:10:43.470" end="00:10:51.420" style="s2">right all right what do I do I divide</p>
+<p begin="00:10:45.180" end="00:10:53.130" style="s2">them in half one more time let me</p>
+<p begin="00:10:51.420" end="00:10:53.940" style="s2">cluster them because really what I have</p>
+<p begin="00:10:53.130" end="00:10:56.940" style="s2">sorry</p>
+<p begin="00:10:53.940" end="00:10:59.250" style="s2">separate them out I&#39;ve gone from one</p>
+<p begin="00:10:56.940" end="00:11:02.400" style="s2">problem size eight down to eight</p>
+<p begin="00:10:59.250" end="00:11:04.530" style="s2">problems a size one at this stage I&#39;m at</p>
+<p begin="00:11:02.400" end="00:11:08.310" style="s2">my singleton case so this is easy what</p>
+<p begin="00:11:04.530" end="00:11:17.850" style="s2">do I do I merge and the merge is put</p>
+<p begin="00:11:08.310" end="00:11:20.130" style="s2">them in order okay what do I do next</p>
+<p begin="00:11:17.850" end="00:11:23.010" style="s2">obvious thing I merge these and that as</p>
+<p begin="00:11:20.130" end="00:11:30.090" style="s2">we saw was a nice linear operation it&#39;s</p>
+<p begin="00:11:23.010" end="00:11:32.160" style="s2">fun to do it upside down and then one</p>
+<p begin="00:11:30.090" end="00:11:38.220" style="s2">more merge which is I take the smallest</p>
+<p begin="00:11:32.160" end="00:11:41.930" style="s2">elements of each one until I get to</p>
+<p begin="00:11:38.220" end="00:11:44.760" style="s2">where I want Wow aren&#39;t you impressed</p>
+<p begin="00:11:41.930" end="00:11:47.130" style="s2">okay no please don&#39;t clap not for that</p>
+<p begin="00:11:44.760" end="00:11:49.320" style="s2">one now let me do it a second time to</p>
+<p begin="00:11:47.130" end="00:11:51.360" style="s2">show you that that&#39;s why I&#39;m saying this</p>
+<p begin="00:11:49.320" end="00:11:53.250" style="s2">poorly let me say it again that&#39;s the</p>
+<p begin="00:11:51.360" end="00:11:54.960" style="s2">general idea what was what should you</p>
+<p begin="00:11:53.250" end="00:11:56.790" style="s2">see out of that I just kept subdividing</p>
+<p begin="00:11:54.960" end="00:11:59.640" style="s2">down till they got really easy problems</p>
+<p begin="00:11:56.790" end="00:12:01.890" style="s2">and then I combined them back I actually</p>
+<p begin="00:11:59.640" end="00:12:04.320" style="s2">misled you slightly there or maybe a lot</p>
+<p begin="00:12:01.890" end="00:12:05.810" style="s2">because I did it in parallel in fact let</p>
+<p begin="00:12:04.320" end="00:12:07.890" style="s2">me just shuffle these up a little bit</p>
+<p begin="00:12:05.810" end="00:12:10.410" style="s2">really what&#39;s going to happen here</p>
+<p begin="00:12:07.890" end="00:12:11.810" style="s2">because this is a sequential computer is</p>
+<p begin="00:12:10.410" end="00:12:14.580" style="s2">that we&#39;re going to start off up here</p>
+<p begin="00:12:11.810" end="00:12:20.190" style="s2">yeah a top level we&#39;re going to divide</p>
+<p begin="00:12:14.580" end="00:12:22.170" style="s2">into half and then we&#39;re going to do the</p>
+<p begin="00:12:20.190" end="00:12:23.970" style="s2">complete subdivision and merge here</p>
+<p begin="00:12:22.170" end="00:12:28.200" style="s2">before we ever come back and do this one</p>
+<p begin="00:12:23.970" end="00:12:30.810" style="s2">right we&#39;re going to do a division here</p>
+<p begin="00:12:28.200" end="00:12:32.520" style="s2">and then a division there at that stage</p>
+<p begin="00:12:30.810" end="00:12:34.440" style="s2">we can merge these and then take this</p>
+<p begin="00:12:32.520" end="00:12:35.910" style="s2">down through the division merge and</p>
+<p begin="00:12:34.440" end="00:12:37.839" style="s2">bring them back whoops sorry about that</p>
+<p begin="00:12:35.910" end="00:12:41.240" style="s2">let&#39;s bring them back up</p>
+<p begin="00:12:37.839" end="00:12:43.279" style="s2">okay let me show you an example by</p>
+<p begin="00:12:41.240" end="00:12:44.680" style="s2">running that I&#39;ve got a little list I&#39;ve</p>
+<p begin="00:12:43.279" end="00:12:49.160" style="s2">made here called test</p>
+<p begin="00:12:44.680" end="00:12:53.899" style="s2">let&#39;s run mergesort on it and then we&#39;ll</p>
+<p begin="00:12:49.160" end="00:12:55.940" style="s2">look at the code okay</p>
+<p begin="00:12:53.899" end="00:12:58.160" style="s2">what I would like you to see is I&#39;ve</p>
+<p begin="00:12:55.940" end="00:12:59.570" style="s2">been printing out as I went along</p>
+<p begin="00:12:58.160" end="00:13:03.709" style="s2">actually that&#39;s back up slightly and</p>
+<p begin="00:12:59.570" end="00:13:05.300" style="s2">look at the code there&#39;s mergesort takes</p>
+<p begin="00:13:03.709" end="00:13:07.070" style="s2">in a list what does it say to do it says</p>
+<p begin="00:13:05.300" end="00:13:09.410" style="s2">check to see if I&#39;m in that base case</p>
+<p begin="00:13:07.070" end="00:13:12.110" style="s2">it&#39;s the list of less of length less</p>
+<p begin="00:13:09.410" end="00:13:15.829" style="s2">than two is it one basically in which</p>
+<p begin="00:13:12.110" end="00:13:18.290" style="s2">case just return a copy of the list okay</p>
+<p begin="00:13:15.829" end="00:13:19.670" style="s2">that&#39;s the simple case otherwise notice</p>
+<p begin="00:13:18.290" end="00:13:23.079" style="s2">what it says to do says find the</p>
+<p begin="00:13:19.670" end="00:13:26.720" style="s2">midpoint and split the list in half</p>
+<p begin="00:13:23.079" end="00:13:28.670" style="s2">right copy of the back end so I copy the</p>
+<p begin="00:13:26.720" end="00:13:31.790" style="s2">left-side copy of the right side run</p>
+<p begin="00:13:28.670" end="00:13:32.959" style="s2">merge sort on those by induction if it</p>
+<p begin="00:13:31.790" end="00:13:35.149" style="s2">does the right thing I&#39;m going to get</p>
+<p begin="00:13:32.959" end="00:13:37.880" style="s2">back to lists and I&#39;m going to then</p>
+<p begin="00:13:35.149" end="00:13:39.230" style="s2">merge them together and notice I&#39;m going</p>
+<p begin="00:13:37.880" end="00:13:41.120" style="s2">to do I&#39;m going to print here the list</p>
+<p begin="00:13:39.230" end="00:13:42.380" style="s2">if we go into it and a print of the</p>
+<p begin="00:13:41.120" end="00:13:45.470" style="s2">merge when we&#39;re done and then just</p>
+<p begin="00:13:42.380" end="00:13:46.760" style="s2">return that merge up here there&#39;s a</p>
+<p begin="00:13:45.470" end="00:13:48.170" style="s2">little more code there I&#39;ll let you just</p>
+<p begin="00:13:46.760" end="00:13:51.709" style="s2">rock it but you can see it&#39;s basically</p>
+<p begin="00:13:48.170" end="00:13:53.390" style="s2">doing what I did over there setting up</p>
+<p begin="00:13:51.709" end="00:13:55.850" style="s2">two indices for the two sub lists is</p>
+<p begin="00:13:53.390" end="00:13:58.160" style="s2">just walking down finding the smallest</p>
+<p begin="00:13:55.850" end="00:14:00.079" style="s2">element putting it into a new list when</p>
+<p begin="00:13:58.160" end="00:14:02.540" style="s2">it gets to the end of one of the lists</p>
+<p begin="00:14:00.079" end="00:14:04.010" style="s2">it skips to the next part and only one</p>
+<p begin="00:14:02.540" end="00:14:05.360" style="s2">of these two pieces will get called</p>
+<p begin="00:14:04.010" end="00:14:06.500" style="s2">because only one of them is going to</p>
+<p begin="00:14:05.360" end="00:14:09.529" style="s2">have things left over it&#39;s going to add</p>
+<p begin="00:14:06.500" end="00:14:10.610" style="s2">the other pieces in okay if you look at</p>
+<p begin="00:14:09.529" end="00:14:13.300" style="s2">that then let&#39;s look at what happened</p>
+<p begin="00:14:10.610" end="00:14:18.110" style="s2">when we ran this alright we started off</p>
+<p begin="00:14:13.300" end="00:14:20.600" style="s2">with a call with that list aha split it</p>
+<p begin="00:14:18.110" end="00:14:23.209" style="s2">in half it&#39;s going down the left side of</p>
+<p begin="00:14:20.600" end="00:14:25.940" style="s2">this that got split in half and that got</p>
+<p begin="00:14:23.209" end="00:14:28.370" style="s2">split in half until I got to a list of</p>
+<p begin="00:14:25.940" end="00:14:29.899" style="s2">size one here&#39;s the first list of size</p>
+<p begin="00:14:28.370" end="00:14:32.149" style="s2">one there&#39;s the second list of size one</p>
+<p begin="00:14:29.899" end="00:14:34.930" style="s2">so I merged them it&#39;s now in the right</p>
+<p begin="00:14:32.149" end="00:14:37.519" style="s2">order and that&#39;s coming from right there</p>
+<p begin="00:14:34.930" end="00:14:39.860" style="s2">having done that it goes back up and</p>
+<p begin="00:14:37.519" end="00:14:41.269" style="s2">picks the second sub list which Akane</p>
+<p begin="00:14:39.860" end="00:14:43.850" style="s2">Rattray shirts that came from there</p>
+<p begin="00:14:41.269" end="00:14:46.820" style="s2">right gets it down to base case merges</p>
+<p begin="00:14:43.850" end="00:14:48.649" style="s2">it when these two merges are done we&#39;re</p>
+<p begin="00:14:46.820" end="00:14:50.209" style="s2">basically at a stage in that branch</p>
+<p begin="00:14:48.649" end="00:14:51.170" style="s2">where we can now merge those two</p>
+<p begin="00:14:50.209" end="00:14:53.359" style="s2">together</p>
+<p begin="00:14:51.170" end="00:14:58.910" style="s2">which gives us that and it goes through</p>
+<p begin="00:14:53.359" end="00:15:01.759" style="s2">the rest of it okay a really nice</p>
+<p begin="00:14:58.910" end="00:15:04.399" style="s2">algorithm set as I said an example of</p>
+<p begin="00:15:01.759" end="00:15:05.889" style="s2">dividing conquer notice here that it&#39;s</p>
+<p begin="00:15:04.399" end="00:15:09.199" style="s2">different than the binary search case</p>
+<p begin="00:15:05.889" end="00:15:11.589" style="s2">we&#39;re certainly dividing down but the</p>
+<p begin="00:15:09.199" end="00:15:13.579" style="s2">combination now actually takes some work</p>
+<p begin="00:15:11.589" end="00:15:15.739" style="s2">right I have to actually figure out how</p>
+<p begin="00:15:13.579" end="00:15:17.209" style="s2">to put them back together and that&#39;s a</p>
+<p begin="00:15:15.739" end="00:15:18.829" style="s2">general thing you want to keep in mind</p>
+<p begin="00:15:17.209" end="00:15:21.410" style="s2">when you&#39;re thinking about designing a</p>
+<p begin="00:15:18.829" end="00:15:22.939" style="s2">dividing conquer kind of algorithm you</p>
+<p begin="00:15:21.410" end="00:15:24.799" style="s2">really want to get the power dividing</p>
+<p begin="00:15:22.939" end="00:15:27.049" style="s2">things up but if you end up doing a ton</p>
+<p begin="00:15:24.799" end="00:15:28.549" style="s2">of work at the combination stage you may</p>
+<p begin="00:15:27.049" end="00:15:31.459" style="s2">not have gained anything so you really</p>
+<p begin="00:15:28.549" end="00:15:33.499" style="s2">want to think about that trade-off all</p>
+<p begin="00:15:31.459" end="00:15:36.100" style="s2">right having said that what&#39;s the</p>
+<p begin="00:15:33.499" end="00:15:36.100" style="s2">complexity here</p>
+<p begin="00:15:37.329" end="00:15:40.819" style="s2">where there is a dumb question because</p>
+<p begin="00:15:39.619" end="00:15:42.709" style="s2">I&#39;ve been telling you for the last two</p>
+<p begin="00:15:40.819" end="00:15:44.149" style="s2">lectures the complexities n log n but</p>
+<p begin="00:15:42.709" end="00:15:51.739" style="s2">let&#39;s see if it really is what&#39;s the</p>
+<p begin="00:15:44.149" end="00:16:02.029" style="s2">complexity here we think about it we</p>
+<p begin="00:15:51.739" end="00:16:03.559" style="s2">start off with a problem of size n what</p>
+<p begin="00:16:02.029" end="00:16:06.559" style="s2">do we do we split it into two problems</p>
+<p begin="00:16:03.559" end="00:16:08.360" style="s2">of size n over two those gets split each</p>
+<p begin="00:16:06.559" end="00:16:10.189" style="s2">into two problems of size n over four</p>
+<p begin="00:16:08.360" end="00:16:16.639" style="s2">and we keep doing that until we get down</p>
+<p begin="00:16:10.189" end="00:16:20.540" style="s2">to a level in this tree where we have</p>
+<p begin="00:16:16.639" end="00:16:23.299" style="s2">only Singleton&#39;s left over okay once</p>
+<p begin="00:16:20.540" end="00:16:25.879" style="s2">we&#39;re there we have to do the merge and</p>
+<p begin="00:16:23.299" end="00:16:30.649" style="s2">notice what happens here we said each of</p>
+<p begin="00:16:25.879" end="00:16:32.449" style="s2">the merge operations was of order n but</p>
+<p begin="00:16:30.649" end="00:16:33.860" style="s2">n is different right down here I&#39;ve just</p>
+<p begin="00:16:32.449" end="00:16:35.480" style="s2">got two things to merge and then I&#39;ve</p>
+<p begin="00:16:33.860" end="00:16:38.089" style="s2">got things of size two to merge and then</p>
+<p begin="00:16:35.480" end="00:16:41.809" style="s2">things of size four to merge but notice</p>
+<p begin="00:16:38.089" end="00:16:44.569" style="s2">a trade off I have n operations if you</p>
+<p begin="00:16:41.809" end="00:16:47.119" style="s2">like down there of size one up here I</p>
+<p begin="00:16:44.569" end="00:16:49.309" style="s2">have n over two operations of size two</p>
+<p begin="00:16:47.119" end="00:16:52.189" style="s2">up here I&#39;ve got n over four operations</p>
+<p begin="00:16:49.309" end="00:16:55.639" style="s2">of size four so I always have to do a</p>
+<p begin="00:16:52.189" end="00:17:00.279" style="s2">merge of n elements how much time does</p>
+<p begin="00:16:55.639" end="00:17:00.279" style="s2">that take well we said it right</p>
+<p begin="00:17:00.470" end="00:17:10.880" style="s2">oops where did I put it right there</p>
+<p begin="00:17:03.179" end="00:17:10.880" style="s2">order em so I have order and operations</p>
+<p begin="00:17:11.630" end="00:17:19.350" style="s2">at each level in the tree and then how</p>
+<p begin="00:17:16.949" end="00:17:21.779" style="s2">many levels deep in mine well that&#39;s the</p>
+<p begin="00:17:19.350" end="00:17:29.190" style="s2">divide right so how many levels do I</p>
+<p begin="00:17:21.779" end="00:17:30.779" style="s2">have log in because it each stage on</p>
+<p begin="00:17:29.190" end="00:17:32.070" style="s2">cutting the problem in half so I start</p>
+<p begin="00:17:30.779" end="00:17:34.289" style="s2">off with then then it&#39;s n over 2 enter</p>
+<p begin="00:17:32.070" end="00:17:38.580" style="s2">before anyway so I got n so I have n</p>
+<p begin="00:17:34.289" end="00:17:42.270" style="s2">operations log n times there we go n log</p>
+<p begin="00:17:38.580" end="00:17:45.299" style="s2">n focus a long time to get there but</p>
+<p begin="00:17:42.270" end="00:17:51.990" style="s2">it&#39;s a nice algorithm to have all right</p>
+<p begin="00:17:45.299" end="00:17:55.620" style="s2">let me generalize this slightly ok when</p>
+<p begin="00:17:51.990" end="00:17:57.360" style="s2">we get a problem a standard tool to try</p>
+<p begin="00:17:55.620" end="00:18:00.179" style="s2">and attack it with is to say is there</p>
+<p begin="00:17:57.360" end="00:18:02.159" style="s2">some way to break this problem down into</p>
+<p begin="00:18:00.179" end="00:18:06.299" style="s2">simpler or shouldn&#39;t say simpler smaller</p>
+<p begin="00:18:02.159" end="00:18:08.070" style="s2">versions of the same problem ok if I can</p>
+<p begin="00:18:06.299" end="00:18:09.510" style="s2">do that it&#39;s a good candidate for divide</p>
+<p begin="00:18:08.070" end="00:18:11.100" style="s2">and conquer and then the things I have</p>
+<p begin="00:18:09.510" end="00:18:13.409" style="s2">to ask is how much of a division do I</p>
+<p begin="00:18:11.100" end="00:18:15.270" style="s2">want to do the obvious ones that divide</p>
+<p begin="00:18:13.409" end="00:18:16.620" style="s2">it in half but there may be cases where</p>
+<p begin="00:18:15.270" end="00:18:19.289" style="s2">there are different divisions you want</p>
+<p begin="00:18:16.620" end="00:18:21.870" style="s2">to have take place the second question I</p>
+<p begin="00:18:19.289" end="00:18:23.669" style="s2">want to ask is what&#39;s the base case when</p>
+<p begin="00:18:21.870" end="00:18:27.000" style="s2">do I get down to a problem small enough</p>
+<p begin="00:18:23.669" end="00:18:29.010" style="s2">that is basically trivial to solve here</p>
+<p begin="00:18:27.000" end="00:18:30.840" style="s2">it was lists of size 1 I could have</p>
+<p begin="00:18:29.010" end="00:18:32.669" style="s2">stopped at list of size 2 right that&#39;s</p>
+<p begin="00:18:30.840" end="00:18:34.350" style="s2">an easy comparison do one comparison and</p>
+<p begin="00:18:32.669" end="00:18:36.899" style="s2">return one of two possible orders on it</p>
+<p begin="00:18:34.350" end="00:18:38.429" style="s2">but I need to decide that the third</p>
+<p begin="00:18:36.899" end="00:18:40.890" style="s2">thing I need to decide is how do I</p>
+<p begin="00:18:38.429" end="00:18:42.990" style="s2">combine ok I&#39;ll point out to you in the</p>
+<p begin="00:18:40.890" end="00:18:45.450" style="s2">binary search case combination was</p>
+<p begin="00:18:42.990" end="00:18:47.010" style="s2">trivial right answer to the final search</p>
+<p begin="00:18:45.450" end="00:18:49.620" style="s2">was just the answer all the way up here</p>
+<p begin="00:18:47.010" end="00:18:51.779" style="s2">a little more work and that&#39;s why I&#39;ll</p>
+<p begin="00:18:49.620" end="00:18:54.120" style="s2">come back to that idea if I&#39;m basically</p>
+<p begin="00:18:51.779" end="00:18:55.380" style="s2">just squeezing jello that is I&#39;m trying</p>
+<p begin="00:18:54.120" end="00:18:56.730" style="s2">to make the problem simpler but the</p>
+<p begin="00:18:55.380" end="00:18:57.419" style="s2">combination turns out to be really</p>
+<p begin="00:18:56.730" end="00:18:59.820" style="s2">complex</p>
+<p begin="00:18:57.419" end="00:19:02.309" style="s2">I&#39;ve not gained anything so things that</p>
+<p begin="00:18:59.820" end="00:19:04.830" style="s2">are good candidates for divide and</p>
+<p begin="00:19:02.309" end="00:19:07.380" style="s2">conquer are problems where it&#39;s easy to</p>
+<p begin="00:19:04.830" end="00:19:11.070" style="s2">figure out how to divide down and the</p>
+<p begin="00:19:07.380" end="00:19:12.330" style="s2">combination is of a low complexity be</p>
+<p begin="00:19:11.070" end="00:19:13.500" style="s2">nice if it was less than linear but</p>
+<p begin="00:19:12.330" end="00:19:13.750" style="s2">linear is nice because then I&#39;m going to</p>
+<p begin="00:19:13.500" end="00:19:16.330" style="s2">get that</p>
+<p begin="00:19:13.750" end="00:19:17.680" style="s2">and login kind of behavior and if you</p>
+<p begin="00:19:16.330" end="00:19:19.660" style="s2">ask the TAS and recitation tomorrow</p>
+<p begin="00:19:17.680" end="00:19:21.400" style="s2">they&#39;ll tell you that you see a lot of n</p>
+<p begin="00:19:19.660" end="00:19:23.380" style="s2">log n algorithms in computer science</p>
+<p begin="00:19:21.400" end="00:19:27.450" style="s2">it&#39;s a very common class of algorithm</p>
+<p begin="00:19:23.380" end="00:19:31.090" style="s2">and it&#39;s a very useful one to have okay</p>
+<p begin="00:19:27.450" end="00:19:34.570" style="s2">now one of the questions we could still</p>
+<p begin="00:19:31.090" end="00:19:37.180" style="s2">ask is right we got binary search which</p>
+<p begin="00:19:34.570" end="00:19:39.490" style="s2">is got this nice log behavior only if we</p>
+<p begin="00:19:37.180" end="00:19:41.740" style="s2">can sort things you know we get this</p>
+<p begin="00:19:39.490" end="00:19:44.020" style="s2">this n log n behavior and we got an N</p>
+<p begin="00:19:41.740" end="00:19:46.560" style="s2">log n behavior overall but can we</p>
+<p begin="00:19:44.020" end="00:19:49.110" style="s2">actually do better in terms of searching</p>
+<p begin="00:19:46.560" end="00:19:53.050" style="s2">I&#39;m going to show you one last technique</p>
+<p begin="00:19:49.110" end="00:19:56.500" style="s2">in fact we&#39;re put quotes around the word</p>
+<p begin="00:19:53.050" end="00:19:59.020" style="s2">better but it does better than even this</p>
+<p begin="00:19:56.500" end="00:20:06.670" style="s2">kind of binary search and that&#39;s a</p>
+<p begin="00:19:59.020" end="00:20:09.250" style="s2">method called hashing ok we&#39;ve actually</p>
+<p begin="00:20:06.670" end="00:20:10.300" style="s2">seen hashing you just don&#39;t know hashing</p>
+<p begin="00:20:09.250" end="00:20:13.450" style="s2">is the technique that&#39;s used in Python</p>
+<p begin="00:20:10.300" end="00:20:15.610" style="s2">to represent dictionaries hashing is</p>
+<p begin="00:20:13.450" end="00:20:17.500" style="s2">used when you actually come in to Logan</p>
+<p begin="00:20:15.610" end="00:20:19.150" style="s2">Airport in immigration or Homeland</p>
+<p begin="00:20:17.500" end="00:20:22.120" style="s2">Security checks your picture against a</p>
+<p begin="00:20:19.150" end="00:20:25.240" style="s2">database hashing is used every time you</p>
+<p begin="00:20:22.120" end="00:20:26.980" style="s2">enter a password into a system so what</p>
+<p begin="00:20:25.240" end="00:20:29.800" style="s2">in the world is hashing let me start</p>
+<p begin="00:20:26.980" end="00:20:33.720" style="s2">with a simple little example suppose I</p>
+<p begin="00:20:29.800" end="00:20:36.820" style="s2">want to represent a collection of</p>
+<p begin="00:20:33.720" end="00:20:40.210" style="s2">integers which is a really easy little</p>
+<p begin="00:20:36.820" end="00:20:42.100" style="s2">example and I promise you that the</p>
+<p begin="00:20:40.210" end="00:20:45.000" style="s2">integers are never going to be anything</p>
+<p begin="00:20:42.100" end="00:20:47.590" style="s2">other than between the range of 0 to 9</p>
+<p begin="00:20:45.000" end="00:20:49.150" style="s2">ok so it might be the collection 1 and 5</p>
+<p begin="00:20:47.590" end="00:20:50.470" style="s2">it might be 2 3 4 8 I mean some</p>
+<p begin="00:20:49.150" end="00:20:52.200" style="s2">collection of integers but I guarantee</p>
+<p begin="00:20:50.470" end="00:20:58.380" style="s2">you it&#39;s between 0 &amp; 9</p>
+<p begin="00:20:52.200" end="00:20:58.380" style="s2">here&#39;s the trick I can play I can build</p>
+<p begin="00:21:02.860" end="00:21:13.840" style="s2">I can&#39;t count I could build a list with</p>
+<p begin="00:21:10.860" end="00:21:14.980" style="s2">spots for all of those elements zero one</p>
+<p begin="00:21:13.840" end="00:21:18.460" style="s2">two three four five six seven eight nine</p>
+<p begin="00:21:14.980" end="00:21:24.400" style="s2">and then when I want to create my set I</p>
+<p begin="00:21:18.460" end="00:21:26.770" style="s2">could simply put a 1 everywhere that</p>
+<p begin="00:21:24.400" end="00:21:28.330" style="s2">that integer falls so if I wanted to</p>
+<p begin="00:21:26.770" end="00:21:33.370" style="s2">represent this for example this is the</p>
+<p begin="00:21:28.330" end="00:21:36.220" style="s2">set two six and eight I put a 1 in those</p>
+<p begin="00:21:33.370" end="00:21:37.900" style="s2">slots alright this seems a little weird</p>
+<p begin="00:21:36.220" end="00:21:39.010" style="s2">but bear with me for a second in fact</p>
+<p begin="00:21:37.900" end="00:21:43.110" style="s2">I&#39;ve given you a little piece of code to</p>
+<p begin="00:21:39.010" end="00:21:46.870" style="s2">do it which is the next piece of code on</p>
+<p begin="00:21:43.110" end="00:21:49.840" style="s2">on the handout so let&#39;s take a look at</p>
+<p begin="00:21:46.870" end="00:21:51.910" style="s2">it for a second alright this little set</p>
+<p begin="00:21:49.840" end="00:21:54.730" style="s2">of code here from create insert and</p>
+<p begin="00:21:51.910" end="00:21:56.050" style="s2">member what&#39;s create do it says given a</p>
+<p begin="00:21:54.730" end="00:21:59.500" style="s2">low and a high range in this case would</p>
+<p begin="00:21:56.050" end="00:22:01.840" style="s2">be 0 tonight I&#39;m going to build ah a</p>
+<p begin="00:21:59.500" end="00:22:02.950" style="s2">list right you can see that little loop</p>
+<p begin="00:22:01.840" end="00:22:05.740" style="s2">through going through there what am i</p>
+<p begin="00:22:02.950" end="00:22:07.420" style="s2">doing on creating a list with just that</p>
+<p begin="00:22:05.740" end="00:22:09.010" style="s2">special symbol none in it so I&#39;m</p>
+<p begin="00:22:07.420" end="00:22:10.990" style="s2">building the list I&#39;m returning that as</p>
+<p begin="00:22:09.010" end="00:22:13.270" style="s2">my set and then to create the object</p>
+<p begin="00:22:10.990" end="00:22:15.460" style="s2">I&#39;ll simply do a set of inserts if I</p>
+<p begin="00:22:13.270" end="00:22:18.250" style="s2">want the values 2 6 &amp; 8 in there I would</p>
+<p begin="00:22:15.460" end="00:22:20.320" style="s2">do an insert of 2 into that set and sort</p>
+<p begin="00:22:18.250" end="00:22:21.700" style="s2">of 6 into that set and an insert of 8</p>
+<p begin="00:22:20.320" end="00:22:25.300" style="s2">into that set and what does it do it</p>
+<p begin="00:22:21.700" end="00:22:26.890" style="s2">marks a 1 in each of those spots now</p>
+<p begin="00:22:25.300" end="00:22:29.020" style="s2">what did I want to do I wanted to check</p>
+<p begin="00:22:26.890" end="00:22:31.900" style="s2">membership I want to do search well</p>
+<p begin="00:22:29.020" end="00:22:33.640" style="s2">that&#39;s simple given that representation</p>
+<p begin="00:22:31.900" end="00:22:39.630" style="s2">and some value I just say gee is it</p>
+<p begin="00:22:33.640" end="00:22:39.630" style="s2">there what&#39;s the order complexity here</p>
+<p begin="00:22:42.940" end="00:22:48.150" style="s2">I know I Drive you nuts asking questions</p>
+<p begin="00:22:45.370" end="00:22:58.390" style="s2">what&#39;s the order complexity here</p>
+<p begin="00:22:48.150" end="00:22:59.950" style="s2">quadratic linear log constant any takers</p>
+<p begin="00:22:58.390" end="00:23:07.920" style="s2">I don&#39;t have the wrong glasses on to see</p>
+<p begin="00:22:59.950" end="00:23:09.190" style="s2">hands up to but who said it constant why</p>
+<p begin="00:23:07.920" end="00:23:12.880" style="s2">yeah</p>
+<p begin="00:23:09.190" end="00:23:14.050" style="s2">thank you all right it is constant you</p>
+<p begin="00:23:12.880" end="00:23:16.090" style="s2">keep sitting back there where I can&#39;t</p>
+<p begin="00:23:14.050" end="00:23:19.390" style="s2">get to you thank you very much why is it</p>
+<p begin="00:23:16.090" end="00:23:22.150" style="s2">constant remember we said we designed</p>
+<p begin="00:23:19.390" end="00:23:24.310" style="s2">lists so that the access no matter where</p>
+<p begin="00:23:22.150" end="00:23:26.560" style="s2">it was in the list was constant time</p>
+<p begin="00:23:24.310" end="00:23:29.260" style="s2">that is another way of saying that</p>
+<p begin="00:23:26.560" end="00:23:35.170" style="s2">looking up this thing here is constant</p>
+<p begin="00:23:29.260" end="00:23:36.730" style="s2">so this is constant time order one okay</p>
+<p begin="00:23:35.170" end="00:23:39.070" style="s2">come on you know representing sets of</p>
+<p begin="00:23:36.730" end="00:23:41.740" style="s2">integers this is pretty dumb suppose I</p>
+<p begin="00:23:39.070" end="00:23:43.360" style="s2">want to have a set of characters how</p>
+<p begin="00:23:41.740" end="00:23:45.700" style="s2">could I do that well the idea of a hash</p>
+<p begin="00:23:43.360" end="00:23:48.520" style="s2">like what&#39;s called a hash function is to</p>
+<p begin="00:23:45.700" end="00:23:51.400" style="s2">have some way of mapping any kind of</p>
+<p begin="00:23:48.520" end="00:23:56.640" style="s2">data into integers so let&#39;s look at the</p>
+<p begin="00:23:51.400" end="00:24:00.750" style="s2">second example all right keep doing that</p>
+<p begin="00:23:56.640" end="00:24:03.940" style="s2">this piece of code from here to here</p>
+<p begin="00:24:00.750" end="00:24:08.110" style="s2">gives me a way of now creating a hash</p>
+<p begin="00:24:03.940" end="00:24:10.060" style="s2">table of size 256 Ord is a built-in</p>
+<p begin="00:24:08.110" end="00:24:12.580" style="s2">Python representation there&#39;s lots of</p>
+<p begin="00:24:10.060" end="00:24:14.980" style="s2">them around it takes any character and</p>
+<p begin="00:24:12.580" end="00:24:17.110" style="s2">gives you back an integer in fact is to</p>
+<p begin="00:24:14.980" end="00:24:20.850" style="s2">show that to you if I go down here and I</p>
+<p begin="00:24:17.110" end="00:24:20.850" style="s2">type or D</p>
+<p begin="00:24:30.680" end="00:24:39.380" style="s2">sorry I did that wrong let me try again</p>
+<p begin="00:24:33.040" end="00:24:42.020" style="s2">get two exceptions in a second I give it</p>
+<p begin="00:24:39.380" end="00:24:43.550" style="s2">some character it gives me back an</p>
+<p begin="00:24:42.020" end="00:24:44.960" style="s2">integer representing it looks weird why</p>
+<p begin="00:24:43.550" end="00:24:46.580" style="s2">is three come back to some other thing</p>
+<p begin="00:24:44.960" end="00:24:48.410" style="s2">that&#39;s the internal representation that</p>
+<p begin="00:24:46.580" end="00:24:51.770" style="s2">Python uses for this if I give it some</p>
+<p begin="00:24:48.410" end="00:24:53.600" style="s2">other character now would help if I</p>
+<p begin="00:24:51.770" end="00:24:55.670" style="s2">could type and give it some other</p>
+<p begin="00:24:53.600" end="00:24:58.930" style="s2">character it gives me back a</p>
+<p begin="00:24:55.670" end="00:25:03.560" style="s2">representation so now here&#39;s the idea I</p>
+<p begin="00:24:58.930" end="00:25:04.640" style="s2">build a list 256 elements long right and</p>
+<p begin="00:25:03.560" end="00:25:05.470" style="s2">I fill it up with those special</p>
+<p begin="00:25:04.640" end="00:25:08.510" style="s2">characters none</p>
+<p begin="00:25:05.470" end="00:25:12.800" style="s2">that&#39;s what create is going to do right</p>
+<p begin="00:25:08.510" end="00:25:14.840" style="s2">here and then hash character takes in</p>
+<p begin="00:25:12.800" end="00:25:16.880" style="s2">any string or character single character</p>
+<p begin="00:25:14.840" end="00:25:19.220" style="s2">gives you back a number and notice what</p>
+<p begin="00:25:16.880" end="00:25:21.380" style="s2">I do if I want to create a set or a</p>
+<p begin="00:25:19.220" end="00:25:24.740" style="s2">sequence representing these things I</p>
+<p begin="00:25:21.380" end="00:25:26.150" style="s2">simply insert into that list that goes</p>
+<p begin="00:25:24.740" end="00:25:28.310" style="s2">through and puts ones in the right place</p>
+<p begin="00:25:26.150" end="00:25:30.470" style="s2">and then if I want to find out ever</p>
+<p begin="00:25:28.310" end="00:25:33.140" style="s2">something&#39;s there I do the same thing</p>
+<p begin="00:25:30.470" end="00:25:38.780" style="s2">but notice now hash is converting the</p>
+<p begin="00:25:33.140" end="00:25:42.320" style="s2">input into an integer okay so what&#39;s the</p>
+<p begin="00:25:38.780" end="00:25:45.470" style="s2">idea if I know what my hash function</p>
+<p begin="00:25:42.320" end="00:25:49.700" style="s2">does it maps in this case characters</p>
+<p begin="00:25:45.470" end="00:25:51.560" style="s2">into a range 0 to 256 0 to 255 I create</p>
+<p begin="00:25:49.700" end="00:25:54.160" style="s2">a list that long and I simply mark</p>
+<p begin="00:25:51.560" end="00:25:56.420" style="s2">things and my lookup is still constant</p>
+<p begin="00:25:54.160" end="00:25:58.030" style="s2">alright characters are simple suppose</p>
+<p begin="00:25:56.420" end="00:26:00.560" style="s2">you want to represent sets of strings</p>
+<p begin="00:25:58.030" end="00:26:02.600" style="s2">well you basically just generalize the</p>
+<p begin="00:26:00.560" end="00:26:04.310" style="s2">hash function I think one of the classic</p>
+<p begin="00:26:02.600" end="00:26:07.220" style="s2">ones for Strings is called the raven</p>
+<p begin="00:26:04.310" end="00:26:09.410" style="s2">carp algorithm and it&#39;s simply the same</p>
+<p begin="00:26:07.220" end="00:26:15.230" style="s2">idea that you have a mapping from your</p>
+<p begin="00:26:09.410" end="00:26:16.460" style="s2">input into a set of integers Wow ok</p>
+<p begin="00:26:15.230" end="00:26:19.280" style="s2">maybe not so well but this is now</p>
+<p begin="00:26:16.460" end="00:26:21.800" style="s2">constant alright this is constant time</p>
+<p begin="00:26:19.280" end="00:26:23.230" style="s2">access so I can do searching in constant</p>
+<p begin="00:26:21.800" end="00:26:26.900" style="s2">time which is great</p>
+<p begin="00:26:23.230" end="00:26:30.260" style="s2">where&#39;s the penalty what did I trade off</p>
+<p begin="00:26:26.900" end="00:26:33.920" style="s2">here well I want to suggest that what I</p>
+<p begin="00:26:30.260" end="00:26:42.090" style="s2">did was I really traded</p>
+<p begin="00:26:33.920" end="00:26:44.640" style="s2">space or time makes me sound like an</p>
+<p begin="00:26:42.090" end="00:26:47.430" style="s2">astrophysicist somehow right what do I</p>
+<p begin="00:26:44.640" end="00:26:50.430" style="s2">mean by that I have constant time access</p>
+<p begin="00:26:47.430" end="00:26:52.860" style="s2">which is great but I paid a price which</p>
+<p begin="00:26:50.430" end="00:26:55.710" style="s2">is I had to use up some space in the</p>
+<p begin="00:26:52.860" end="00:26:57.420" style="s2">case of integers it was easy in the case</p>
+<p begin="00:26:55.710" end="00:26:58.860" style="s2">of character so I have to give up a list</p>
+<p begin="00:26:57.420" end="00:27:01.650" style="s2">of 256 no big deal</p>
+<p begin="00:26:58.860" end="00:27:02.700" style="s2">imagine how you want to do faces alright</p>
+<p begin="00:27:01.650" end="00:27:05.100" style="s2">you got a picture of somebody&#39;s face</p>
+<p begin="00:27:02.700" end="00:27:07.170" style="s2">some million pixels each pixel has a</p>
+<p begin="00:27:05.100" end="00:27:09.840" style="s2">range of values from 0 to 256</p>
+<p begin="00:27:07.170" end="00:27:12.510" style="s2">I want to hash a face with some function</p>
+<p begin="00:27:09.840" end="00:27:14.040" style="s2">into an integer ok I may not want to do</p>
+<p begin="00:27:12.510" end="00:27:16.200" style="s2">the full range of this but I may decide</p>
+<p begin="00:27:14.040" end="00:27:18.450" style="s2">I have to use a lot of gigabytes of</p>
+<p begin="00:27:16.200" end="00:27:19.710" style="s2">space in order to do the trade-off and</p>
+<p begin="00:27:18.450" end="00:27:21.900" style="s2">the reason I&#39;m showing you this is that</p>
+<p begin="00:27:19.710" end="00:27:24.060" style="s2">this is a gain a common trade-off in</p>
+<p begin="00:27:21.900" end="00:27:25.860" style="s2">computer science that in many cases I</p>
+<p begin="00:27:24.060" end="00:27:29.310" style="s2">can gain efficiency if I&#39;m willing to</p>
+<p begin="00:27:25.860" end="00:27:30.780" style="s2">give up space having said that though</p>
+<p begin="00:27:29.310" end="00:27:31.830" style="s2">there&#39;s may still be a problem or there</p>
+<p begin="00:27:30.780" end="00:27:34.410" style="s2">ought to be a problem that may be</p>
+<p begin="00:27:31.830" end="00:27:37.680" style="s2">bugging you slightly which is how do I</p>
+<p begin="00:27:34.410" end="00:27:41.100" style="s2">guarantee that my hash function takes</p>
+<p begin="00:27:37.680" end="00:27:45.450" style="s2">any input into exactly one spot in the</p>
+<p begin="00:27:41.100" end="00:27:48.060" style="s2">storage space the answer is I can&#39;t okay</p>
+<p begin="00:27:45.450" end="00:27:49.470" style="s2">in the simple case of integers I can but</p>
+<p begin="00:27:48.060" end="00:27:51.750" style="s2">in the case of something more complex</p>
+<p begin="00:27:49.470" end="00:27:53.940" style="s2">like faces or fingerprints or passwords</p>
+<p begin="00:27:51.750" end="00:27:56.160" style="s2">for that matter it&#39;s hard to design a</p>
+<p begin="00:27:53.940" end="00:27:57.690" style="s2">hash function that has completely even</p>
+<p begin="00:27:56.160" end="00:28:01.170" style="s2">distribution meaning that it takes any</p>
+<p begin="00:27:57.690" end="00:28:03.210" style="s2">input into exactly one output spot so</p>
+<p begin="00:28:01.170" end="00:28:05.280" style="s2">what you typically do in a hash case is</p>
+<p begin="00:28:03.210" end="00:28:06.930" style="s2">you design your code to deal with that</p>
+<p begin="00:28:05.280" end="00:28:08.310" style="s2">you try and design which I&#39;m going to</p>
+<p begin="00:28:06.930" end="00:28:10.200" style="s2">come back to then so can you try and use</p>
+<p begin="00:28:08.310" end="00:28:12.390" style="s2">a hash function that spreads things out</p>
+<p begin="00:28:10.200" end="00:28:13.920" style="s2">pretty evenly but the places you store</p>
+<p begin="00:28:12.390" end="00:28:16.080" style="s2">into and those lists may have to</p>
+<p begin="00:28:13.920" end="00:28:17.760" style="s2">themselves have a small list in there</p>
+<p begin="00:28:16.080" end="00:28:19.290" style="s2">and when you go to check something you</p>
+<p begin="00:28:17.760" end="00:28:21.450" style="s2">may have to do a linear search through</p>
+<p begin="00:28:19.290" end="00:28:23.280" style="s2">the elements in that list the good news</p>
+<p begin="00:28:21.450" end="00:28:24.960" style="s2">is the elements in any one spot in a</p>
+<p begin="00:28:23.280" end="00:28:27.270" style="s2">hash table are likely to be a small</p>
+<p begin="00:28:24.960" end="00:28:28.500" style="s2">number three four five so the search is</p>
+<p begin="00:28:27.270" end="00:28:30.150" style="s2">really easy you&#39;re not searching a</p>
+<p begin="00:28:28.500" end="00:28:32.100" style="s2">million things you&#39;re searching three or</p>
+<p begin="00:28:30.150" end="00:28:34.860" style="s2">four things but nonetheless you have to</p>
+<p begin="00:28:32.100" end="00:28:37.970" style="s2">do that trade-off the last thing I want</p>
+<p begin="00:28:34.860" end="00:28:37.970" style="s2">to say about hashes are</p>
+<p begin="00:28:42.940" end="00:28:47.840" style="s2">they&#39;re actually really hard to create</p>
+<p begin="00:28:45.760" end="00:28:49.160" style="s2">there&#39;s been a lot of work done on these</p>
+<p begin="00:28:47.840" end="00:28:51.920" style="s2">over the years but in fact it&#39;s pretty</p>
+<p begin="00:28:49.160" end="00:28:53.690" style="s2">hard to invent a good hash function so</p>
+<p begin="00:28:51.920" end="00:28:55.940" style="s2">my advice to you is if you want to use</p>
+<p begin="00:28:53.690" end="00:28:58.790" style="s2">something with a hash go to a library</p>
+<p begin="00:28:55.940" end="00:29:00.350" style="s2">look up a good hash function game for</p>
+<p begin="00:28:58.790" end="00:29:01.760" style="s2">Strings there&#39;s a classic set of them</p>
+<p begin="00:29:00.350" end="00:29:03.290" style="s2">that work pretty well for integers</p>
+<p begin="00:29:01.760" end="00:29:05.390" style="s2">there&#39;s some real simple ones if there&#39;s</p>
+<p begin="00:29:03.290" end="00:29:06.800" style="s2">something more complex find a good hash</p>
+<p begin="00:29:05.390" end="00:29:08.180" style="s2">function but designing a really good</p>
+<p begin="00:29:06.800" end="00:29:11.090" style="s2">hash function takes a lot of effort</p>
+<p begin="00:29:08.180" end="00:29:13.070" style="s2">because you want it to have that even</p>
+<p begin="00:29:11.090" end="00:29:16.190" style="s2">distribution you&#39;d like it to have as</p>
+<p begin="00:29:13.070" end="00:29:17.960" style="s2">few duplicates if you like in each spot</p>
+<p begin="00:29:16.190" end="00:29:23.240" style="s2">in the hash table for each one of the</p>
+<p begin="00:29:17.960" end="00:29:26.060" style="s2">things that you use okay let me pull</p>
+<p begin="00:29:23.240" end="00:29:26.990" style="s2">back for a second there what have we</p>
+<p begin="00:29:26.060" end="00:29:29.900" style="s2">done over the last three or four</p>
+<p begin="00:29:26.990" end="00:29:32.420" style="s2">lectures we&#39;ve started introducing you</p>
+<p begin="00:29:29.900" end="00:29:34.880" style="s2">to classes of algorithms things that I&#39;d</p>
+<p begin="00:29:32.420" end="00:29:37.670" style="s2">like you to be able to see are how to do</p>
+<p begin="00:29:34.880" end="00:29:39.920" style="s2">some simple complexity analysis perhaps</p>
+<p begin="00:29:37.670" end="00:29:42.020" style="s2">more importantly how to recognize a kind</p>
+<p begin="00:29:39.920" end="00:29:44.330" style="s2">of algorithm based on its properties and</p>
+<p begin="00:29:42.020" end="00:29:46.010" style="s2">know what class it belongs to this is a</p>
+<p begin="00:29:44.330" end="00:29:47.600" style="s2">hint if you like leading towards the</p>
+<p begin="00:29:46.010" end="00:29:49.670" style="s2">next quiz that you ought to be able to</p>
+<p begin="00:29:47.600" end="00:29:51.290" style="s2">say that looks like a logarithmic</p>
+<p begin="00:29:49.670" end="00:29:51.740" style="s2">algorithm because it&#39;s got a particular</p>
+<p begin="00:29:51.290" end="00:29:53.360" style="s2">property</p>
+<p begin="00:29:51.740" end="00:29:55.880" style="s2">it looks like an N log n algorithm</p>
+<p begin="00:29:53.360" end="00:29:56.930" style="s2">because it has a particular property and</p>
+<p begin="00:29:55.880" end="00:29:59.390" style="s2">the third thing we&#39;ve done is we&#39;ve</p>
+<p begin="00:29:56.930" end="00:30:03.560" style="s2">given you now a set of sort of standard</p>
+<p begin="00:29:59.390" end="00:30:05.810" style="s2">algorithms if you like brute force let&#39;s</p>
+<p begin="00:30:03.560" end="00:30:07.360" style="s2">walk through every possible case I works</p>
+<p begin="00:30:05.810" end="00:30:10.460" style="s2">well if the problem sizes are small</p>
+<p begin="00:30:07.360" end="00:30:12.620" style="s2">we&#39;ve had a number of variants of guess</p>
+<p begin="00:30:10.460" end="00:30:14.720" style="s2">and check or hypothesize and test where</p>
+<p begin="00:30:12.620" end="00:30:15.890" style="s2">you try and guess the solution and then</p>
+<p begin="00:30:14.720" end="00:30:18.730" style="s2">check it and use that to refine your</p>
+<p begin="00:30:15.890" end="00:30:21.230" style="s2">search successive approximation</p>
+<p begin="00:30:18.730" end="00:30:22.700" style="s2">newton-raphson was one nice example but</p>
+<p begin="00:30:21.230" end="00:30:24.740" style="s2">there&#39;s a whole class of things that get</p>
+<p begin="00:30:22.700" end="00:30:26.480" style="s2">closer and closer reducing your error as</p>
+<p begin="00:30:24.740" end="00:30:30.230" style="s2">you go along</p>
+<p begin="00:30:26.480" end="00:30:31.610" style="s2">divide and conquer right and actually I</p>
+<p begin="00:30:30.230" end="00:30:34.280" style="s2">guess in between there bisection which</p>
+<p begin="00:30:31.610" end="00:30:36.200" style="s2">is really just a variant of successive</p>
+<p begin="00:30:34.280" end="00:30:38.810" style="s2">approximation but divide and conquer is</p>
+<p begin="00:30:36.200" end="00:30:40.790" style="s2">a class of algorithm these are tools you</p>
+<p begin="00:30:38.810" end="00:30:41.990" style="s2">want your toolbox these are the kinds of</p>
+<p begin="00:30:40.790" end="00:30:44.120" style="s2">algorithms that you should be able to</p>
+<p begin="00:30:41.990" end="00:30:46.340" style="s2">recognize and what I&#39;d like you to begin</p>
+<p begin="00:30:44.120" end="00:30:49.130" style="s2">to do is to look at a problem and say</p>
+<p begin="00:30:46.340" end="00:30:51.230" style="s2">gee which kind of algorithm is most</p>
+<p begin="00:30:49.130" end="00:30:51.830" style="s2">likely to be successful on this problem</p>
+<p begin="00:30:51.230" end="00:30:55.100" style="s2">and</p>
+<p begin="00:30:51.830" end="00:30:56.630" style="s2">now fit into that case okay starting</p>
+<p begin="00:30:55.100" end="00:30:58.399" style="s2">next don&#39;t worry I&#39;m not going to quit</p>
+<p begin="00:30:56.630" end="00:31:00.890" style="s2">36 minutes after I got one more topic</p>
+<p begin="00:30:58.399" end="00:31:02.630" style="s2">for today but jumping ahead I&#39;m going to</p>
+<p begin="00:31:00.890" end="00:31:04.880" style="s2">skip in a second now to talk about one</p>
+<p begin="00:31:02.630" end="00:31:06.679" style="s2">last linguistic thing from from Python</p>
+<p begin="00:31:04.880" end="00:31:08.000" style="s2">but I want to preface professor Guttag</p>
+<p begin="00:31:06.679" end="00:31:09.440" style="s2">is going to pick up next week and what</p>
+<p begin="00:31:08.000" end="00:31:12.080" style="s2">we want to start doing then is taking</p>
+<p begin="00:31:09.440" end="00:31:13.909" style="s2">these classes of algorithms and start</p>
+<p begin="00:31:12.080" end="00:31:15.590" style="s2">looking at much more complex algorithms</p>
+<p begin="00:31:13.909" end="00:31:17.480" style="s2">things you&#39;re more likely to use in</p>
+<p begin="00:31:15.590" end="00:31:19.970" style="s2">problems things like knapsack problem</p>
+<p begin="00:31:17.480" end="00:31:22.010" style="s2">knapsack problems as we move ahead but</p>
+<p begin="00:31:19.970" end="00:31:22.850" style="s2">the tools you&#39;ve seen so far really the</p>
+<p begin="00:31:22.010" end="00:31:25.370" style="s2">things that we&#39;re going to see as we</p>
+<p begin="00:31:22.850" end="00:31:27.139" style="s2">build those algorithms okay</p>
+<p begin="00:31:25.370" end="00:31:28.610" style="s2">I want to spend the last portion of this</p>
+<p begin="00:31:27.139" end="00:31:30.289" style="s2">lecture doing one last piece of</p>
+<p begin="00:31:28.610" end="00:31:33.250" style="s2">linguistic stuff one last little thing</p>
+<p begin="00:31:30.289" end="00:31:47.779" style="s2">from Python and that&#39;s to talk about</p>
+<p begin="00:31:33.250" end="00:31:49.370" style="s2">exceptions okay you&#39;ve actually seen</p>
+<p begin="00:31:47.779" end="00:31:51.289" style="s2">exceptions a lot you just didn&#39;t know</p>
+<p begin="00:31:49.370" end="00:31:53.090" style="s2">that&#39;s what they were because exceptions</p>
+<p begin="00:31:51.289" end="00:31:55.580" style="s2">show up everywhere in Python and let me</p>
+<p begin="00:31:53.090" end="00:31:59.179" style="s2">give you a couple of examples you clear</p>
+<p begin="00:31:55.580" end="00:32:02.659" style="s2">some space here if I type in that</p>
+<p begin="00:31:59.179" end="00:32:04.639" style="s2">expression I get an error right this is</p>
+<p begin="00:32:02.659" end="00:32:07.490" style="s2">not defined but in fact what this did</p>
+<p begin="00:32:04.639" end="00:32:09.260" style="s2">was it threw an exception in the</p>
+<p begin="00:32:07.490" end="00:32:12.440" style="s2">exceptions and ain&#39;t a called a name</p>
+<p begin="00:32:09.260" end="00:32:13.730" style="s2">error exception it says you gave me</p>
+<p begin="00:32:12.440" end="00:32:15.799" style="s2">something I didn&#39;t know how to deal with</p>
+<p begin="00:32:13.730" end="00:32:17.720" style="s2">I&#39;m going to throw it or raise it to use</p>
+<p begin="00:32:15.799" end="00:32:19.279" style="s2">the right term to somebody in case they</p>
+<p begin="00:32:17.720" end="00:32:22.730" style="s2">can handle it but it&#39;s a particular kind</p>
+<p begin="00:32:19.279" end="00:32:30.380" style="s2">of exception I might do something like I</p>
+<p begin="00:32:22.730" end="00:32:31.940" style="s2">remind you I had test if I do this try</p>
+<p begin="00:32:30.380" end="00:32:33.529" style="s2">and get the tenth element of a list it&#39;s</p>
+<p begin="00:32:31.940" end="00:32:34.700" style="s2">only eight long I get what looks like an</p>
+<p begin="00:32:33.529" end="00:32:37.130" style="s2">error but it&#39;s actually throwing an</p>
+<p begin="00:32:34.700" end="00:32:39.830" style="s2">exception and the exceptions right there</p>
+<p begin="00:32:37.130" end="00:32:42.289" style="s2">it says it&#39;s an index error that is it&#39;s</p>
+<p begin="00:32:39.830" end="00:32:44.740" style="s2">trying to do something going beyond the</p>
+<p begin="00:32:42.289" end="00:32:46.850" style="s2">range of what this thing could deal with</p>
+<p begin="00:32:44.740" end="00:32:48.080" style="s2">okay you say come on I&#39;ve seen these all</p>
+<p begin="00:32:46.850" end="00:32:49.519" style="s2">the time every time I type something</p>
+<p begin="00:32:48.080" end="00:32:52.760" style="s2">into my program it does one of these</p>
+<p begin="00:32:49.519" end="00:32:55.070" style="s2">things right when we&#39;re just interacting</p>
+<p begin="00:32:52.760" end="00:32:56.870" style="s2">with idle with the interactive editor or</p>
+<p begin="00:32:55.070" end="00:32:58.850" style="s2">sorry the interactive environment if you</p>
+<p begin="00:32:56.870" end="00:33:00.289" style="s2">like that&#39;s what you expect what&#39;s</p>
+<p begin="00:32:58.850" end="00:33:01.669" style="s2">happening is that we&#39;re typing in</p>
+<p begin="00:33:00.289" end="00:33:02.960" style="s2">something on expression it doesn&#39;t know</p>
+<p begin="00:33:01.669" end="00:33:04.429" style="s2">how to deal with its raising the</p>
+<p begin="00:33:02.960" end="00:33:04.920" style="s2">exception but it is simply bubbling up</p>
+<p begin="00:33:04.429" end="00:33:08.100" style="s2">to the top</p>
+<p begin="00:33:04.920" end="00:33:10.860" style="s2">level saying you&#39;ve got a problem samosa</p>
+<p begin="00:33:08.100" end="00:33:12.740" style="s2">at in a long day suppose instead you&#39;re</p>
+<p begin="00:33:10.860" end="00:33:16.350" style="s2">in the middle of some deep piece of code</p>
+<p begin="00:33:12.740" end="00:33:18.720" style="s2">and you get one of these cases it&#39;s kind</p>
+<p begin="00:33:16.350" end="00:33:21.570" style="s2">of annoying if it throws it all the way</p>
+<p begin="00:33:18.720" end="00:33:23.520" style="s2">back up to top level for you to fix if</p>
+<p begin="00:33:21.570" end="00:33:25.590" style="s2">it&#39;s truly a bug that&#39;s the right thing</p>
+<p begin="00:33:23.520" end="00:33:27.660" style="s2">to do you want to catch it but in many</p>
+<p begin="00:33:25.590" end="00:33:29.370" style="s2">cases exceptions are things that in fact</p>
+<p begin="00:33:27.660" end="00:33:31.560" style="s2">you as a program designer could have</p>
+<p begin="00:33:29.370" end="00:33:38.280" style="s2">handled so I&#39;m going to distinguish in</p>
+<p begin="00:33:31.560" end="00:33:42.360" style="s2">fact between unhandled exceptions which</p>
+<p begin="00:33:38.280" end="00:33:44.730" style="s2">are the things that we saw there and</p>
+<p begin="00:33:42.360" end="00:33:46.020" style="s2">handled exceptions I&#39;m going to show you</p>
+<p begin="00:33:44.730" end="00:33:47.340" style="s2">in a second how to handle them but let&#39;s</p>
+<p begin="00:33:46.020" end="00:33:50.970" style="s2">look at an example what do I mean by a</p>
+<p begin="00:33:47.340" end="00:33:55.290" style="s2">handled exception well let&#39;s look at the</p>
+<p begin="00:33:50.970" end="00:33:57.540" style="s2">next piece of code okay it&#39;s right here</p>
+<p begin="00:33:55.290" end="00:33:59.550" style="s2">it&#39;s called read float look at it in a</p>
+<p begin="00:33:57.540" end="00:34:02.040" style="s2">second but let me start to set the stage</p>
+<p begin="00:33:59.550" end="00:34:03.660" style="s2">up for this suppose I want to input or</p>
+<p begin="00:34:02.040" end="00:34:06.060" style="s2">sorry I want you as a user to input a</p>
+<p begin="00:34:03.660" end="00:34:08.400" style="s2">floating-point number all right we</p>
+<p begin="00:34:06.060" end="00:34:09.300" style="s2">talked about things you could do to try</p>
+<p begin="00:34:08.400" end="00:34:10.740" style="s2">and make sure that happens</p>
+<p begin="00:34:09.300" end="00:34:12.750" style="s2">you can run through a little loop to say</p>
+<p begin="00:34:10.740" end="00:34:14.340" style="s2">keep trying until you get one but one of</p>
+<p begin="00:34:12.750" end="00:34:16.860" style="s2">the ways I could deal with it is what&#39;s</p>
+<p begin="00:34:14.340" end="00:34:19.410" style="s2">shown here unless this little loop say</p>
+<p begin="00:34:16.860" end="00:34:20.640" style="s2">to do so the loop says whoops wrong one</p>
+<p begin="00:34:19.410" end="00:34:22.290" style="s2">this little loop says I&#39;m going to write</p>
+<p begin="00:34:20.640" end="00:34:24.360" style="s2">a function or procedure that takes in</p>
+<p begin="00:34:22.290" end="00:34:26.340" style="s2">two messages I&#39;m going to run through a</p>
+<p begin="00:34:24.360" end="00:34:27.600" style="s2">loop and I&#39;m going to request some input</p>
+<p begin="00:34:26.340" end="00:34:30.210" style="s2">which I&#39;m going to read in with with raw</p>
+<p begin="00:34:27.600" end="00:34:32.160" style="s2">input and store that into Val and this</p>
+<p begin="00:34:30.210" end="00:34:34.380" style="s2">as you might expect I&#39;m going to then</p>
+<p begin="00:34:32.160" end="00:34:37.260" style="s2">try and see if I can convert that into a</p>
+<p begin="00:34:34.380" end="00:34:38.400" style="s2">float oh wait a minute that&#39;s a little</p>
+<p begin="00:34:37.260" end="00:34:40.290" style="s2">different than what we did last time</p>
+<p begin="00:34:38.400" end="00:34:42.270" style="s2">right last time we checked the type and</p>
+<p begin="00:34:40.290" end="00:34:43.679" style="s2">said if it is a float you&#39;re okay if not</p>
+<p begin="00:34:42.270" end="00:34:46.770" style="s2">carry on in this case what would happen</p>
+<p begin="00:34:43.679" end="00:34:48.720" style="s2">well float is going to try and do the</p>
+<p begin="00:34:46.770" end="00:34:51.179" style="s2">coercion it&#39;s going to try and turn it</p>
+<p begin="00:34:48.720" end="00:34:53.700" style="s2">into a floating-point number if it does</p>
+<p begin="00:34:51.179" end="00:34:57.330" style="s2">I&#39;m great right and I like just to</p>
+<p begin="00:34:53.700" end="00:34:59.820" style="s2">return Val if it doesn&#39;t floats going to</p>
+<p begin="00:34:57.330" end="00:35:01.200" style="s2">throw or raise to use the right term and</p>
+<p begin="00:34:59.820" end="00:35:04.080" style="s2">exception it&#39;s going to say something</p>
+<p begin="00:35:01.200" end="00:35:05.640" style="s2">like a type error factor let&#39;s try it</p>
+<p begin="00:35:04.080" end="00:35:09.930" style="s2">over here all right if I go over here</p>
+<p begin="00:35:05.640" end="00:35:12.420" style="s2">and I say float of three it&#39;s going to</p>
+<p begin="00:35:09.930" end="00:35:16.410" style="s2">do the conversion but if I say turn this</p>
+<p begin="00:35:12.420" end="00:35:18.120" style="s2">into a float ah throws a value error</p>
+<p begin="00:35:16.410" end="00:35:18.840" style="s2">exception says it&#39;s wrong kind of value</p>
+<p begin="00:35:18.120" end="00:35:21.100" style="s2">that I&#39;ve got</p>
+<p begin="00:35:18.840" end="00:35:24.460" style="s2">so I&#39;m going to write a little piece of</p>
+<p begin="00:35:21.100" end="00:35:26.950" style="s2">code that says if it gives me a float</p>
+<p begin="00:35:24.460" end="00:35:29.470" style="s2">I&#39;m set but if not I&#39;d like to have the</p>
+<p begin="00:35:26.950" end="00:35:32.670" style="s2">code handle the exception and that&#39;s</p>
+<p begin="00:35:29.470" end="00:35:42.490" style="s2">what this funky try/except thing does</p>
+<p begin="00:35:32.670" end="00:35:43.960" style="s2">okay this is a try except block and</p>
+<p begin="00:35:42.490" end="00:35:46.890" style="s2">here&#39;s the flow of control that takes</p>
+<p begin="00:35:43.960" end="00:35:48.730" style="s2">place in there when I hit a try block</p>
+<p begin="00:35:46.890" end="00:35:50.230" style="s2">it&#39;s going to literally do that it&#39;s</p>
+<p begin="00:35:48.730" end="00:35:52.510" style="s2">going to try and execute the</p>
+<p begin="00:35:50.230" end="00:35:54.880" style="s2">instructions if it can successfully</p>
+<p begin="00:35:52.510" end="00:35:57.010" style="s2">execute the instructions it is going to</p>
+<p begin="00:35:54.880" end="00:35:59.920" style="s2">skip past the except block and just</p>
+<p begin="00:35:57.010" end="00:36:02.490" style="s2">carry on with the rest of the code if</p>
+<p begin="00:35:59.920" end="00:36:05.170" style="s2">however it raises an exception that</p>
+<p begin="00:36:02.490" end="00:36:07.390" style="s2">exception at least in this case where</p>
+<p begin="00:36:05.170" end="00:36:10.030" style="s2">it&#39;s a pure except with no tags on it is</p>
+<p begin="00:36:07.390" end="00:36:12.250" style="s2">going to get if you like thrown directly</p>
+<p begin="00:36:10.030" end="00:36:13.690" style="s2">to the except block and it&#39;s going to</p>
+<p begin="00:36:12.250" end="00:36:15.400" style="s2">try and execute that so notice what&#39;s</p>
+<p begin="00:36:13.690" end="00:36:16.660" style="s2">going to happen here then if I give it</p>
+<p begin="00:36:15.400" end="00:36:18.070" style="s2">something that can be turned into a</p>
+<p begin="00:36:16.660" end="00:36:19.270" style="s2">float I come in here I read the</p>
+<p begin="00:36:18.070" end="00:36:21.070" style="s2">inputting that if it can be turned into</p>
+<p begin="00:36:19.270" end="00:36:24.430" style="s2">a float I&#39;m going to just return the</p>
+<p begin="00:36:21.070" end="00:36:26.140" style="s2">value and I&#39;m set if not it&#39;s basically</p>
+<p begin="00:36:24.430" end="00:36:27.550" style="s2">going to throw it to this point in which</p>
+<p begin="00:36:26.140" end="00:36:29.620" style="s2">case I&#39;m going to print out an error</p>
+<p begin="00:36:27.550" end="00:36:32.170" style="s2">message and oh yeah I&#39;m still in that</p>
+<p begin="00:36:29.620" end="00:36:35.320" style="s2">while loop so it&#39;s going to go around so</p>
+<p begin="00:36:32.170" end="00:36:41.260" style="s2">in fact if I go here and in the</p>
+<p begin="00:36:35.320" end="00:36:43.720" style="s2">uncomment this and run the code it says</p>
+<p begin="00:36:41.260" end="00:36:49.270" style="s2">enter a float and if I give it something</p>
+<p begin="00:36:43.720" end="00:36:52.270" style="s2">that can be sorry I&#39;ve got a yes never</p>
+<p begin="00:36:49.270" end="00:36:58.630" style="s2">mind the grades crap where did I have</p>
+<p begin="00:36:52.270" end="00:36:59.920" style="s2">that let me comment that out somehow</p>
+<p begin="00:36:58.630" end="00:37:01.630" style="s2">it&#39;s appropriate in the middle of my</p>
+<p begin="00:36:59.920" end="00:37:05.350" style="s2">lecture for it to say whoops at me but</p>
+<p begin="00:37:01.630" end="00:37:10.360" style="s2">wasn&#39;t what I intended and we will try</p>
+<p begin="00:37:05.350" end="00:37:11.620" style="s2">this again okay so is enter a float I</p>
+<p begin="00:37:10.360" end="00:37:14.200" style="s2">give it something that can be converted</p>
+<p begin="00:37:11.620" end="00:37:16.090" style="s2">into a float it&#39;s just fine let me go</p>
+<p begin="00:37:14.200" end="00:37:19.290" style="s2">back and run it again though if I run it</p>
+<p begin="00:37:16.090" end="00:37:19.290" style="s2">again it says enter a float</p>
+<p begin="00:37:21.300" end="00:37:25.350" style="s2">aha it goes into that accept portion</p>
+<p begin="00:37:23.790" end="00:37:26.820" style="s2">prints out a message and goes back</p>
+<p begin="00:37:25.350" end="00:37:28.380" style="s2">around the while loop to say try again</p>
+<p begin="00:37:26.820" end="00:37:31.260" style="s2">and it&#39;s going to keep doing this until</p>
+<p begin="00:37:28.380" end="00:37:35.430" style="s2">I give it something that does serve as a</p>
+<p begin="00:37:31.260" end="00:37:38.040" style="s2">float right so an exception then has</p>
+<p begin="00:37:35.430" end="00:37:40.410" style="s2">this format that I can control as a</p>
+<p begin="00:37:38.040" end="00:37:42.770" style="s2">programmer why would I want to use this</p>
+<p begin="00:37:40.410" end="00:37:45.119" style="s2">well some things I can actually expect</p>
+<p begin="00:37:42.770" end="00:37:46.950" style="s2">may happen and I want to handle them the</p>
+<p begin="00:37:45.119" end="00:37:48.060" style="s2">float examples are simple and I&#39;m going</p>
+<p begin="00:37:46.950" end="00:37:49.740" style="s2">to generalize in a second here&#39;s a</p>
+<p begin="00:37:48.060" end="00:37:52.560" style="s2">better example I&#39;m writing a piece of</p>
+<p begin="00:37:49.740" end="00:37:53.640" style="s2">code that wants to input a file and I</p>
+<p begin="00:37:52.560" end="00:37:55.020" style="s2">can certainly imagine something that</p>
+<p begin="00:37:53.640" end="00:37:57.000" style="s2">says give me the file name I&#39;m going to</p>
+<p begin="00:37:55.020" end="00:37:59.280" style="s2">do something with it I can&#39;t guarantee</p>
+<p begin="00:37:57.000" end="00:38:00.630" style="s2">that the file may exist under that name</p>
+<p begin="00:37:59.280" end="00:38:03.119" style="s2">but I know that&#39;s something that might</p>
+<p begin="00:38:00.630" end="00:38:04.560" style="s2">occur so a nice way to handle it is to</p>
+<p begin="00:38:03.119" end="00:38:05.970" style="s2">write it as an exception that says</p>
+<p begin="00:38:04.560" end="00:38:08.970" style="s2">here&#39;s what I want to do if I get the</p>
+<p begin="00:38:05.970" end="00:38:10.860" style="s2">file but just in case the file name is</p>
+<p begin="00:38:08.970" end="00:38:12.330" style="s2">not there here&#39;s what I want to do in</p>
+<p begin="00:38:10.860" end="00:38:15.450" style="s2">that case to handle it let me specify</p>
+<p begin="00:38:12.330" end="00:38:16.980" style="s2">what the exception should do all right</p>
+<p begin="00:38:15.450" end="00:38:18.270" style="s2">in the example I just wrote here this is</p>
+<p begin="00:38:16.980" end="00:38:20.730" style="s2">pretty trivial right ok I&#39;m trying to</p>
+<p begin="00:38:18.270" end="00:38:22.830" style="s2">input floats I could generalize this</p>
+<p begin="00:38:20.730" end="00:38:24.690" style="s2">pretty nicely imagine the same kind of</p>
+<p begin="00:38:22.830" end="00:38:26.190" style="s2">idea where I want to simply say I want</p>
+<p begin="00:38:24.690" end="00:38:27.750" style="s2">to take input of anything and try and</p>
+<p begin="00:38:26.190" end="00:38:28.859" style="s2">see how to make sure I get the right</p>
+<p begin="00:38:27.750" end="00:38:36.750" style="s2">kind of thing I want to make it</p>
+<p begin="00:38:28.859" end="00:38:40.250" style="s2">polymorphic well that&#39;s pretty easy to</p>
+<p begin="00:38:36.750" end="00:38:46.380" style="s2">do that is basically the next example</p>
+<p begin="00:38:40.250" end="00:38:50.640" style="s2">right here okay let me comment this one</p>
+<p begin="00:38:46.380" end="00:38:53.430" style="s2">out I can do exactly the same kind of</p>
+<p begin="00:38:50.640" end="00:38:54.780" style="s2">thing all right well now what I&#39;m going</p>
+<p begin="00:38:53.430" end="00:38:56.760" style="s2">to try and do is read in a set of values</p>
+<p begin="00:38:54.780" end="00:38:59.760" style="s2">where I&#39;m going to give up a type of</p>
+<p begin="00:38:56.760" end="00:39:01.440" style="s2">value as well as the messages formats</p>
+<p begin="00:38:59.760" end="00:39:04.310" style="s2">the same I&#39;m going to ask for some input</p>
+<p begin="00:39:01.440" end="00:39:07.200" style="s2">and then I&#39;m going to use that procedure</p>
+<p begin="00:39:04.310" end="00:39:09.000" style="s2">to check is this the right type of value</p>
+<p begin="00:39:07.200" end="00:39:11.280" style="s2">I&#39;m going to try and use that to do the</p>
+<p begin="00:39:09.000" end="00:39:12.810" style="s2">coercion if you like same thing if it</p>
+<p begin="00:39:11.280" end="00:39:15.540" style="s2">works I&#39;m going to skip that if it not</p>
+<p begin="00:39:12.810" end="00:39:17.130" style="s2">is going to throw the exception why is</p>
+<p begin="00:39:15.540" end="00:39:19.440" style="s2">this nice well that&#39;s a handy piece of</p>
+<p begin="00:39:17.130" end="00:39:21.450" style="s2">code right because imagine I&#39;ve got that</p>
+<p begin="00:39:19.440" end="00:39:24.780" style="s2">down I can now store that away in some</p>
+<p begin="00:39:21.450" end="00:39:27.090" style="s2">file name input top py and import it</p>
+<p begin="00:39:24.780" end="00:39:29.550" style="s2">into every one of my procedure functions</p>
+<p begin="00:39:27.090" end="00:39:31.170" style="s2">sorry my files of procedures because</p>
+<p begin="00:39:29.550" end="00:39:34.830" style="s2">it&#39;s a standard way of not giving me the</p>
+<p begin="00:39:31.170" end="00:39:35.200" style="s2">input ok so far though I&#39;ve just shown</p>
+<p begin="00:39:34.830" end="00:39:37.240" style="s2">you what</p>
+<p begin="00:39:35.200" end="00:39:38.650" style="s2">happens inside a piece of code it raises</p>
+<p begin="00:39:37.240" end="00:39:41.020" style="s2">an exception it goes to that except</p>
+<p begin="00:39:38.650" end="00:39:42.910" style="s2">Clause we don&#39;t have to use it just</p>
+<p begin="00:39:41.020" end="00:39:45.220" style="s2">inside of one place we can actually use</p>
+<p begin="00:39:42.910" end="00:39:47.700" style="s2">it more generally and that gets me to</p>
+<p begin="00:39:45.220" end="00:39:55.990" style="s2">the last example I wanted to show you</p>
+<p begin="00:39:47.700" end="00:39:59.290" style="s2">and let me uncomment this let&#39;s take a</p>
+<p begin="00:39:55.990" end="00:40:00.910" style="s2">look at this code this looks like a</p>
+<p begin="00:39:59.290" end="00:40:03.040" style="s2">handy piece of code to have given what</p>
+<p begin="00:40:00.910" end="00:40:05.560" style="s2">we just recently did to you all right</p>
+<p begin="00:40:03.040" end="00:40:07.960" style="s2">get grades so the function that&#39;s going</p>
+<p begin="00:40:05.560" end="00:40:10.270" style="s2">to say give me a file name and I&#39;m going</p>
+<p begin="00:40:07.960" end="00:40:12.339" style="s2">to go off and open that up and bind it</p>
+<p begin="00:40:10.270" end="00:40:14.470" style="s2">to a local variable and if it&#39;s</p>
+<p begin="00:40:12.339" end="00:40:16.000" style="s2">successful then I just like to go off</p>
+<p begin="00:40:14.470" end="00:40:18.070" style="s2">and do some things like turn it into a</p>
+<p begin="00:40:16.000" end="00:40:19.570" style="s2">list so I can compute average score or</p>
+<p begin="00:40:18.070" end="00:40:21.060" style="s2">distributions or something else I don&#39;t</p>
+<p begin="00:40:19.570" end="00:40:26.290" style="s2">really care what&#39;s going on in here</p>
+<p begin="00:40:21.060" end="00:40:27.730" style="s2">notice though what I&#39;ve done open if it</p>
+<p begin="00:40:26.290" end="00:40:30.940" style="s2">doesn&#39;t succeed is going to raise a</p>
+<p begin="00:40:27.730" end="00:40:33.310" style="s2">particular kind of exception called IO</p>
+<p begin="00:40:30.940" end="00:40:34.570" style="s2">error and so I&#39;ve done a little bit</p>
+<p begin="00:40:33.310" end="00:40:37.900" style="s2">different thing here which is I&#39;ve put</p>
+<p begin="00:40:34.570" end="00:40:41.260" style="s2">the accept part of the block with IO</p>
+<p begin="00:40:37.900" end="00:40:43.420" style="s2">error what does that say it says if in</p>
+<p begin="00:40:41.260" end="00:40:45.250" style="s2">the code up here I get an exception of</p>
+<p begin="00:40:43.420" end="00:40:46.030" style="s2">that sort I&#39;m going to go to this place</p>
+<p begin="00:40:45.250" end="00:40:48.430" style="s2">to handle it</p>
+<p begin="00:40:46.030" end="00:40:50.650" style="s2">on the other hand if I&#39;m inside this</p>
+<p begin="00:40:48.430" end="00:40:51.099" style="s2">procedure and some other exception is</p>
+<p begin="00:40:50.650" end="00:40:53.470" style="s2">raised</p>
+<p begin="00:40:51.099" end="00:40:55.750" style="s2">that&#39;s not tagged by that one it&#39;s going</p>
+<p begin="00:40:53.470" end="00:40:57.190" style="s2">to raise it up the chain if that</p>
+<p begin="00:40:55.750" end="00:40:58.810" style="s2">procedure was called by some other</p>
+<p begin="00:40:57.190" end="00:41:00.579" style="s2">procedures going to say is there an</p>
+<p begin="00:40:58.810" end="00:41:02.530" style="s2">exception block in there that can handle</p>
+<p begin="00:41:00.579" end="00:41:03.940" style="s2">that if not I&#39;m going to keep going up</p>
+<p begin="00:41:02.530" end="00:41:06.280" style="s2">the chain until eventually I get to the</p>
+<p begin="00:41:03.940" end="00:41:07.359" style="s2">top level and you can see that down here</p>
+<p begin="00:41:06.280" end="00:41:08.770" style="s2">I&#39;m going to run this in a sacrament</p>
+<p begin="00:41:07.359" end="00:41:10.300" style="s2">this is just a piece of code where I&#39;m</p>
+<p begin="00:41:08.770" end="00:41:15.220" style="s2">going to say gee if I can get the grades</p>
+<p begin="00:41:10.300" end="00:41:19.329" style="s2">do something if not carry on right and</p>
+<p begin="00:41:15.220" end="00:41:23.020" style="s2">if I go ahead and run this now it&#39;s</p>
+<p begin="00:41:19.329" end="00:41:26.950" style="s2">going to say whoops at me okay what</p>
+<p begin="00:41:23.020" end="00:41:28.810" style="s2">happened I&#39;m down here and try I&#39;m</p>
+<p begin="00:41:26.950" end="00:41:30.490" style="s2">trying to do get grades which is a call</p>
+<p begin="00:41:28.810" end="00:41:34.240" style="s2">to that function which is not bound to</p>
+<p begin="00:41:30.490" end="00:41:36.790" style="s2">my in my in my yeah in my computer that</p>
+<p begin="00:41:34.240" end="00:41:39.400" style="s2">says it&#39;s in here it&#39;s in this try block</p>
+<p begin="00:41:36.790" end="00:41:43.510" style="s2">it raised an exception but it wasn&#39;t an</p>
+<p begin="00:41:39.400" end="00:41:46.750" style="s2">i/o error so it passes it back past this</p>
+<p begin="00:41:43.510" end="00:41:48.070" style="s2">exception up to this level which gets to</p>
+<p begin="00:41:46.750" end="00:41:50.150" style="s2">that exception</p>
+<p begin="00:41:48.070" end="00:41:52.880" style="s2">so let me say this a little bit better</p>
+<p begin="00:41:50.150" end="00:41:55.820" style="s2">than I can write exceptions inside a</p>
+<p begin="00:41:52.880" end="00:41:57.290" style="s2">piece of code try this if it doesn&#39;t</p>
+<p begin="00:41:55.820" end="00:41:59.990" style="s2">work I can have an exception that</p>
+<p begin="00:41:57.290" end="00:42:01.970" style="s2">catches any error at that level or I can</p>
+<p begin="00:41:59.990" end="00:42:04.220" style="s2">say catch only these kinds of errors at</p>
+<p begin="00:42:01.970" end="00:42:06.410" style="s2">that level otherwise pass them up the</p>
+<p begin="00:42:04.220" end="00:42:08.030" style="s2">chain and that exception will keep</p>
+<p begin="00:42:06.410" end="00:42:09.920" style="s2">getting passed up the chain of calls</p>
+<p begin="00:42:08.030" end="00:42:11.090" style="s2">until it either gets to top level in</p>
+<p begin="00:42:09.920" end="00:42:12.860" style="s2">which case it looks like what you see</p>
+<p begin="00:42:11.090" end="00:42:14.870" style="s2">all the time looks like an error but it</p>
+<p begin="00:42:12.860" end="00:42:16.370" style="s2">tells you what the error came from or it</p>
+<p begin="00:42:14.870" end="00:42:19.130" style="s2">gets an exception handler that can deal</p>
+<p begin="00:42:16.370" end="00:42:21.830" style="s2">with it okay so the last thing to say</p>
+<p begin="00:42:19.130" end="00:42:37.880" style="s2">about this is what&#39;s the difference</p>
+<p begin="00:42:21.830" end="00:42:39.500" style="s2">between an exception and an assert all</p>
+<p begin="00:42:37.880" end="00:42:40.940" style="s2">right we introduced asserts earlier on</p>
+<p begin="00:42:39.500" end="00:42:44.840" style="s2">you&#39;ve actually seen them in some pieces</p>
+<p begin="00:42:40.940" end="00:42:48.050" style="s2">of code so what&#39;s the difference between</p>
+<p begin="00:42:44.840" end="00:42:51.800" style="s2">the two of them well here&#39;s my way of</p>
+<p begin="00:42:48.050" end="00:42:54.200" style="s2">describing it the goal of an assert or</p>
+<p begin="00:42:51.800" end="00:42:56.660" style="s2">an assert statement is basically to say</p>
+<p begin="00:42:54.200" end="00:42:59.630" style="s2">look you can be sure that my function is</p>
+<p begin="00:42:56.660" end="00:43:01.970" style="s2">going to give this kind of result if you</p>
+<p begin="00:42:59.630" end="00:43:04.220" style="s2">give me inputs of a particular type</p>
+<p begin="00:43:01.970" end="00:43:05.960" style="s2">sorry wrong way saying if you give me</p>
+<p begin="00:43:04.220" end="00:43:08.390" style="s2">inputs that satisfy some particular</p>
+<p begin="00:43:05.960" end="00:43:10.310" style="s2">constraints right that was the kind of</p>
+<p begin="00:43:08.390" end="00:43:12.650" style="s2">thing you saw assert said here are some</p>
+<p begin="00:43:10.310" end="00:43:14.000" style="s2">conditions to test if they&#39;re true I&#39;m</p>
+<p begin="00:43:12.650" end="00:43:16.850" style="s2">going to let the rest of the code run if</p>
+<p begin="00:43:14.000" end="00:43:19.730" style="s2">not I&#39;m going to throw an error alright</p>
+<p begin="00:43:16.850" end="00:43:25.010" style="s2">so the assertion is basically saying we</p>
+<p begin="00:43:19.730" end="00:43:26.720" style="s2">got some preconditions those are the</p>
+<p begin="00:43:25.010" end="00:43:33.710" style="s2">clauses inside the assert that have to</p>
+<p begin="00:43:26.720" end="00:43:35.720" style="s2">be true and there&#39;s a post condition and</p>
+<p begin="00:43:33.710" end="00:43:38.060" style="s2">in essence what the assert is saying is</p>
+<p begin="00:43:35.720" end="00:43:39.920" style="s2">or rather the programmer saying using</p>
+<p begin="00:43:38.060" end="00:43:41.390" style="s2">these Surtees if you give me input that</p>
+<p begin="00:43:39.920" end="00:43:43.190" style="s2">satisfies the preconditions I&#39;m</p>
+<p begin="00:43:41.390" end="00:43:44.360" style="s2">guaranteeing to you that my code is</p>
+<p begin="00:43:43.190" end="00:43:45.530" style="s2">going to give you something that meets</p>
+<p begin="00:43:44.360" end="00:43:48.110" style="s2">the post condition it&#39;s going to do the</p>
+<p begin="00:43:45.530" end="00:43:49.130" style="s2">right thing and as a consequence as you</p>
+<p begin="00:43:48.110" end="00:43:51.530" style="s2">saw with the asserts if the</p>
+<p begin="00:43:49.130" end="00:43:54.050" style="s2">preconditions aren&#39;t true it throws an</p>
+<p begin="00:43:51.530" end="00:43:56.210" style="s2">error it goes back up the top level</p>
+<p begin="00:43:54.050" end="00:43:58.970" style="s2">saying stops operation immediately and</p>
+<p begin="00:43:56.210" end="00:44:00.890" style="s2">goes back up the top level okay</p>
+<p begin="00:43:58.970" end="00:44:02.420" style="s2">asserts in fact are nice in the sense</p>
+<p begin="00:44:00.890" end="00:44:03.980" style="s2">that they let you check conditions at</p>
+<p begin="00:44:02.420" end="00:44:05.359" style="s2">debugging time or testing time so you</p>
+<p begin="00:44:03.980" end="00:44:08.990" style="s2">can actually use them to see where your</p>
+<p begin="00:44:05.359" end="00:44:10.250" style="s2">code is going an exception when you use</p>
+<p begin="00:44:08.990" end="00:44:12.140" style="s2">an exception basically what you&#39;re</p>
+<p begin="00:44:10.250" end="00:44:14.030" style="s2">saying is look you can do anything you</p>
+<p begin="00:44:12.140" end="00:44:15.170" style="s2">want with my function and you can be</p>
+<p begin="00:44:14.030" end="00:44:16.849" style="s2">sure that I&#39;m going to tell you if</p>
+<p begin="00:44:15.170" end="00:44:19.089" style="s2">something is going wrong and in many</p>
+<p begin="00:44:16.849" end="00:44:22.339" style="s2">cases I&#39;m going to handle it myself</p>
+<p begin="00:44:19.089" end="00:44:25.309" style="s2">so as much as possible the exceptions</p>
+<p begin="00:44:22.339" end="00:44:27.890" style="s2">are going to try and handle unexpected</p>
+<p begin="00:44:25.309" end="00:44:29.390" style="s2">things actually wrong term you expected</p>
+<p begin="00:44:27.890" end="00:44:31.130" style="s2">them but not what the user did it&#39;s</p>
+<p begin="00:44:29.390" end="00:44:34.220" style="s2">going to try and handle conditions other</p>
+<p begin="00:44:31.130" end="00:44:37.970" style="s2">than the normal ones itself so you can</p>
+<p begin="00:44:34.220" end="00:44:39.079" style="s2">use the thing in any way if a cat is</p>
+<p begin="00:44:37.970" end="00:44:40.670" style="s2">going to try and throw it to somebody</p>
+<p begin="00:44:39.079" end="00:44:43.010" style="s2">else to handle and only if there is no</p>
+<p begin="00:44:40.670" end="00:44:45.500" style="s2">handler for that unexpected condition</p>
+<p begin="00:44:43.010" end="00:44:47.839" style="s2">will it come up to top level so</p>
+<p begin="00:44:45.500" end="00:44:49.970" style="s2">summarizing better assert is something</p>
+<p begin="00:44:47.839" end="00:44:52.010" style="s2">you put in to say to the user make sure</p>
+<p begin="00:44:49.970" end="00:44:53.180" style="s2">you&#39;re giving me input of this type but</p>
+<p begin="00:44:52.010" end="00:44:55.609" style="s2">I&#39;m going to guarantee you the rest of</p>
+<p begin="00:44:53.180" end="00:44:57.200" style="s2">the code works correctly exceptions and</p>
+<p begin="00:44:55.609" end="00:44:59.420" style="s2">exception handlers are saying here are</p>
+<p begin="00:44:57.200" end="00:45:00.950" style="s2">the odd cases that I might see and</p>
+<p begin="00:44:59.420" end="00:45:02.930" style="s2">here&#39;s what I&#39;d like to do in those</p>
+<p begin="00:45:00.950" end="00:45:07.130" style="s2">cases in order to try and be able to</p>
+<p begin="00:45:02.930" end="00:45:11.770" style="s2">deal with them last thing to say is why</p>
+<p begin="00:45:07.130" end="00:45:14.240" style="s2">would you want to have exceptions well</p>
+<p begin="00:45:11.770" end="00:45:16.940" style="s2">let&#39;s go back to that case of inputting</p>
+<p begin="00:45:14.240" end="00:45:18.559" style="s2">a simple little floating point if I&#39;m</p>
+<p begin="00:45:16.940" end="00:45:19.819" style="s2">expecting mostly numbers in I can</p>
+<p begin="00:45:18.559" end="00:45:20.990" style="s2">certainly try and do the coercion I</p>
+<p begin="00:45:19.819" end="00:45:24.380" style="s2">could have done that just doing the</p>
+<p begin="00:45:20.990" end="00:45:26.270" style="s2">coercion right the problem is I want to</p>
+<p begin="00:45:24.380" end="00:45:28.430" style="s2">know if in fact I&#39;ve got something</p>
+<p begin="00:45:26.270" end="00:45:30.260" style="s2">that&#39;s not of the form I expect I&#39;m much</p>
+<p begin="00:45:28.430" end="00:45:32.869" style="s2">better having an exception get handled</p>
+<p begin="00:45:30.260" end="00:45:35.029" style="s2">at the time of input tend to let that</p>
+<p begin="00:45:32.869" end="00:45:36.170" style="s2">property that value rather propagate</p>
+<p begin="00:45:35.029" end="00:45:38.930" style="s2">through a whole bunch of code until</p>
+<p begin="00:45:36.170" end="00:45:40.339" style="s2">eventually hits an error 17 calls later</p>
+<p begin="00:45:38.930" end="00:45:43.369" style="s2">and you have no clue where it came from</p>
+<p begin="00:45:40.339" end="00:45:46.190" style="s2">so the exceptions are useful when you</p>
+<p begin="00:45:43.369" end="00:45:48.559" style="s2">want to have the ability to say I expect</p>
+<p begin="00:45:46.190" end="00:45:50.000" style="s2">in general this kind of behavior but I</p>
+<p begin="00:45:48.559" end="00:45:51.559" style="s2">do know there are some other things that</p>
+<p begin="00:45:50.000" end="00:45:53.900" style="s2">might happen and here&#39;s what I&#39;d like to</p>
+<p begin="00:45:51.559" end="00:45:55.520" style="s2">do in each one of those cases but I do</p>
+<p begin="00:45:53.900" end="00:45:57.200" style="s2">want to make sure that I don&#39;t let a</p>
+<p begin="00:45:55.520" end="00:46:00.020" style="s2">value that I&#39;m not expecting pass</p>
+<p begin="00:45:57.200" end="00:46:02.329" style="s2">through that goes back to that idea of</p>
+<p begin="00:46:00.020" end="00:46:03.980" style="s2">sort of discipline coding it&#39;s easy to</p>
+<p begin="00:46:02.329" end="00:46:05.630" style="s2">have assumptions about what you think</p>
+<p begin="00:46:03.980" end="00:46:07.609" style="s2">are going to come into the program when</p>
+<p begin="00:46:05.630" end="00:46:09.859" style="s2">you write it if you really know what</p>
+<p begin="00:46:07.609" end="00:46:11.359" style="s2">they are using assert but if you think</p>
+<p begin="00:46:09.859" end="00:46:12.530" style="s2">there&#39;s going to be some flexibility you</p>
+<p begin="00:46:11.359" end="00:46:14.180" style="s2">want to prevent</p>
+<p begin="00:46:12.530" end="00:46:16.040" style="s2">the user getting trapped in the bad spot</p>
+<p begin="00:46:14.180" end="00:46:18.640" style="s2">and exceptions as a consequence or a</p>
+<p begin="00:46:16.040" end="00:46:18.640" style="s2">good thing to use</p>
+</div>
+</body>
+</tt>

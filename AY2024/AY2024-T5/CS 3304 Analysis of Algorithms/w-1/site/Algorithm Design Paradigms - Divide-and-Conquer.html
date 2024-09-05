@@ -1,0 +1,554 @@
+
+<!-- saved from url=(0060)https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/d_and_c.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body bgcolor="#FFE3B8" text="#35142E" alink="#FFFF8F" link="#0000BD" vlink="#007C00" data-new-gr-c-s-check-loaded="14.1077.0" data-gr-ext-installed="">
+<title>Algorithm Design Paradigms - Divide-and-Conquer</title>
+<p>
+</p><h3><b>Divide-and-Conquer</b>
+</h3>
+<p>
+This is a method of designing algorithms that (informally)
+proceeds as follows:
+</p><p>
+Given an instance of the problem to be solved, split
+this into several, smaller, sub-instances (<i>of the same problem</i>)
+independently solve each of the sub-instances and then combine
+the sub-instance solutions so as to yield a solution for the
+original instance.
+This description raises the question:
+</p><p>
+By what methods are the <i>sub-instances</i> to be <i>independently solved</i>?
+</p><p>
+The answer to this question is central to the concept of <i>Divide-&amp;-Conquer
+algorithm</i> and is a key factor in gauging their efficiency.
+</p><p>
+Consider the following:
+We have an algorithm, <i>alpha</i> say, which is known to solve
+all problem instances of size <i>n</i> in at most <i>c n^2</i> steps
+(where <i>c</i> is some constant).
+We then discover an algorithm, <i>beta</i> say, which solves the same
+problem by:
+</p><ul>
+<li>
+Dividing an instance into 3 sub-instances of size <i>n/2</i>.
+</li><li>
+Solves these 3 sub-instances.
+</li><li>
+Combines the three sub-solutions taking <i>d n</i> steps to do this.
+</li></ul>
+Suppose our original algorithm, <i>alpha</i>, is used to carry out
+the `solves these sub-instances' step 2.
+Let
+<p>
+<i>
+T(alpha)( n )  = Running time of alpha</i>
+</p><p>
+<i>
+T(beta)( n )   = Running time of beta</i>
+</p><p>
+Then,
+</p><p>
+<i>
+T(alpha)( n )  =  c n^2    (by definition of alpha)</i>
+</p><p>
+But
+</p><p>
+</p><pre><i>
+T(beta)( n )  = 3 T(alpha)( n/2 ) + d n</i>
+<i>
+              = (3/4)(cn^2) + dn</i>
+</pre>
+<p>
+So if <i>dn &lt; (cn^2)/4</i> (i.e. <i>d &lt; cn/4</i>) then <i>beta</i> is <i>faster 
+than</i> <i>alpha</i>
+</p><p>
+In particular for all large enough <i>n</i>, (<i>n &gt; 4d/c = Constant</i>), <i>
+beta</i> is faster than <i>alpha</i>.
+</p><p>
+This realisation of <i>beta</i> improves upon <i>alpha</i> by just a constant factor.
+But if the problem size, <i>n</i>, is large enough then
+</p><p>
+</p><pre><i>
+         n     &gt;   4d/c
+         n/2   &gt;   4d/c
+               ...
+         n/2^i &gt;   4d/c
+</i>
+</pre>
+<p>
+which suggests that using <i>beta</i> instead of <i>alpha</i> for the `<i>solves
+these</i>'
+stage <i>repeatedly until the sub-sub-sub..sub-instances are of size</i> 
+<i>n0 &lt; = (4d/c)</i>
+will yield a still faster algorithm.
+</p><p>
+So consider the following new algorithm for instances of size <i>n</i>
+</p><p>
+</p><pre><b>procedure</b> <i>gamma</i> (<i>n</i> : <b>problem size</b> ) <b>is</b>
+   <b>begin</b>
+       <b>if</b> <i>n &lt;= n^-0</i> <b>then</b>
+           Solve problem using Algorithm <i>alpha</i>;
+        <b>else</b>
+           Split into 3 sub-instances of size <i>n/2</i>;
+           Use <i>gamma</i> to solve each sub-instance;
+           Combine the 3 sub-solutions;
+        <b>end if</b>;
+   <b>end</b> <i>gamma</i>;
+</pre>
+<p>
+Let <i>T(gamma)(n)</i> denote the running time of this algorithm.
+</p><p>
+</p><pre><i>
+                cn^2                  if n &lt; = n0
+T(gamma)(n)  = 
+                3T(gamma)( n/2 )+dn   otherwise
+</i>
+</pre>
+<p>
+We shall show how relations of this form can be estimated later in the
+course. With these methods it can be shown that 
+</p><p>
+<i>
+T(gamma)( n )  =  O( n^{log3} )  (=O(n^{1.59..})
+</i>
+</p><p>
+This is an <i>asymptotic improvement</i> upon algorithms <i>alpha</i> and <i>beta</i>.
+</p><p>
+The improvement that results from applying algorithm <i>gamma</i> is
+due to the fact that it maximises the savings achieved <i>beta</i>.
+</p><p>
+The (relatively) inefficient method <i>alpha</i> is applied only to
+<i>"small"</i> problem sizes.
+</p><p>
+The precise form of a divide-and-conquer algorithm is
+characterised by:
+</p><ul>
+<li>
+The <i>threshold</i> input size, <i>n0</i>, below which
+the problem size is not sub-divided.
+</li><li>
+The <i>size</i> of sub-instances into which an instance is split.
+</li><li>
+The <i>number</i> of such sub-instances.
+</li><li>
+The algorithm used to combine sub-solutions.
+</li></ul>
+<p>
+In (II) it is more usual to consider the <i>ratio</i> of initial
+problem size to sub-instance size. In our example this was <i>2</i>. The
+<i>threshold</i> in (I) is sometimes called the <i>(recursive) base value</i>.
+In summary, the generic form of a divide-and-conquer algorithm is:
+</p><p>
+</p><pre><b>procedure</b> <i>D-and-C</i> (<i>n</i> : <b>input size</b>) <b>is</b>
+   <b>begin</b>
+      <b>if</b> <i>n &lt; = n0</i> <b>then</b>
+         Solve problem without further
+         sub-division;
+       <b>else</b>
+          Split into <i>r</i> sub-instances 
+          each of size <i>n/k</i>;
+          for each of the <i>r</i> sub-instances do
+            <i>D-and-C (n/k)</i>;
+          Combine the <i>r</i> resulting 
+          sub-solutions to produce
+          the solution to the original problem;
+       <b>end if</b>;
+    <b>end</b> <i>D-and-C</i>;
+</pre>
+<p>
+Such algorithms are naturally and easily realised as:
+</p><p>
+</p><h3><b>Recursive Procedures</b>
+</h3>
+in (suitable) high-level programming languages.
+<p>
+</p><h2>Example 1:
+</h2>
+
+<p>
+</p><h3><b>Binary Search</b>
+</h3>
+<p>
+Consider the following problem: one has a directory containing a
+set of <i>names</i> and a telephone <i>number</i> associated with
+each name.
+</p><p>
+The directory is sorted by alphabetical order of names. It contains <i>n</i>
+entries which are stored in 2 arrays:
+</p><p>
+<i>names (1..n)</i>  ; <i>numbers (1..n)</i>
+</p><p>
+Given a <i>name</i> and the value <i>n</i> the problem is to find the <i>number</i>
+associated with the name.
+</p><p>
+We assume that any given input name actually <i>does occur</i> in the directory,
+in order to make the exposition easier.
+</p><p>
+The Divide-&amp;-Conquer algorithm to solve this problem is the simplest example
+of the paradigm.
+</p><p>
+It is based on the following observation
+</p><p>
+Given a name, <i>X</i> say,
+</p><p>
+<i>X</i> occurs in the <i>middle</i> place of the <i>names</i> array
+</p><p>
+<b>Or</b>
+</p><p>
+<i>X</i> occurs in the <i>first</i> half of the <i>names</i> array. (U)
+</p><p>
+<b>Or</b>
+</p><p>
+<i>X</i> occurs in the <i>second</i> half of the <i>names</i> array. (L)
+</p><p>
+<i>U</i> (respectively <i>L</i>) are true <i>only if</i> <i>X</i> comes <i>before</i>
+(respectively <i>after</i>) that name stored in the <i>middle</i> place.
+</p><p>
+This observation leads to the following algorithm:
+</p><p>
+</p><pre><b>function</b> <i>search</i> (<i>X</i> : <b>name</b>;
+                             <i>start, finish</i> : <b>integer</b>)
+                             <b>return integer</b> <b>is</b>
+   <i>middle</i> : <b>integer</b>;
+   <b>begin</b>
+      <i>middle</i> := <i>(start+finish)/2</i>;
+      <b>if</b> <i>names(middle)=x</i> <b>then</b>
+          <b>return</b> <i>numbers(middle)</i>;
+      <b>elsif</b> <i>X&lt;names(middle)</i> <b>then</b>
+          <b>return</b> <i>search(X,start,middle-1)</i>;
+      <b>else</b> -- <i>X&gt;names(middle)</i>
+          <b>return</b> <i>search(X,middle+1,finish)</i>;
+      <b>end if</b>;
+   <b>end</b> <i>search</i>;
+</pre>
+<p>
+<b>Exercise:</b> How should this algorithm be modified to cater for
+the possibility that a given name does not occur in the directory?
+In terms of the generic form of divide-&amp;-conquer algorithms,
+at which stage is this modification made?
+</p><p>
+We defer analysis of the algorithm's performance until later.
+</p><p>
+</p><h2>Example 2
+</h2>
+<p>
+</p><p>
+</p><h3>Closest Pair
+</h3>
+<b>Input:</b>
+<p>
+</p><pre><i>
+P  =  {p(1), p(2) ,..., p(n) }</i>
+</pre>
+<p>
+where <i>p(i) = ( x(i), y(i) )</i>.
+</p><p>
+A set of <i>n</i> points in the plane.
+</p><p>
+<b>Output</b>
+</p><p>
+The <i>distance</i> between the two points that are closest.
+</p><p>
+<b>Note:</b> The distance <i>DELTA( i, j )</i> between <i>p(i)</i> and <i>p(j)</i>
+is defined by the expression:
+</p><p>
+</p><pre><i>Square root of { (x(i)-x(j))^2 + (y(i)-y(j))^2 }</i>
+</pre>
+<p>
+We describe a divide-and-conquer algorithm for this problem.
+</p><p>
+<img src="./Algorithm Design Paradigms - Divide-and-Conquer_files/pic1.gif">
+</p><p>
+</p><p>
+We assume that:
+</p><p>
+<i>n</i> is an exact power of 2, <i>n = 2^k</i>.
+</p><p>
+For each <i>i</i>, <i>x(i) &lt; = x(i+1)</i>, i.e. the points are
+ordered by increasing <i>x</i> from left to right.
+</p><p>
+Consider drawing a vertical line (<i>L</i>) through the
+set of points <i>P</i> so that half of the points in <i>P</i>
+lie to the <i>left</i> of <i>L</i> and half lie to the <i>right</i>
+of <i>L</i>.
+</p><p>
+<img src="./Algorithm Design Paradigms - Divide-and-Conquer_files/pic2.gif">
+</p><p>
+There are three possibilities:
+</p><ul>
+<li>
+The closest pair lie in <i>P-LEFT</i>.
+</li><li>
+The closest pair lie in <i>P-RIGHT</i>.
+</li><li>
+The closest pair contains:
+<p>
+One Point from <i>P-LEFT</i>
+</p><p>
+and
+</p><p>
+One Point from <i>P-RIGHT</i>
+</p></li></ul>
+<p>
+So we have a (rough) Divide-and-Conquer Method as follows:
+</p><p>
+</p><pre><b>function</b><i> closest_pair</i> (<i>P</i>: <b>point set</b>; <i>n</i>: <b>in
+teger</b> )
+                               <b>return float is</b>
+   <i>DELTA-LEFT</i>, <i>DELTA-RIGHT</i> : <b>float</b>;
+   <i>DELTA</i> : <b>float</b>;
+   <b>begin</b>
+      <b>if</b> <i>n = 2</i> <b>then</b>
+         <b>return</b> distance from <i>p(1)</i> to <i>p(2)</i>;
+      <b>else</b>
+         <i>P-LEFT  := ( p(1), p(2) ,..., p(n/2) )</i>;
+         <i>P-RIGHT := ( p(n/2+1), p(n/2+2) ,..., p(n) )</i>;
+         <i>DELTA-LEFT := closestpair( P-LEFT, n/2 )</i>;
+         <i>DELTA-RIGHT := closestpair( P-RIGHT, n/2 )</i>;
+         <i>DELTA := minimum ( DELTA-LEFT, DELTA-RIGHT )</i>;
+         --*********************************************
+         Determine whether there are points <i>p(l)</i> in
+         <i>P-LEFT</i> and <i>p(r)</i> in <i>P-RIGHT</i> with
+         <i>distance( p(l), p(r) ) &lt; DELTA</i>. If there
+         are such points, set <i>DELTA</i> to be the smallest
+         distance.
+         --**********************************************
+         <b>return</b> <i>DELTA</i>;
+      <b>end if</b>;
+<b>end</b> <i>closest_pair</i>;
+<p>
+</p></pre>
+<p>
+The section between the two comment lines is the `combine'
+stage of the Divide-and-Conquer algorithm.
+</p><p>
+If there are points <i>p(l)</i> and <i>p(r)</i> whose distance
+apart is less than <i>DELTA</i> then it must be the case that
+</p><ul>
+<li>
+The <i>x</i>-coordinates of <i>p(l)</i> and <i>p(r)</i> differ by
+at most <i>DELTA</i>.
+</li><li>
+The <i>y</i>-coordinates of <i>p(l)</i> and <i>p(r)</i> differ by
+at most <i>DELTA</i>.
+</li></ul>
+<p>
+<img src="./Algorithm Design Paradigms - Divide-and-Conquer_files/pic3.gif">
+</p><p>
+The combine stage can be implemented by:
+</p><p>
+</p><ul>
+<li>
+Finding all points in <i>P-LEFT</i> whose <i>x</i>-coordinate is
+at least <i>x(n/2)-DELTA</i>.
+</li><li>
+Finding all points in <i>P-RIGHT</i> whose <i>x</i>-coordinate is
+at most <i>x(n/2)+DELTA</i>.
+</li></ul>
+<p>
+Call the set of points found in (1) and (2) <i>P-strip</i>.
+and sort the <i>s</i> points in this in order of increasing <i>y</i>-coordinate.
+letting <i>( q(1),q(2) ,..., q(s) )</i> denote the sorted set of
+points.
+</p><p>
+Then the combine stage of the algorithm consists of two nested <b>for</b>
+loops:
+</p><p>
+</p><pre><b>for</b><i> i </i><b>in</b> <i>1..s</i> <b>loop</b>
+   <b>for</b><i> j </i><b>in</b> <i>i+1..s</i> <b>loop</b>
+      <b>exit when</b> (<i>| x(i) - x(j) | &gt; DELTA</i> <b>or</b>
+                       <i>| y(i) - y(j) | &gt; DELTA</i>);
+       <b>if</b> <i>distance( q(i), q(j) ) &lt; DELTA</i> <b>then</b>
+          <i>DELTA := distance ( q(i), q(j) )</i>;
+       <b>end if</b>;
+   <b>end loop</b>;
+<b>end loop</b>;
+</pre>
+<p>
+</p><h2>Example 3</h2>
+<p>
+</p><h3><b>Integer Multiplication</b>
+</h3>
+Divide-and-Conquer may also be applied to problems other
+than those involving searching. The following problem
+should be familiar:
+<p>
+<img src="./Algorithm Design Paradigms - Divide-and-Conquer_files/pic4.gif">
+</p><p>
+The <i>(2n)</i>-digit decimal representation of the product <i>x * y</i>.
+</p><p>
+<b>Note:</b> The algorithm below works for <i>any</i> number base, e.g.
+binary, decimal, hexadecimal, etc. We use decimal simply for convenience.
+</p><p>
+The classical primary school algorithm for multiplication requires <i>O( n^2 )</i>
+steps to multiply two <i>n</i>-digit numbers.
+</p><p>
+A <i>step</i> is regarded as a <i>single operation</i> involving two
+<i>single digit</i> numbers, e.g. <i>5+6</i>, <i>3*4</i>, etc.
+</p><p>
+In 1962, A.A. Karatsuba discovered an <i>asymptotically faster</i>
+algorithm for multiplying two numbers by using a divide-and-conquer approach.
+</p><p>
+<img src="./Algorithm Design Paradigms - Divide-and-Conquer_files/pic5.gif">
+</p><p>
+<img src="./Algorithm Design Paradigms - Divide-and-Conquer_files/pic6.gif">
+</p><p>
+From this we also know that the result of multiplying <i>x</i> and <i>y</i> 
+(i.e. <i>z</i>)
+is
+</p><p>
+<img src="./Algorithm Design Paradigms - Divide-and-Conquer_files/pic7.gif">
+</p><p>
+The terms <i>( a*c )</i>, <i>( a*d )</i>, <i>( b*c )</i>, and <i>( b*d )</i> are
+each products of 
+</p><p>
+</p><h3><b>2 (n/2)-digit numbers</b>.
+</h3>
+<p>
+Thus the expression for the multiplication of <i>x</i> and <i>y</i> in terms of 
+the numbers
+<i>a</i>, <i>b</i>, <i>c</i>, and <i>d</i> tells us that:
+</p><ul>
+<li>
+Two single digit numbers can be multiplied immediately. (Recursive base: 1 step)
+</li><li>
+If <i>n &gt; 1</i> then the product of 2 <i>n</i>-digit numbers can be expressed 
+in terms of
+<i>4 products of 2 (n/2)-digit numbers</i> (Divide-and-Conquer stage)
+</li><li>
+To calculate the result of multiplying <i>x</i> and <i>y</i> given the four products
+returned involves only <i>addition</i> (can be done in <i>O( n )</i> steps)
+and multiplying by a <i>power of 10</i> (also can be done in <i>O( n )</i> steps,
+since it only requires placing the appropriate number of 0s at the end of the number).
+(Combine stage).
+</li></ul>
+<p>
+(1-3) therefore describe a Divide-&amp;-Conquer algorithm for multiplying two
+<i>n</i>-digit numbers represented in decimal.
+However,
+</p><p>
+<i>Moderately difficult:
+</i>
+How many steps does the resulting algorithm take to multiply two
+<i>n</i>-digit numbers?
+</p><p>
+Karatsuba discovered how the product of 2 <i>n</i>-digit numbers
+could be expressed in terms of <b>three</b> products each of 2 <i>(n/2)</i>-digit
+numbers - instead of the <b>four</b> products that a naive implementation
+of the Divide-and-Conquer schema above uses.
+</p><p>
+This saving is accomplished at the expense of slightly increasing the number
+of steps taken in the `combine stage' (Step 3) (although, this will still
+only use <i>O( n )</i> operations).
+</p><p>
+Suppose we compute the following 3 products (of 2 <i>(n/2)</i>-digit numbers):
+</p><p>
+<img src="./Algorithm Design Paradigms - Divide-and-Conquer_files/pic8.gif">
+</p><p>
+</p><p>
+</p><pre><b>function</b><i> Karatsuba </i> (<i>xunder</i>, <i>yunder</i> : <b>n-digit integer</b>;
+                           <i>n</i> : <b>integer</b>) 
+                           <b>return (2n)-digit integer</b> <b>is</b>
+<i>a</i>, <i>b</i>, <i>c</i>, <i>d</i> : <b>(n/2)-digit integer</b>
+<i>U</i>, <i>V</i>, <i>W</i> : <b>n-digit integer</b>;
+<b>begin</b>
+   <b>if</b> <i>n = 1</i> <b>then</b>
+      <b>return</b> <i>x(0)*y(0)</i>;
+   <b>else</b>
+      <i>a := x(n-1) ... x(n/2)</i>;
+      <i>b := x(n/2-1) ... x(0)</i>;
+      <i>c := y(n-1) ... y(n/2)</i>;
+      <i>d := y(n/2-1) ... y(0)</i>;
+      <i>U := Karatsuba ( a, c, n/2 )</i>;
+      <i>V := Karatsuba ( b, d, n/2 )</i>;
+      <i>W := Karatsuba ( a+b, c+d, n/2 )</i>;
+      <b>return</b> <i>U*10^n + (W-U-V)*10^n/2 + V</i>;
+   <b>end if</b>;
+ <b>end</b> <i>Karatsuba</i>;
+</pre>
+<p>
+</p><h3><b>Performance Analysis</b>
+</h3>
+It was observed earlier that one reason for examining algorithmic
+paradigms was the fact that their running time could often be
+precisely determined.
+<p>
+This is useful in allowing comparisons between the performances of
+two algorithms to be made.
+</p><p>
+For Divide-and-Conquer algorithms the running time is mainly affected
+by 3 criteria:
+</p><ul>
+<li>
+The <b>number of sub-instances</b> (<i>alpha</i>) into which a
+problem is split.
+</li><li>
+The <b>ratio of initial problem size to sub-problem size</b>. (<i>beta</i>)
+</li><li>
+The <b>number of steps</b> required to <b>divide</b> the initial
+instance and to <b>combine</b> sub-solutions, expressed as a
+function of the input size, <i>n</i>.
+</li></ul>
+<p>
+Suppose, <i>P</i>, is a divide-and-conquer algorithm that instantiates
+<i>alpha</i> sub-instances, each of size <i>n/beta</i>.
+</p><p>
+Let <i>Tp( n )</i> denote the number of steps taken by <i>P</i> on instances
+of size <i>n</i>. Then
+</p><p>
+</p><pre><i>
+Tp( n0 )  =  Constant   (Recursive-base)
+Tp( n )   =  alpha Tp( n/beta ) + gamma( n )
+</i>
+</pre>
+<p>
+In the case when <i>alpha</i> and <i>beta</i> are both constant (as in all the 
+examples we have given) there is a general method that can be used to solve such
+<i>recurrence relations</i> in order to obtain an asymptotic bound for
+the running time <i>Tp( n )</i>.
+</p><p>
+In general:
+</p><p>
+</p><pre><i>
+T( n )  =  alpha T( n/beta ) + O( n^gamma )</i>
+</pre>
+<p>
+(where <i>gamma</i> is constant) has the solution
+</p><p>
+</p><pre><i>
+            O(n^gamma)             if   alpha &lt; beta^gamma
+T( n )  =   O(n^gamma log n)       if   alpha = beta^gamma}
+            O(n^{log^-beta(alpha)) if   alpha &gt; beta^gamma
+</i>
+</pre>
+<p>
+</p><ul>
+<li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/algor.html">Overview</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/intro.html">Introduction</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/dyprog.html">Dynamic Programming Algorithms</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/greedy.html">The Greedy Method</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/search.html">Backtracking and Search Techniques</a>
+</li></ul>
+<p>
+<img src="./Algorithm Design Paradigms - Divide-and-Conquer_files/ped3.gif">
+<a href="https://cgi.csc.liv.ac.uk/~ped/ped.html"><b>PED Home Page</b></a>
+</p></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

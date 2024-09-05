@@ -1,0 +1,343 @@
+
+<!-- saved from url=(0058)https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/intro.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body bgcolor="#FFE3B8" text="#35142E" alink="#FFFF8F" link="#0000BD" vlink="#007C00" data-new-gr-c-s-check-loaded="14.1077.0" data-gr-ext-installed="">
+
+<title>Algorithm Design Paradigms - Introduction</title>
+<p>
+</p><h3><b>Techniques for the Design of Algorithms</b></h3>
+<p>
+The first part of this course is concerned with:
+</p><p>
+</p><h3><b>Algorithmic Paradigms</b>
+</h3>
+That is:
+<ul>
+<li>
+General approaches to the construction of <i>efficient</i>
+solutions to problems.
+</li></ul>
+Such methods are of interest because:
+<ul>
+<li>
+They provide templates suited to solving a broad range of
+diverse problems.
+</li><li>
+They can be translated into common control and data structures
+provided by most high-level languages.
+</li><li>
+The temporal and spatial requirements of the algorithms which
+result can be precisely analysed.
+</li></ul>
+Over the next few lectures we shall examine the following paradigms:
+<ul>
+<li>
+Divide and Conquer.
+</li><li>
+Dynamic Programming
+</li><li>
+Greedy Method
+</li><li>
+Backtracking.
+</li></ul>
+Although more than one technique may be applicable to
+a specific problem, it is often the case that an algorithm
+constructed by one approach is clearly superior to
+equivalent solutions built using alternative techniques.
+<p>
+The choice of design paradigm is an important aspect of
+algorithm synthesis.
+</p><p>
+</p><h3><b>Basic Algorithm Analysis</b></h3>
+<p>
+</p><h2>Questions</h2>
+<p>
+</p><ul>
+<li>
+How does one calculate the running time of an algorithm?
+</li><li>
+How can we compare two different algorithms?
+</li><li>
+How do we know if an algorithm is `optimal'?
+</li></ul>
+<b>1.</b> <i>Count</i> the number of
+<b>basic operations</b>
+performed by the algorithm on the 
+<b>worst-case input</b>
+<p>
+A <i>basic operation</i> could be:
+</p><ul>
+<li>
+An assignment
+</li><li>
+A comparison between two variables
+</li><li>
+An arithmetic operation between two variables.
+The <b>worst-case</b> input is that input assignment for which
+the <i>most</i> basic operations are performed.
+</li></ul>
+<h2>Simple Example:
+</h2>
+<p>
+</p><p>
+</p><pre><i>n</i> := 5;
+<b>loop</b>
+    get(<i>m</i>);
+    <i>n</i> := <i>n</i> -1;
+<b>until</b> (<i>m</i>=0 <b>or</b> <i>n=0</i>)
+</pre>
+Worst-case: 5 iterations
+<p>
+Usually we are <b>not</b> concerned with the number of steps for a
+<i>single fixed case</i>
+but wish to estimate the running time in terms of the `input size'.
+</p><p>
+</p><pre>get(<i>n</i>);
+<b>loop</b>
+    get(<i>m</i>);
+    <i>n</i> := <i>n</i> -1;
+<b>until</b> (<i>m</i>=0 <b>or</b> <i>n=0</i>)
+</pre>
+Worst-case: <i>n</i> iterations
+<h2>Examples of `input size':
+</h2>
+<p>
+<b>Sorting</b>:
+</p><p>
+<i>n ==</i> The number of items to be sorted;
+</p><p>
+Basic operation: Comparison.
+</p><p>
+<b>Multiplication (of <i>x</i> and <i>y</i>)</b>:
+</p><p>
+<i>n ==</i> The number of <i>digits</i> in <i>x</i>
+plus the number of digits in <i>y</i>.
+</p><p>
+Basic operations: single digit arithmetic.
+</p><p>
+<b>Graph `searching'</b>:
+</p><p>
+<i>n ==</i> the number of nodes in the graph or the number of edges
+in the graph.
+</p><p>
+</p><h3><b>Counting the Number of Basic Operations</b>
+</h3>
+<b>Sequence</b>: <i>P</i> and <i>Q</i> are two algorithm sections:
+<p>
+</p><pre><i>
+Time( P ; Q )  =  Time( P ) + Time( Q )</i>
+</pre>
+<p>
+<b>Iteration</b>:
+</p><p>
+</p><pre><b>while</b> &lt; condition &gt; <b>loop</b>
+     <i>P</i>;
+<b>end loop</b>;
+</pre>
+or
+<p>
+</p><pre><b>for</b> <i>i</i> <b>in</b> <i>1..n</i> <b>loop</b>
+    <i>P</i>;
+<b>end loop</b>
+</pre>
+<p>
+</p><pre><i>
+Time  =  Time( P ) * ( Worst-case number of iterations )</i>
+</pre>
+<p>
+<b>Conditional</b>
+</p><p>
+</p><pre><b>if</b> &lt; condition &gt; <b>then</b>
+    <i>P</i>;
+<b>else</b>
+    <i>Q</i>;
+<b>end if</b>;
+</pre>
+<p>
+</p><pre><i>
+Time  =  Time(P)   if  &lt; condition &gt; =<b>true</b>
+         Time( Q ) if  &lt; condition &gt; =<b>false</b>
+</i>
+</pre>
+<p>
+</p><p>
+We shall consider recursive procedures later in the course.
+</p><p>
+</p><h2>Example:
+</h2>
+<p>
+</p><p>
+</p><pre><b>for</b> <i>i</i> <b>in</b> <i>1..n</i> <b>loop</b>
+    <b>for</b> <i>j</i> <b>in</b> <i>1..n</i> <b>loop</b>
+       <b>if</b> <i>i &lt; j</i> <b>then</b>
+          swop (<i>a(i,j), a(j,i)</i>); -- Basic operation
+       <b>end if</b>;
+    <b>end loop</b>;
+<b>end loop</b>;
+</pre>
+<p>
+</p><pre><i>
+Time  &lt;  n*n*1</i>
+       =  n^2
+</pre>
+<p>
+</p><p>
+</p><h3><b>Asymptotic Performance</b>
+</h3>
+We are usually concerned with the growth in running time
+as the input size increases, e.g.
+<p>
+Suppose <i>P</i>, <i>Q</i> and <i>R</i> are 3 algorithms with the
+following worst-case run times:
+</p><p>
+<table border="5" rules="all">
+<thead>
+<tr><th>n</th><th>P</th><th>Q</th><th>R</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>1</td><td>5</td><td>100</td></tr>
+<tr><td>10</td><td>1024</td><td>500</td><td>1000</td></tr>
+<tr><td>100</td><td>2<sup>100</sup></td><td>50,000</td><td>10,000</td></tr>
+<tr><td>1000</td><td>2<sup>1000</sup></td><td>5 million</td><td>100,000</td></tr>
+</tbody>
+</table>
+</p><p>
+If each is run on a machine that executes one million (<i>10^6</i>)
+operations per second
+</p><p>
+<table border="5" rules="all">
+<thead>
+<tr><th>n</th><th>P</th><th>Q</th><th>R</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>1(*ms</td><td>5(*ms</td><td>100(*ms</td></tr>
+<tr><td>5</td><td>1 millisec</td><td>0.5 millisec</td><td>1 millisec</td></tr>
+<tr><td>100</td><td>2<sup>70</sup>years</td><td>0.05 secs</td><td>0.01 secs</td></tr>
+<tr><td>1000</td><td>2<sup>970</sup>years</td><td>5 secs</td><td>0.1 secs</td></tr>
+</tbody>
+</table>
+</p><p>
+Thus,
+</p><p>
+The growth of run-time in terms of <i>n</i> (<i>2^n</i>; <i>n^2</i>; <i>n</i>)
+is more significant than the exact constant factors (<i>1</i>; <i>5</i>; <i>100</i>)
+</p><p>
+</p><h3><i>`O'</i>-<b>notation</b></h3>
+<p>
+Let <i>f</i>:<b>N</b>-&gt;  <b>R</b> and <i>g</i>:<b>N</b>-&gt;  <b>R</b>.
+Then: <i>f( n )  =  O( g(n) )</i>
+means that
+</p><p>
+There are values, <i>n0</i> and <i>c</i>, such that
+<i>f( n )  &lt; =  c * g( n )</i>
+whenever <i>n &gt; = n0</i>.
+</p><p>
+Thus we can say that an algorithm has, for example,
+</p><p>
+</p><h3>Run-time <i>O( n^2 )</i>
+</h3>
+<h2>Examples
+</h2>
+<ul>
+<li>
+There is an algorithm (<i>mergesort</i>) to sort <i>n</i> items
+which has run-time <i>O( n log n )</i>.
+</li><li>
+There is an algorithm to multiply 2 <i>n</i>-digit numbers which has
+run-time <i>O( n^2 )</i>.
+</li><li>
+There is an algorithm to compute the <i>n</i>th Fibonacci number
+which has run-time <i>O( log n )</i>.
+</li></ul>
+<p>
+</p><h3><i>OM</i>-<b>notation</b>
+</h3>
+To express the concept of an algorithm taking <i>at least</i>
+some number of steps
+<p>
+</p><h3><i>OM</i>-<i>notation</i>
+</h3>
+can be used.
+<p>
+Again let,
+<i>f</i>:<b>N</b>-&gt;  <b>R</b> and <i>g</i>:<b>N</b>-&gt;  <b>R</b>.
+Then: <i>f( n )  =  OM ( g(n) )</i>
+means that
+there are values, <i>n0</i> and <i>c</i>, such that
+f( n )  &gt; =  c * g( n )
+whenever <i>n &gt; = n0</i>.
+</p><p>
+</p><h3><i>THETA</i>-<b>notation</b>
+</h3>
+<p>
+Again let,
+<i>f</i>:<b>N</b>-&gt;  <b>R</b> and <i>g</i>:<b>N</b>-&gt;  <b>R</b>.
+</p><p>
+If <i>f(n)=O(g(n))</i> and <i>f(n)=OM(g(n))</i>
+</p><p>
+Then we write,
+<i>f( n )  =  THETA ( g(n) )</i>
+</p><p>
+In this case, <i>f(n)</i> is said to be <i>asymptotically equal</i> to <i>g(n)</i>.
+</p><p>
+If <i>f( n ) = THETA( g(n) )</i> then algorithms with running times <i>f(n)</i> 
+and <i>g(n)</i>
+appear to perform similarly as <i>n</i> gets larger.
+</p><p>
+</p><h3>Manipulating <i>O</i>- and <i>OM</i>-notation
+</h3>
+<p>
+<i>f(n)=O(g(n))</i> if and only if <i>g(n)=OM(f(n))</i>
+</p><p>
+If <i>f(n) = O(g(n))</i> then
+</p><p>
+<i>f(n)+g(n)=O(g(n))</i>   ;  <i>f(n)+g(n)=OM(g(n))</i>
+</p><p>
+<i>f(n)*g(n)=O(g(n)^2)</i> ; <i>f(n)*g(n)=OM(f(n)^2)</i>
+</p><p>
+</p><h3><b>Examples</b></h3>
+<p>
+Suppose <i>f(n)=10n</i> and <i>g( n )=2n^2</i>
+</p><ul>
+<li>
+<i>f(n)=O(g(n))</i>
+</li><li>
+<i>10n+2n^2 = O(n^2)</i>
+</li><li>
+<i>10n+2n^2 = OM(n^2)</i>
+</li><li>
+<i>(10n)*(2n^2) = O(n^4)</i>
+</li><li>
+<i>(10n)*(2n^2) = OM(n^2)</i>
+</li></ul>
+<p>
+</p><ul>
+<li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/algor.html">Overview</a> 
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/d_and_c.html">Divide-and-Conquer Algorithms</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/dyprog.html">Dynamic Programming Algorithms</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/greedy.html">The Greedy Method</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/search.html">Backtracking and Search Techniques</a>
+</li></ul>
+<p>
+<img src="./Algorithm Design Paradigms - Introduction_files/ped3.gif">
+<a href="https://cgi.csc.liv.ac.uk/~ped/ped.html"><b>PED Home Page</b></a>
+</p></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

@@ -1,0 +1,299 @@
+
+<!-- saved from url=(0059)https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/search.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body bgcolor="#FFE3B8" text="#35142E" alink="#FFFF8F" link="#0000BD" vlink="#007C00" data-new-gr-c-s-check-loaded="14.1077.0" data-gr-ext-installed="">
+
+<title>Algorithm Design Paradigms - Search Methods</title>
+<p>
+</p><h3><b>Backtracking and Searching</b>
+</h3>
+<p>
+In a number of applications graph structures occur.
+The graph may be an <i>explicit</i> object in the problem instance
+as in:
+</p><p>
+</p><h3>Shortest Path Problem</h3>
+<p>
+</p><h3>Minimal Spanning Tree Problem</h3>
+<p>
+Graphs, however, may also occur <i>implicitly</i> as an
+abstract mechanism with which to analyse problems and
+construct algorithms for these.
+Among the many areas where such an approach has been
+used are:
+</p><p>
+</p><h3>Game Playing Programs
+</h3>
+<h3>Theorem Proving Systems
+</h3>
+<h3>Semantic Nets
+</h3>
+<h3>Hypertext
+</h3>
+<h3><i>...</i>
+</h3>
+<p>
+Whether a graph is an explicit or implicit structure in describing
+a problem, it is often the case that <i>searching</i> the
+graph structure may be necessary.
+Thus it is required to have methods which
+</p><ul>
+<li>
+Can `mark' nodes in a graph which have already been `examined'.
+</li><li>
+Determine which node should be examined next.
+</li><li>
+Ensure that every node in the graph <b>can</b> (but not necessarily
+<b>will</b>) be visited.
+</li></ul>
+These requirements must be realised subject to the constraint
+that the search process respects the structure of the graph.
+<p>
+That is to say,
+(With the exception of the first node inspected)
+</p><p>
+<b>Any new node examined must be adjacent to some node
+that has previously been visited.</b>
+</p><p>
+So, <i>search methods</i> implicitly describe an <b>ordering</b>
+of the nodes in a given graph.
+</p><p>
+One search method that occurs frequently with implicit graphs
+is the technique known as
+</p><p>
+</p><h3><b>backtracking</b>
+</h3>
+<p>
+Suppose a problem may be expressed in terms of detecting a particular
+class of subgraph in a graph.
+</p><p>
+Then the <i>backtracking</i> approach to solving such a problem would be:
+</p><p>
+Scan each node of the graph, <i>following a specific order</i>, until
+</p><ul>
+<li>
+A subgraph constituting a solution has been found.
+</li><li>
+<b>or</b>
+</li><li>
+It is discovered that the subgraph built so far cannot be extended
+to be a solution.
+</li></ul>
+If (2) occurs then the search process is `<i>backed-up</i>' until
+a node is reached from which a solution might still be found.
+<h2><b>Simple Example</b>
+</h2>
+<p>
+</p><h3><b>Knight's Tour</b>
+</h3>
+<p>
+Given a natural number, <i>n</i>, describe how a Knight should be moved
+on an <i>n times n</i> chessboard so that it visits every square exactly once
+and ends on its starting square.
+</p><p>
+The <i>implicit graph</i> in this problem has <i>n^2</i> nodes corresponding
+to each position the Knight must occupy. There is an edge between
+two of these nodes if the corresponding positions are `one move apart'.
+The sub-graph that defines a solution is a cycle which contains each
+node of the implicit graph.
+</p><p>
+<img src="./Algorithm Design Paradigms - Search Methods_files/pic14.gif">
+</p><p>
+<img src="./Algorithm Design Paradigms - Search Methods_files/pic15.gif">
+</p><p>
+Of course it is not necessary to construct this graph
+explicitly, in order to to solve the problem.
+The algorithm below, recursively searches the graph, labeling
+each square (i.e. node) in the order in which it is visited.
+In this algorithm:
+</p><ul>
+<li>
+<i>board</i> is an <i>n times n</i> representation of the board; initiated to <i>0</i>.
+</li><li>
+<i>(x,y)</i> are the coordinates (row, column) of the current square.
+</li><li>
+<i>move</i> is the number of squares visited so far.
+</li><li>
+<i>ok</i> is a Boolean indicating success or failure.
+</li></ul>
+<p>
+</p><pre><p>
+<b>type</b> <i>chess_board</i> is <b>array</b> (<i>1..n</i>,<i>1..n</i>) <b>of integer</b>;
+<b>procedure</b> <i>knight</i> (<i>board</i> : <b>in out</b> <b>chess_board</b>;
+                         <i>x,y,move</i> : <b>in out integer</b>;
+                         <i>ok</i> : <b>in out boolean</b>) <b>is</b>
+<i>w, z</i> : <b>integer</b>;
+<b>begin</b>
+   <b>if</b> <i>move = n^2+1</i> <b>then</b>
+     <i>ok := ( (x,y) = (1,1) )</i>;
+   <b>elsif</b> <i>board(x,y) /= 0</i> <b>then</b>
+     <i>ok := </i><b>false</b>;
+   <b>else</b>
+     <i>board(x,y) := move</i>;
+     <b>loop</b>
+       <i>(w,z) := Next position from (x,y)</i>;
+       <i>knight(board, w, z, move+1, ok )</i>;
+       <b>exit</b> <b>when</b> (<i>ok</i> <b>or</b> <i>No moves remain</i>);
+     <b>end loop</b>;
+     <b>if not</b> <i>ok</i> <b>then</b>
+       <i>board ( x,y ) :=0</i>; -- Backtracking 
+     <b>end if</b>;
+    <b>end if</b>;
+<b>end</b> <i>knight</i>;
+</p></pre>
+<p>
+</p><h3><b>Depth-First Search</b>
+</h3>
+The Knight's Tour algorithm organises the search of the implicit graph
+using a <b>depth-first</b> approach.
+<p>
+Depth-first search is one method of constructing a <b>search tree</b>
+for <i>explicit graphs</i>.
+</p><p>
+Let <i>G(V,E)</i> be a connected graph. A <b>search tree</b> of <i>G(V,E)</i>
+is a <b>spanning tree</b>, <i>T(V, F)</i> of <i>G(V,E)</i> in which the nodes
+of <i>T</i> are labelled with unique values <i>k</i> (<i>1 &lt; = k &lt; = |V|</i>) 
+which
+satisfy:
+</p><ul>
+<li>
+A distinguished node called the <b>root</b> is labelled <i>1</i>.
+</li><li>
+If <i>(p,q)</i> is an edge of <i>T</i> then the label assigned to <i>p</i> is
+less than the label assigned to <i>q</i>.
+</li></ul>
+The labelling of a search tree prescribes the <i>order</i> in
+which the nodes of <i>G</i> are to be scanned.
+<p>
+Given an undirected graph <i>G(V,E)</i>, the depth-first search
+method constructs a search tree using the following recursive algorithm.
+</p><p>
+</p><pre><p>
+<b>procedure</b> <i>depth_first_search</i> (<i>G(V,E)</i> : <b>graph</b>;
+                                <i>v</i> : <b>node</b>;
+                                <i>lambda</i> : <b>integer</b>;
+                                <i>T</i> : <b>in outsearch_tree</b>) <b>is</b>
+<b>begin</b>
+   <i>label(v) := lambda</i>;
+   <i>lambda := lambda+1</i>;
+   <b>for</b> <b>each</b> <i>w</i> such that <i>{v,w} mem E</i> <b>loop</b>
+     <b>if</b> <i>label(w) = 0</i> <b>then</b>
+       Add edge <i>{v,w}</i> to <i>T</i>;
+       <i>depth_first_search</i>(<i>G(V,E)</i>,<i>w</i>,<i>lambda</i>,<i>T</i>);
+     <b>end if</b>;
+   <b>end loop</b>;
+<b>end</b> <i>depth_fist_search</i>;
+--*******************************
+-- Main Program Section
+--******************************
+<b>begin</b>
+   <b>for</b> <i>w mem V</i> <b>loop</b>
+     <i>label( w ) := 0</i>;
+   <b>end loop</b>;
+   <i>lambda := 1</i>;
+   <i>depthfirstsearch ( G(V,E), v, lambda, T)</i>;
+<b>end</b>;
+</p></pre>
+<p>
+</p><p>
+<img src="./Algorithm Design Paradigms - Search Methods_files/pic16.gif">
+</p><p>
+If <i>G( V,E )</i> is a <i>directed graph</i> then it is possible
+that not all of the nodes of the graph are reachable from a single
+root node. To deal with this the algorithm is modified by changing the
+<i>`Main Program Section'</i> to
+</p><p>
+</p><pre><b>begin</b>
+  <b>for each</b> <i>w in V</i> <b>loop</b>
+    <i>label( w ) := 0</i>;
+  <b>end loop</b>;
+  <i>lambda := 1</i>;
+  <b>for each</b> <i>v mem V</i> <b>loop</b>
+    <b>if</b> <i>label( v ) = 0</i> <b>then</b>
+      <i>depthfirstsearch ( G(V,E),v,lambda,T )</i>;
+    <b>end if</b>;
+  <b>end loop</b>;
+<b>end</b>;
+</pre>
+<p>
+The running time of both algorithms, input <i>G( V,E )</i> is <i>O( |E| )</i>
+since each edge of the graph is examined only once.
+</p><p>
+It may be noted that the recursive form given, is a rather
+inefficient method of implementing depth first search for explicit
+graphs.
+</p><p>
+Iterative versions exist, e.g. the method of Hopcroft and Tarjan
+which is based on a 19th century algorithm discovered by Tremaux.
+Depth-first search has a large number of applications in solving
+other graph based problems, for example:
+</p><p>
+</p><h3><b>Topological Sorting</b>
+</h3>
+<b>Connectivity Testing</b>
+<p>
+<b>Planarity Testing</b>
+</p><p>
+One disadvantage of depth first search as a mechanism for
+searching implicit graph structures, is that expanding
+some paths may result in the search process never terminating
+because no solution can be reached from these. For example
+this is a possible difficulty that arises when scanning
+proof trees in Prolog implementations.
+</p><p>
+<img src="./Algorithm Design Paradigms - Search Methods_files/pic17.gif">
+</p><p>
+<b>Breadth-first Search</b> is another search method that is
+less likely to exhibit such behaviour.
+</p><p>
+</p><pre><p>
+<i>lambda := 1</i>; -- First label
+<i>CurrentLevel := {v}</i>; -- Root node
+<b>while</b> <i>CurrentLevel /= (es</i> <b>loop</b>
+  <b>for each</b> <i>v mem CurrentLevel</i> <b>loop</b>
+    <i>NextLevel := Nextlevel union </i>
+                 <i>Unmarked neighbours of v</i>;
+    <b>if</b> <i>label( v ) = 0</i> <b>then</b>
+      <i>label( v ) := lambda</i>;
+      <i>lambda := lambda + 1</i>;
+    <b>end if</b>;
+  <b>end loop</b>;
+  <i>CurrentLevel := NextLevel</i>;
+  <i>NextLevel := (es</i>;
+<b>end loop</b>;
+</p><p>
+</p></pre>
+<p>
+Thus each vertex labelled on the <i>k</i>'th iteration of the outer loop
+is `expanded' before any vertex found later.
+</p><p>
+</p><ul>
+<li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/algor.html">Overview</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/intro.html">Introduction</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/d_and_c.html">Divide-and-Conquer Algorithms</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/dyprog.html">Dynamic Programming Algorithms</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/greedy.html">The Greedy Method</a>
+</li></ul>
+<p>
+<img src="./Algorithm Design Paradigms - Search Methods_files/ped3.gif">
+<a href="https://cgi.csc.liv.ac.uk/~ped/ped.html"><b>PED Home Page</b></a>
+</p></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

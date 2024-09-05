@@ -1,0 +1,432 @@
+
+<!-- saved from url=(0059)https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/greedy.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body bgcolor="#FFE3B8" text="#35142E" alink="#FFFF8F" link="#0000BD" vlink="#007C00" data-new-gr-c-s-check-loaded="14.1077.0" data-gr-ext-installed="">
+<title>Algorithm Design Paradigms - Greedy Method</title>
+<p>
+</p><h3><b>Greedy Algorithms</b>
+</h3>
+This is another approach that is often used to
+design algorithms for solving
+<p>
+</p><h3><b>Optimisation Problems</b>
+</h3>
+In contrast to dynamic programming, however,
+<ul>
+<li>
+Greedy algorithms <b>do not always</b> yield a genuinely
+optimal solution. In such cases the greedy method is frequently
+the basis of a <i>heuristic approach</i>.
+</li><li>
+Even for problems which can be solved exactly by a greedy
+algorithm, establishing the <b>correctness</b> of the method
+may be a non-trivial process.
+</li></ul>
+In order to give a precise description of the greedy paradigm
+we must first consider a more detailed definition of the
+environment in which typical optimisation problems occur.
+Thus in an optimisation problem, one will have, in the
+context of greedy algorithms, the following:
+<ul>
+<li>
+A collection (set, list, etc) of <b>candidates</b>, e.g. nodes,
+edges in a graph, etc.
+</li><li>
+A set of candidates which have already been `used'.
+</li><li>
+A <b>predicate</b> (<i>solution</i>) to test whether a given set of candidates
+give a <i>solution</i> (not necessarily optimal).
+</li><li>
+A predicate (<i>feasible</i>) to test if a set 
+of candidates can be <b>extended</b>
+to a (not necessarily optimal) solution.
+</li><li>
+A <b>selection function</b> (<i>select</i>) which chooses some candidate which h
+as not
+yet been used.
+</li><li>
+An <b>objective function</b> which assigns a <i>value</i> to a solution.
+</li></ul>
+<b>In other words</b>:
+An optimisation problem involves finding a subset, <i>S</i>, from a
+collection of candidates, <i>C</i>; the subset, <i>S</i>, must satisfy
+some specified criteria, i.e. be a solution and be such that
+the <i>objective function</i> is optimised by <i>S</i>.
+<i>`Optimised'</i> may mean
+<p>
+</p><h3><b>Minimised</b> or <b>Maximised</b>
+</h3>
+depending on the precise problem being solved.
+Greedy methods are distinguished by the fact that the <b>selection function</b>
+assigns a <i>numerical value</i> to each candidate, <i>x</i>, and chooses that
+candidate for which:
+<p>
+</p><p>
+</p><h3><i>SELECT( x )</i> is <b>largest</b>
+</h3>
+or
+<i>SELECT( x )</i> is <b>smallest</b>
+<p>
+All Greedy Algorithms have exactly the same general form. A Greedy
+Algorithm for a particular problem is specified by describing the
+predicates `<i>solution</i>' and `<i>feasible</i>'; and the selection
+function `<i>select</i>'.
+</p><p>
+Consequently, Greedy Algorithms are often very easy to design for
+optimisation problems.
+</p><p>
+The General Form of a Greedy Algorithm is
+</p><p>
+</p><pre><p>
+<b>function</b> <i>select</i> (<i>C</i> : <b>candidate_set</b>) <b>return</b> <b>candidate</b>;
+<b>function</b> <i>solution</i> (<i>S</i> : <b>candidate_set</b>) <b>return</b> 
+<b>boolean</b>;
+<b>function</b> <i>feasible</i> (<i>S</i> : <b>candidate_set</b>) <b>return</b> 
+<b>boolean</b>;
+--***************************************************
+<b>function</b> <i>greedy</i> (<i>C</i> : <b>candidate_set</b>) <b>return candidate_set is</b>
+<i>x</i> : <b>candidate</b>;
+<i>S</i> : <b>candidate_set</b>;
+<b>begin</b>
+   <i>S := {}</i>;
+   <b>while</b> (<b>not</b> <i>solution(S)</i>) <b>and</b> <i>C /= {}</i> <b>loop</b>
+     <i>x := select( C )</i>;
+     <i>C := C - {x}</i>;
+     <b>if</b> <i>feasible( S union {x} )</i> <b>then</b>
+        <i>S := S union { x }</i>;
+     <b>end if</b>;
+   <b>end loop</b>;
+   <b>if</b> <i>solution( S )</i> <b>then</b>
+     <b>return</b> <i>S</i>;
+   <b>else</b>
+     <b>return</b> es;
+   <b>end if</b>;
+<b>end</b> <i>greedy</i>;
+</p></pre>
+<p>
+As illustrative examples of the greedy paradigm we
+shall describe algorithms for the following problems:
+</p><ul>
+<li>
+Minimal Spanning Tree.
+</li><li>
+Integer Knapsack.
+</li></ul>
+For the first of these, the algorithm
+<b>always</b> returns an optimal solution.
+<p>
+</p><h3><b>Minimal Spanning Tree</b>
+</h3>
+<p>
+The inputs for this problem is an (undirected) graph,
+<i>G( V, E )</i> in which each edge, <i>e</i> in <i> E</i>, has an associated positive
+edge length, denoted <i>Length( e )</i>.
+</p><p>
+The output is a <b>spanning tree</b>, <i>T( V, F )</i> of <i>G( V,E )</i>
+such that the <i>total edge length</i>, 
+is <b>minimal</b> amongst all the possible spanning trees of <i>G( V,E )</i>.
+</p><p>
+<b>Note:</b> An <i>n</i>-node <b>tree</b>, <i>T</i> is a <i>connected</i>
+<i>n</i>-node graph with <i>exactly n-1 edges</i>.
+</p><p>
+<i>T( V,F )</i> is a <b>spanning tree</b> of <i>G( V,E )</i> if and only if
+<i>T</i> is a tree and the edges in <i>F</i> are a <b>subset</b> of the edges in
+<i>E</i>.
+</p><p>
+In terms of general template given previously:
+</p><ul>
+<li>
+The <b>candidates</b> are the <b>edges of G(V,E)</b>.
+</li><li>
+A subset of edges, <i>S</i>, is a <b>solution</b> if the graph <i>T(V,S)</i> is
+a spanning tree of <i>G(V,E)</i>.
+</li><li>
+A subset of edges, <i>S</i>, is <b>feasible</b> if there is a spanning tree
+<i>T(V,H)</i> of <i>G(V,E)</i> for which <i>S sube H</i>.
+</li><li>
+The <b>objective function</b> which is to be <b>minimised</b>
+is the sum of the edge lengths in a <b>solution</b>.
+</li><li>
+The <b>select</b> function chooses the candidate (i.e. edge)
+whose <b>length is smallest</b> (from the remaining candidates).
+</li></ul>
+The full algorithm, discovered by Kruskal, is:
+<p>
+</p><pre><b>function</b> <i>min_spanning_tree</i> (<i>E</i> : <b>edge_set</b>)
+                           <b>return edge_set is</b>
+<i>S</i> : <b>edge_set</b>;
+<i>e</i> : <b>edge</b>;
+<b>begin</b>
+  <i>S := (es</i>;
+  <b>while</b> (<i>H(V,S)</i> <b>not a tree</b>)
+               <b>and</b> <i>E /= {}</i> <b>loop</b>
+    <i>e := </i> Shortest edge in <i>E</i>;
+    <i>E := E - {e}</i>;
+    <b>if</b> <i>H(V, S union {e})</i> is acyclic <b>then</b>
+      <i>S := S union {e}</i>;
+    <b>end if</b>;
+   <b>end loop</b>;
+   <b>return</b> <i>S</i>;
+<b>end</b> <i>min_spanning_tree</i>;
+</pre>
+Before proving the correctness of this algorithm, we give an
+example of it running.
+<p>
+The algorithm may be viewed as dividing the set of nodes, <i>V</i>, into
+<i>n</i> parts or <i>components</i>:
+</p><p>
+</p><pre><i>
+{1} ; {2} ; ... ; {n}</i>
+</pre>
+<p>
+An edge is added to the set <i>S</i> if and only if it joins two
+nodes which belong to <i>different</i> components; if an edge is
+added to <i>S</i> then the two components containing its endpoints are
+coalesced into a single component.
+</p><p>
+In this way, the algorithm stops when there is just a single component
+</p><p>
+</p><pre><i>
+{ 1, 2 ,..., n }</i>
+</pre>
+<p>
+remaining.
+</p><p>
+<img src="./Algorithm Design Paradigms - Greedy Method_files/pic11.gif">
+</p><p>
+<table border="5" rules="all">
+<thead>
+<tr><th>Iteration</th><th>Edge</th><th>Components</th></tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>-</td><td>{1}; {2}; {3}; {4}; {5}; {6}; {7}</td></tr>
+<tr><td>1</td><td>{1,2}</td><td>{1,2}; {3}; {4}; {5}; {6}; {7}</td></tr>
+<tr><td>2</td><td>{2,3}</td><td>{1,2,3}; {4}; {5}; {6}; {7}</td></tr>
+<tr><td>3</td><td>{4,5}</td><td>{1,2,3}; {4,5}; {6}; {7}</td></tr>
+<tr><td>4</td><td>{6,7}</td><td>{1,2,3}; {4,5}; {6,7}</td></tr>
+<tr><td>5</td><td>{1,4}</td><td>{1,2,3,4,5}; {6,7}</td></tr>
+<tr><td>6</td><td>{2,5}</td><td>Not included (adds cycle)</td></tr>
+<tr><td>7</td><td>{4,7}</td><td>{1,2,3,4,5,6,7}</td></tr>
+</tbody>
+</table>
+</p><p>
+<img src="./Algorithm Design Paradigms - Greedy Method_files/pic12.gif">
+</p><p>
+<b>Question:</b> How do we know that the
+resulting set of edges form a
+<b>Minimal</b>
+Spanning Tree?
+</p><p>
+In order to prove this we need the following result.
+</p><p>
+For <i>G(V,E)</i> as before, a subset, <i>F</i>, of the edges <i>E</i> is
+called <i>promising</i> if <i>F</i> is a subset of the edges in a
+minimal spanning tree of <i>G(V,E)</i>.
+</p><p>
+<i>Lemma:
+</i>
+Let <i>G(V,E)</i> be as before and <i>W</i> be a subset of <i>V</i>. 
+</p><p>
+Let <i>F</i>, a subset of <i>E</i>
+be a <b>promising</b> set of edges such that no edges in <i>F</i>
+has <i>exactly one</i> endpoint in <i>W</i>.
+</p><p>
+If <i>{p,q}</i> in <i>E-F</i> is a shortest edge having exactly one
+of <i>p</i> or <i>q</i> in <i>W</i> then: the set of edges <i>F union { {p,q} }</i>
+is promising.
+</p><p>
+<i>Proof:
+</i>
+Let <i>T(V,H)</i> be a minimal spanning tree of <i>G(V,E)</i> such that
+<i>F</i> is a subset of <i>H</i>. Note that <i>T</i> exists since <i>F</i> is a promising set of 
+edges.
+</p><p>
+Consider the edge <i>e = {p,q}</i> of the Lemma statement.
+</p><p>
+If <i>e</i> is in <i>H</i> then the result follows immediately, so suppose that
+<i>e</i> is not in <i>H</i>. Assume that <i>p</i> is in <i>W</i> and <i>q</i>
+is not in <i>W</i> and consider the
+graph <i>T(V, H union {e})</i>. 
+</p><p>
+Since <i>T</i> is a tree the graph <i>T</i>
+(which contains one extra edge) must contain a cycle that includes the
+(new) edge <i>{p,q}</i>.
+</p><p>
+Now since <i>p</i> is in <i>W</i> and <i>q</i> is not in <i>W</i> there must be <i>some</i> edge,
+<i>e' = {p',q'}</i> in <i>H</i> which is also part of this cycle
+and is such that <i>p'</i> is in <i>W</i> and <i>q'</i> is not in <i>W</i>.
+</p><p>
+<img src="./Algorithm Design Paradigms - Greedy Method_files/pic13.gif">
+</p><p>
+</p><p>
+Now, by the choice of <i>e</i>, we know that
+</p><p>
+</p><pre><i>
+Length ( e )  &lt; =  Length ( e' )</i>
+</pre>
+<p>
+Removing the edge <i>e'</i> from <i>T</i> gives a new spanning tree of <i>G(V,E)</i>.
+</p><p>
+The cost of this tree is exactly
+</p><p>
+</p><pre><i>
+cost( T ) - Length(e') + Length(e)</i>
+</pre>
+<p>
+and this is <i>&lt; = cost(T)</i>.
+</p><p>
+<i>T</i> is a <i>minimal</i> spanning tree so either <i>e</i> and <i>e'</i> have 
+the same length
+or this case cannot occur. It follows that there is a minimal spanning tree containing
+<i>F union {e}</i> and hence this set of edges is promising as claimed.
+</p><p>
+<i>Theorem:
+</i>
+Kruskal's algorithm always produces a minimal spanning tree.
+</p><p>
+<i>Proof:
+</i>
+We show by induction on <i>k &gt; = 0</i> - the number of edges in <i>S</i> at each stage -
+that the set of edges in <i>S</i> is always promising.
+</p><p>
+<i>Base
+</i>
+(<i>k = 0</i>): <i>S = {}</i> and obviously the empty set of edges is promising.
+</p><p>
+<i>Step:
+</i>
+(<i>&lt; = k-1 implies k</i>): Suppose <i>S</i> contains <i>k-1</i> edges. Let 
+<i>e = {p,q}</i> be the next edge that would be added to <i>S</i>. Then:
+</p><ul>
+<li>
+<i>p</i> and <i>q</i> lie in different components.
+</li><li>
+<i>{p,q}</i> is a shortest such edge.
+</li></ul>
+Let <i>C</i> be the component in which <i>p</i> lies. By the inductive hypothesis
+the set <i>S</i> is promising. The Inductive Step now follows by invoking the Lemma,
+with <i>W = Set of nodes in C</i> and <i>F = S</i>.
+<p>
+</p><h3><b>Integer Knapsack</b>
+</h3>
+<p>
+In various forms this is a frequently arising optimisation
+problem.
+<b>Input:</b> A set of items
+<i>U = {u1, u2 ,..., uN}</i>
+</p><p>
+each item having a given <i>size</i> <i>s( ui )</i> and <b>value</b>
+<i>v( ui )</i>.
+</p><p>
+A <b>capacity</b> <i>K</i>.
+</p><p>
+<b>Output:</b> A subset <i>B</i> of <i>U</i> such that the sum over <i>u</i> in <i>B</i>
+of <i>s(u)</i> does not exceed <i>K</i> and the sum over <i>u</i> in <i>B</i>
+of <i>v(u)</i> is maximised.
+</p><p>
+No fast algorithm <i>guaranteed</i> to solve this problem has
+yet been discovered.
+</p><p>
+It is considered
+<b>extremely improbable</b>
+that such an algorithm exists.
+</p><p>
+Using a greedy approach, however, we can find a solution whose
+value is at worst 1/2 of the optimal value.
+</p><p>
+</p><ul>
+<li>
+The items, <i>U</i>, are the <b>candidates</b>.
+</li><li>
+A subset, <i>B</i>, is a <b>solution</b> if 
+the total size of <i>B</i> fits within the given capacity, but adding any other item will
+exceed the capacity.
+</li><li>
+The <b>objective function</b> which is to be <b>maximised</b> is
+the total value.
+</li></ul>
+<p>
+The <b>selection function</b> chooses that item, <i>ui</i> for which
+</p><p>
+</p><pre>                    v( ui )
+                   --------
+                    s( ui )
+</pre>
+<p>
+is <b>maximal</b>
+</p><p>
+These yield the following greedy algorithm which <i>approximately</i>
+solves the integer knapsack problem.
+</p><p>
+</p><pre><b>function</b> <i>knapsack</i> (<i>U</i> : <b>item_set</b>;
+                          <i>K</i> : <b>integer</b> ) 
+                          <b>return item_set is</b>
+<i>C, S</i> : <b>item_set</b>;
+<i>x</i> : <b>item</b>;
+<b>begin</b>
+   <i>C := U</i>; <i>S := {}</i>;
+   <b>while</b> <i>C /= {}</i> <b>loop</b>
+      <i>x := </i>Item <i>u</i> in <i>C</i> such that 
+             <i>v(u)/s(u)</i> is largest;
+      <i>C := C - {x}</i>;
+      <b>if</b> <i>( sum over {u in S} s(u) ) + s(x) &lt; = K</i> <b>then</b>
+         <i>S := S union {x}</i>;
+      <b>end if</b>;
+   <b>end loop</b>;
+   <b>return</b> <i>S</i>;
+<b>end</b> <i>knapsack</i>;
+</pre>
+<p>
+A very simple example shows that the method can fail to deliver an
+optimal solution. Let
+</p><p>
+</p><pre><i>
+        U = { u1, u2, u3 ,..., u12 }</i>
+</pre>
+<p>
+</p><pre><i>
+          s(u1) = 101  ;  v(u1) = 102</i>
+</pre>
+<p>
+</p><pre><i>
+       s(ui) = v(ui) = 10   2 &lt; = i &lt; = 12</i>
+</pre>
+<p>
+</p><pre><i>
+                   K = 110</i>
+</pre>
+<p>
+<b>Greedy solution</b>: <i>S = {u1}</i>; Value is 102.
+</p><p>
+<b>Optimal solution</b>: <i>S = U - {u1}</i>; Value is 110.
+</p><p>
+</p><ul>
+<li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/algor.html">Overview</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/intro.html">Introduction</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/d_and_c.html">Divide-and-Conquer Algorithms</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/dyprog.html">Dynamic Programming Algorithms</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/search.html">Backtracking and Search Techniques</a>
+</li></ul>
+<p>
+<img src="./Algorithm Design Paradigms - Greedy Method_files/ped3.gif">
+<a href="https://cgi.csc.liv.ac.uk/~ped/ped.html"><b>PED Home Page</b></a>
+</p></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

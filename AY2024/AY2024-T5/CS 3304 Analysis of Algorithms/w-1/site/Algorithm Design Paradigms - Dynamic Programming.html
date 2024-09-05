@@ -1,0 +1,344 @@
+
+<!-- saved from url=(0059)https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/dyprog.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body bgcolor="#FFE3B8" text="#35142E" alink="#FFFF8F" link="#0000BD" vlink="#007C00" data-new-gr-c-s-check-loaded="14.1077.0" data-gr-ext-installed="">
+<title>Algorithm Design Paradigms - Dynamic Programming</title>
+<p>
+</p><h3><b>Dynamic Programming</b>
+</h3>
+<p>
+This paradigm is most often applied in the construction
+of algorithms to solve a certain class of
+</p><p>
+</p><h3><i>Optimisation Problem</i>
+</h3>
+<p>
+That is: problems which require the <i>minimisation</i>
+or <i>maximisation</i> of some measure.
+</p><p>
+One disadvantage of using Divide-and-Conquer is that
+the process of recursively solving separate sub-instances
+can result in the <b>same computations being performed
+repeatedly</b> since <i>identical</i> sub-instances may arise.
+</p><p>
+The idea behind <i>dynamic programming</i> is to avoid this
+pathology by obviating the requirement to calculate the
+same quantity twice.
+</p><p>
+The method usually accomplishes this by maintaining a <i>table
+of sub-instance results</i>.
+</p><p>
+Dynamic Programming is a
+</p><p>
+</p><h3><b>Bottom-Up Technique</b>
+</h3>
+<p>
+in which the smallest sub-instances are <i>explicitly</i> solved first
+and the results of these used to construct solutions to progressively
+larger sub-instances.
+</p><p>
+In contrast, Divide-and-Conquer is a
+</p><p>
+</p><h3><b>Top-Down Technique</b>
+</h3>
+<p>
+which <i>logically</i> progresses from the initial instance down to
+the smallest sub-instances via intermediate sub-instances.
+We can illustrate these points by considering the problem of
+calculating the <i>Binomial Coefficient</i>, <i>"n choose k"</i>, i.e.
+</p><p>
+<img src="./Algorithm Design Paradigms - Dynamic Programming_files/pic9.gif">
+</p><p>
+Using this relationship, a rather crude Divide-and-Conquer solution to the problem of
+calculating the Binomial Coefficient <i>`n choose k'</i> would be:
+</p><p>
+</p><pre><b>function</b> <i>bin_coeff</i> (<i>n</i> : <b>integer</b>;
+                                <i>k</i> : <b>integer</b>)
+                                <b>return integer is</b>
+   <b>begin</b>
+      <b>if</b> <i>k = 0</i> <b>or</b> <i>k = n</i> <b>then</b>
+         <b>return</b> 1;
+      <b>else</b>
+         <b>return</b> 
+         <i>bin_coeff(n-1, k-1) + bin_coeff(n-1, k)</i>;
+      <b>end if</b>;
+   <b>end</b> <i>bin_coeff</i>;
+</pre>
+<p>
+By contrast, the Dynamic Programming approach uses the same relationship
+but constructs a <b>table of all the (n+1)*(k+1) binomial coefficients</b>
+<i>`i choose j'</i> for each value of <i>i</i> between <i>0</i> and <i>n</i>, each value of <i>j</i>
+between <i>0</i> and <i>k</i>.
+</p><p>
+These are calculated in a particular order:
+</p><ul>
+<li>
+First the table entries corresponding to
+the coefficients `i choose 0' and `1 choose 1' are fixed to the value <i>1</i>.
+</li><li>
+The remaining table entries corresponding to the binomial coefficient `i choose j'
+are calculated in <i>increasing order of the value of i+j</i>.
+</li></ul>
+It should be noted that since the coefficient `<i>i choose j</i>' requires only
+the values of `<i>i-1 choose j-1</i>' and `<i>i-1 choose j</i>', computing the
+table entries in the order of increasing <i>i+j</i> ensures that the table
+entries needed for `<i>`i choose j</i>' have already been calculated, i.e.
+<p>
+</p><pre><i>
+(i-1)+(j-1) &lt; (i-1)+j &lt; i+j</i>
+</pre>
+<p>
+</p><p>
+The Dynamic Programming method is given by:
+</p><p>
+</p><pre><p>
+<b>function</b> <i>bin_coeff</i> (<i>n</i> : <b>integer</b>;
+                                <i>k</i> : <b>integer</b>)
+                                <b>return integer is</b>
+<b>type</b> <i>table</i> <b>is array</b> <i>(0..n, 0..k)</i> <b>of integer</b>;
+<i>bc</i> : <b>table</b>;
+<i>i, j, k</i> : <b>integer</b>;
+<i>sum</i> : <b>integer</b>;
+<b>begin</b>
+   <b>for</b> <i>i</i><b> in</b> <i>0..n</i> <b>loop</b>
+     <i>bc(i,0) := 1</i>;
+   <b>end loop</b>;
+   <i>bc(1,1) := 1</i>;
+   <i>sum := 3</i>; <i>i := 2</i>; <i>j := 1</i>;
+   <b>while</b> <i>sum &lt;= n+k</i> <b>loop</b>
+      <i>bc(i,j) := bc(i-1,j-1)+bc(i-1,j)</i>;
+      <i>i := i-1</i>; <i>j := j+1</i>;
+      <b>if</b> <i>i &lt; j</i> <b>or</b> <i>j &gt; k</i> <b>then</b>
+         <i>sum := sum + 1</i>;                     
+         <b>if</b> <i>sum &lt;= n+1</i> <b>then</b>      
+            <i>i := sum-1</i>; <i>j := 1</i>;            
+         <b>else</b>                           
+            <i>i := n</i>; <i>j := sum-n</i>;          
+         <b>end if</b>;                      
+      <b>end if</b>;                        
+    <b>end loop</b>;
+   <b>return</b> <i>bc(n,k)</i>;
+<b>end</b> <i>bin_coeff</i>;
+</p></pre>
+<p>
+The section of the function consisting of the lines:
+</p><p>
+</p><pre><p>
+<b>if</b> <i>i &lt; j</i> <b>or</b> <i>j &gt; k</i> <b>then</b>
+   <i>sum := sum + 1</i>;                     
+   <b>if</b> <i>sum &lt;= n+1</i> <b>then</b>      
+      <i>i := sum-1</i>; <i>j := 1</i>;            
+   <b>else</b>                           
+      <i>i := n</i>; <i>j := sum-n</i>;          
+   <b>end if</b>;                      
+<b>end if</b>;                        
+</p><p>
+</p></pre>
+<p>
+is invoked when all the table entries `<i>i choose j</i>', for which
+<i>i+j</i> equals the current value of <i>sum</i>, have been found. 
+The <b>if</b> statement increments the value of <i>sum</i>
+and sets up the new values of <i>i</i> and <i>j</i>.
+</p><p>
+Now consider the differences between the two methods:
+The <b>Divide-and-Conquer</b> approach recomputes values, such as
+<i>"2 choose 1"</i>, a very large number of times,
+particularly if <i>n</i> is large and <i>k</i> depends on <i>n</i>, i.e. <i>k</i> is not a constant.
+</p><p>
+It can be shown that the running time of this method is
+</p><p>
+<img src="./Algorithm Design Paradigms - Dynamic Programming_files/pic10.gif">
+</p><p>
+Despite the fact that the algorithm description is quite simple (it is just
+a direct implementation of the relationship given) it is <b>completely
+infeasible</b> as a practical algorithm.
+</p><p>
+The <b>Dynamic Programming</b> method, since it computes each value
+<i>"i choose j"</i> <b>exactly once</b> is
+far more efficient. Its running time is <i>O( n*k )</i>, which is
+<i>O( n^2 )</i> in the worst-case, (again <i>k = n/2</i>).
+</p><p>
+It will be noticed that the dynamic programming solution is rather
+more involved than the recursive Divide-and-Conquer method, nevertheless
+its running time is practical.
+</p><p>
+The binomial coefficient
+example illustrates the key features of dynamic programming algorithms.
+</p><ul>
+<li>
+A <b>table</b> of <b>all</b> sub-instance results is constructed.
+</li><li>
+The entries corresponding to the <b>smallest</b> sub-instances are
+initiated at the start of the algorithm.
+</li><li>
+The remaining entries are filled in following a precise <b>order</b>
+(that corresponds to <b>increasing sub-instance size</b>) using only
+those entries that have already been computed.
+</li><li>
+Each entry is calculated <b>exactly once</b>.
+</li><li>
+The <b>final</b> value computed is the solution to the initial problem
+instance.
+</li><li>
+Implementation is by <b>iteration</b> (<i>never</i> by recursion, even
+though the analysis of a problem may naturally suggest a recursive solution).
+</li></ul>
+<h2>Example: Shortest Path
+</h2>
+<p>
+<i>Input:
+</i>
+A directed graph, <i>G( V, E )</i>, with nodes
+</p><p>
+</p><pre><i>
+             V  =  {1, 2 ,..., n }</i>
+</pre>
+<p>
+and edges <i>E</i> as subset of <i>VxV</i>. Each edge in <i>E</i> has associated with
+it a non-negative length.
+</p><p>
+<i>Output:
+</i>
+An <i>nXn</i> matrix, <i>D</i>, in which <i>D^(i,j)</i> contains the <i>length</i>
+of the <i>shortest path</i> from node <i>i</i> to node <i>j</i> in <i>G</i>.
+</p><p>
+</p><h3><b>Informal Overview of Method</b>
+</h3>
+<p>
+The algorithm, conceptually, constructs a <i>sequence of matrices</i>:
+</p><p>
+</p><pre><i>
+D0, D1 ,..., Dk ,..., Dn</i>
+</pre>
+<p>
+For each <i>k</i> (with <i>1 &lt; = k &lt; = n</i>), the <i>(i, j)</i> entry of <i>Dk</i>,
+denoted <i>Dk( i,j )</i>, will contain the
+<b>Length of the shortest path from node i to node j when only the nodes</b>
+</p><p>
+</p><h3><i>{ 1, 2, 3 ,..., k }</i>
+</h3>
+<p>
+<b>can be used as intermediate nodes on the path</b>.
+</p><p>
+Obviously <i>Dn = D</i>.
+</p><p>
+The matrix, <i>D0</i>, corresponds to the `<i>smallest sub-instance</i>'.
+<i>D0</i> is initiated as:
+</p><p>
+</p><pre><i>
+               0  if i=j
+D0( i, j )  =  infinite  if (i,j) not in E
+               Length(i,j)  if (i,j) is in E
+</i>
+</pre>
+<p>
+Now, suppose we have constructed <i>Dk</i>, for some <i>k &lt; n</i>.
+</p><p>
+How do we proceed to build <i>D(k+1)</i>?
+</p><p>
+The shortest path from <i>i</i> to <i>j</i> with <b>only</b>
+</p><p>
+</p><h3><i>{ 1, 2, 3 ,..., k, k+1 }</i>
+</h3>
+available as <i>internal nodes</i>
+<p>
+<b>Either</b>: <i>Does not</i> contain the node <i>k+1</i>.
+</p><p>
+<b>Or</b>: <i>Does</i> contain the node <i>k+1</i>.
+</p><p>
+In the former case:
+</p><p>
+</p><pre><i>
+                 D(k+1)( i, j )  =  Dk( i, j )</i>
+</pre>
+<p>
+In the latter case:
+</p><p>
+</p><pre><i>
+            D(k+1)( i, j )  =  D-k( i, k+1 ) + D-k( k+1, j )</i>
+</pre>
+<p>
+Therefore <i>D(k+1)( i, j )</i> is given by
+</p><p>
+</p><pre><i>
+                       Dk(i,j)
+               minimum 
+                       Dk( i, k+1 ) + Dk( k+1, j )
+</i>
+</pre>
+<p>
+Although these relationships suggest using a recursive
+algorithm, as with the previous example, such a realisation
+would be extremely inefficient.
+</p><p>
+Instead an <i>iterative</i> algorithm is employed.
+</p><p>
+Only <i>one</i> <i>nXn</i> matrix, <i>D</i>, is needed. 
+</p><p>
+This is because after the matrix <i>D(k+1)</i> has been constructed,
+the matrix <i>Dk</i> is no longer needed. Therefore <i>D(k+1)</i>
+can overwrite <i>Dk</i>.
+</p><p>
+In the implementation below, <i>L</i> denotes the matrix of
+<i>edge lengths</i> for the set of edges in the graph <i>G( V, E )</i>.
+</p><p>
+</p><pre><b>type</b><i> matrix </i><b>is array</b> (<i>1..n, 1..n</i>) <b>of integer</b>;
+<i>L</i> : <b>matrix</b>
+<b>function</b><i> shortest_path_length</i> (<i>L</i> : <b>matrix</b>;
+                                   <i>n</i> : <b>integer</b>) 
+                                   <b>return matrix</b> <b>is</b>
+<i>D</i> : <b>matrix</b>; -- Shortest paths matrix
+<b>begin</b>
+  -- Initial sub-instance
+  <i>D(1..n,1..n) := L(1..n,1..n)</i>; 
+  <b>for</b> <i>k</i> <b>in</b> <i>1..n</i> <b>loop</b>
+    <b>for</b> <i>i</i> <b>in</b> <i>1..n</i> <b>loop</b>
+      <b>for</b> <i>j</i> <b>in</b> <i>1..n</i> <b>loop</b>
+        <b>if</b> <i>D(i,j) &gt; D(i,k) + D(k,j)</i> <b>then</b>
+           <i>D( i,j ) := D(i,k) + D(k,j)</i>;
+        <b>end if</b>;
+      <b>end loop</b>;
+    <b>end loop</b>;
+  <b>end loop</b>;
+  <b>return</b> <i>D(1..n,1..n)</i>;
+<b>end</b> <i>shortest_path_length</i>;
+</pre>
+<p>
+This algorithm, discovered by Floyd, clearly runs in time
+</p><p>
+</p><h3><i>O( n^3 )</i>
+</h3>
+<p>
+Thus <i>O( n )</i> steps are used to compute each of the <i>n^2</i>
+matrix entries.
+</p><p>
+</p><ul>
+<li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/algor.html">Overview</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/intro.html">Introduction</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/d_and_c.html">Divide-and-Conquer Algorithms</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/greedy.html">The Greedy Method</a>
+</li><li><a href="https://cgi.csc.liv.ac.uk/~ped/teachadmin/algor/search.html">Backtracking and Search Techniques</a>
+</li></ul>
+<p>
+<img src="./Algorithm Design Paradigms - Dynamic Programming_files/ped3.gif">
+<a href="https://cgi.csc.liv.ac.uk/~ped/ped.html"><b>PED Home Page</b></a>
+</p></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>
